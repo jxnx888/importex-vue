@@ -1,0 +1,49 @@
+{
+  "ret": true,
+  "data": {
+    "homeTopSwiperList": [
+      {
+        "id": "0001",
+        "imgUrl": "https://img.import-express.com/importcsvimg/webpic/img/m-index-new/vickyindex/ban0507.jpg"
+      },
+      {
+        "id": "0002",
+        "imgUrl": "https://img.import-express.com/importcsvimg/webpic/img/m-index-new/vickyindex/m_indexban24301.jpg"
+      },
+      {
+        "id": "0003",
+        "imgUrl": "https://img.import-express.com/importcsvimg/webpic/img/m-index-new/vickyindex/ban05072.jpg"
+      }
+    ],
+    "drees":[
+      {"keyword": "dress",
+      "value": ["dress cardigan",
+        "dress chain",
+        "dress formal dress",
+        "dress necklace",
+        "dress oil",
+        "dress shirts",
+        "dress skirt",
+        "dress suit",
+        "dress type",
+        "dress v dress"]
+      }
+    ],
+    "keyList": [
+      "dress cardigan",
+      "dress chain",
+      "dress formal dress",
+      "dress necklace",
+      "dress oil",
+      "dress shirts",
+      "dress skirt",
+      "dress suit",
+      "dress type",
+      "dress v dress"
+    ]
+
+  }
+
+}
+.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+.get('https://api.coindesk.com/v1/bpi/currentprice.json')
