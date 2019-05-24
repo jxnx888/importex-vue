@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/pages/home/home'
 import searchDetail from '@/pages/home/components/search/searchDetail'
-import searchBar from '@/pages/home/components/search/searchBar'
+import searchResult from '@/pages/searchResult/searchResult'
+import shoppingCar from '@/pages/shoppingCar/shoppingCar'
+
 Vue.use(Router);
 
 export default new Router({
@@ -18,9 +20,15 @@ export default new Router({
       component: searchDetail
     },
     {
-      path: '/searchBar',
-      name: 'searchBar',
-      component: searchBar
+      path: '/searchResult/:id',
+      name: 'searchResult',
+      component: searchResult
     },
+    {
+      path: '/shoppingCar',
+      name: 'shoppingCar',
+      component: shoppingCar
+    },
+
   ]
 })

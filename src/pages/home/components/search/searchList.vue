@@ -1,13 +1,16 @@
 <template>
     <div class="searchList">
-      this is search show list page
-<!--      <ul>-->
-<!--        <li-->
-<!--          v-for="item of list"-->
-<!--          :key=""item.id>-->
-<!--          {{ item.productName }}-->
-<!--        </li>-->
-<!--      </ul>-->
+       <ul>
+         <router-link
+           tag="li"
+           v-for="item of searchList"
+           :key="item.id"
+           class="searchListItems"
+           :to="'/searchResult/'+item.id"
+          >
+          {{ item.keyword }}
+        </router-link>
+      </ul>
     </div>
 </template>
 
@@ -17,7 +20,6 @@
       data() {
         return {
           searchList: [],
-
         }
       },
       // created:function(){
@@ -37,8 +39,8 @@
           res = res.data;
           if (res.ret && res.data) {
             const data = res.data;
-            this.searchList = data.dress;
-            console.log( JSON.stringify(this.searchList));
+            this.searchList = data.searchList;
+            // console.log( JSON.stringify(this.searchList));
           }
         }
       },
@@ -50,7 +52,23 @@
 
 <style scoped lang="stylus">
 .searchList
-  height 1000px
-  background #eee
-
+  height 100%
+  width 100%
+  background #fff
+  z-index: 99
+  position: fixed
+  left: 0
+  right: 0
+  top: .9rem
+  bottom: 0
+  .searchListItems
+    width: 97%;
+    padding-left: 3%;
+    height: .4rem;
+    border-top: 1px solid #ececec;
+    line-height: 0.40rem;
+    font-size: .14rem
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 </style>

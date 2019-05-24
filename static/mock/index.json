@@ -15,35 +15,112 @@
         "imgUrl": "https://img.import-express.com/importcsvimg/webpic/img/m-index-new/vickyindex/ban05072.jpg"
       }
     ],
-    "drees":[
-      {"keyword": "dress",
-      "value": ["dress cardigan",
-        "dress chain",
-        "dress formal dress",
-        "dress necklace",
-        "dress oil",
-        "dress shirts",
-        "dress skirt",
-        "dress suit",
-        "dress type",
-        "dress v dress"]
+    "searchList": [
+      {
+        "id": "001",
+        "keyword": "dress cardigan"
+      },
+      {
+        "id": "002",
+        "keyword": "dress chain"
+      },
+      {
+        "id": "003",
+        "keyword": "dress formal dress"
+      },
+      {
+        "id": "004",
+        "keyword": "dress necklace"
+      },
+      {
+        "id": "005",
+        "keyword": "dress oil"
+      },
+      {
+        "id": "006",
+        "keyword": "dress shirts"
+      },
+      {
+        "id": "007",
+        "keyword": "dress suit"
+      },
+      {
+        "id": "008",
+        "keyword": "dress v dress"
+      },
+      {
+        "id": "009",
+        "keyword": "dress v dress"
       }
     ],
-    "keyList": [
-      "dress cardigan",
-      "dress chain",
-      "dress formal dress",
-      "dress necklace",
-      "dress oil",
-      "dress shirts",
-      "dress skirt",
-      "dress suit",
-      "dress type",
-      "dress v dress"
+    "listResult": [
+      {
+        "id": "001",
+        "category": "Baby Bedding Kit"
+      },
+      {
+        "id": "002",
+        "category": "Baby Mat"
+      },
+      {
+        "id": "003",
+        "category": "Baby Pillow"
+      },
+      {
+        "id": "004",
+        "category": "Bib Bibs & Bibs"
+      }
+    ],
+    "productList": [
+      {
+        "id": "001",
+        "url": "https://img.import-express.com/importcsvimg/coreimg1/541860391844/3641395213_1587258044.220x220.jpg",
+        "currentPrice": "6.52",
+        "wholesalePrice": "5.92",
+        "sold": "224"
+      },
+      {
+        "id": "002",
+        "url": "https://img.import-express.com/importcsvimg/coreimg1/541860391844/3641395213_1587258044.220x220.jpg",
+        "currentPrice": "6.52",
+        "wholesalePrice": "5.92",
+        "sold": "224"
+      },
+      {
+        "id": "003",
+        "url": "https://img.import-express.com/importcsvimg/coreimg1/541860391844/3641395213_1587258044.220x220.jpg",
+        "currentPrice": "6.52",
+        "wholesalePrice": "5.92",
+        "sold": "224"
+      },
+      {
+        "id": "004",
+        "url": "https://img.import-express.com/importcsvimg/coreimg1/541860391844/3641395213_1587258044.220x220.jpg",
+        "currentPrice": "6.52",
+        "wholesalePrice": "5.92",
+        "sold": "224"
+      },
+      {
+        "id": "005",
+        "url": "https://img.import-express.com/importcsvimg/coreimg1/541860391844/3641395213_1587258044.220x220.jpg",
+        "currentPrice": "6.52",
+        "wholesalePrice": "5.92",
+        "sold": "224"
+      },
+      {
+        "id": "006",
+        "url": "https://img.import-express.com/importcsvimg/coreimg1/541860391844/3641395213_1587258044.220x220.jpg",
+        "currentPrice": "6.52",
+        "wholesalePrice": "5.92",
+        "sold": "224"
+      },
+      {
+        "id": "007",
+        "url": "https://img.import-express.com/importcsvimg/coreimg1/541860391844/3641395213_1587258044.220x220.jpg",
+        "currentPrice": "6.52",
+        "wholesalePrice": "5.92",
+        "sold": "224"
+      }
     ]
-
   }
-
 }
-.get('https://api.coindesk.com/v1/bpi/currentprice.json')
-.get('https://api.coindesk.com/v1/bpi/currentprice.json')

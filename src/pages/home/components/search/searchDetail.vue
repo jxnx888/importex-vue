@@ -7,7 +7,7 @@
                   <p class="text-center">Search</p>
       </router-link>
     </div>
-    <div class="searchDetail_searchBox">
+    <div class="searchDetail_searchBox" >
       <div class="wrapper">
         <label class="iconfont search_Icon">&#xe615;</label>
         <input
@@ -26,8 +26,8 @@
 
 <!--    search list -->
     <search-list v-if="listHide"></search-list>
-
-    <div class="searchDetail_Categories">
+  <div v-if="showRecommand">
+    <div class="searchDetail_Categories" >
       <div class="searchDetail_Categories_top">
         Categories
       </div>
@@ -57,6 +57,8 @@
     <router-link to="/" class="searchDetail_close">
       点击任意空白关闭搜索页
     </router-link>
+
+  </div>
   </div>
 </template>
 
@@ -68,15 +70,13 @@ import searchList from './searchList'
     components: {
       searchList
       },
-    comments: {
-          searchList
-    },
+
     data() {
       return {
         listHide: false,
-        inputVal:"",
         keyword:"",
-        showCancle:false
+        showCancle:false,
+        showRecommand: true
       }
     },
 
@@ -92,26 +92,20 @@ import searchList from './searchList'
             _this.$router.push({path: './'});
         }
       },
-
-      getInput:function(){
-        var keyword=$('#searchDetail').val();
-        console.log(this.keyword );
-        console.log("keyword");
-
-        keyword=$.trim(keyword);
-        if(keyword == '' || keyword.length<3) {
-          this.listHide = false
-
-        }
-        else {
-          console.log("》3")
-          this.listHide = true
+    },
+    watch: {
+       keyword(curVal) {
+        var inputVal = curVal;
+        // console.log(inputVal);
+        if (curVal == '' || inputVal.length < 3) {
+          this.listHide = false;
+           this.showRecommand = true
+        } else {
+          this.listHide = true;
+          this.showRecommand = false
         }
       }
     },
-    mounted() {
-      this.getInput()
-    }
   }
 </script>
 
