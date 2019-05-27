@@ -7,6 +7,11 @@ import router from './router'
 import axios from 'axios'
 axios.defaults.withCredentials =true; //允许请求携带cookie
 
+// 如果想要发送带json格式参数的请求，则需要使用qs模块来处理参数
+import qs from 'qs'
+Vue.prototype.$qs = qs;
+
+
 // 移动端 取消 按钮点击300ms延迟
 import fasteClick from 'fastclick'
 
@@ -41,7 +46,13 @@ fasteClick.attach(document.body);
 // Use Bootstrap
 // Vue.use(BootstrapVue);
 // 使用axios
-Vue.prototype.$http = axios;
+Vue.prototype.$ajax = axios;
+// Vue.prototype.$http = axios;
+
+// axios.defaults.baseURL = 'http://192.168.1.192:10004/';//配置你的接口请求地址
+// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;//配置token,看情况使用
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';//配置请求头信息。
+
 
 Vue.use(VueAwesomeSwiper, /* { default global options } */);
 

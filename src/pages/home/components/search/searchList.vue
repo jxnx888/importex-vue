@@ -3,12 +3,15 @@
        <ul>
          <router-link
            tag="li"
-           v-for="item of searchList"
-           :key="item.id"
+           v-for="(item, index) in productList"
            class="searchListItems"
-           :to="'/searchResult/'+item.id"
+           :to="/searchResult/+ item"
+           v-html="item"
           >
-          {{ item.keyword }}
+<!--           因为接收的数据没有id，所以会有warning，因为没有key-->
+
+
+<!--           <div v-html="productList" >{{ item }}</div>-->
         </router-link>
       </ul>
     </div>
@@ -17,36 +20,14 @@
 <script>
     export default {
         name: "searchList",
+      props: {
+        productList: Array
+      },
       data() {
         return {
-          searchList: [],
         }
       },
-      // created:function(){
-      //   this.$http.get("https://www.import-express.com/searchAutocomplete",{"keyword":"dress"}).then(res=>{
-      //     console.log(res.data);
-      //   });
-      // },
-      methods: {
-
-        getSearchList() {
-          // this.$http.get('https://www.import-express.com/searchAutocomplete') // npm run build ==>  /static/mock/index.json
-          //   .then(this.getSearchListSucc)
-          this.$http.get('/api/index.json') // npm run build ==>  /static/mock/index.json
-            .then(this.getSearchListSucc)
-        },
-        getSearchListSucc(res) {
-          res = res.data;
-          if (res.ret && res.data) {
-            const data = res.data;
-            this.searchList = data.searchList;
-            // console.log( JSON.stringify(this.searchList));
-          }
-        }
-      },
-      mounted() {
-        this.getSearchList()
-      }
+      methods: {}
     }
 </script>
 

@@ -13,7 +13,8 @@
         <input
           class="searchDetail_input"
           id="searchDetail"
-          v-model="keyword"
+          v-model="keyword "
+
           placeholder="Search by keywords or SKU..."/>
 
         <i @click="()=>{keyword=''}" class="iconfont icon-close1">&#xe616;</i>
@@ -24,8 +25,10 @@
       </div>
     </div>
 
-<!--    search list -->
-    <search-list v-if="listHide"></search-list>
+<!-- search list -->
+    <searchList v-if="listHide" ref="childSearchList" :productList="productList" ></searchList>
+
+
   <div v-if="showRecommand">
     <div class="searchDetail_Categories" >
       <div class="searchDetail_Categories_top">
@@ -76,7 +79,8 @@ import searchList from './searchList'
         listHide: false,
         keyword:"",
         showCancle:false,
-        showRecommand: true
+        showRecommand: true,
+        productList:[]
       }
     },
 
@@ -86,25 +90,48 @@ import searchList from './searchList'
         //当keyword>0, 显示Search，
         if (this.keyword.length > 0) {
           //方法：跳转到默认搜索结果页
-
         } else {
           // 当Keyword<0, 显示cancel，点击可返回主页
             _this.$router.push({path: './'});
         }
       },
+      getSearchList(res) {
+        this.$ajax.post(
+          'http://192.168.1.192:10004/searchAutocomplete',
+          this.$qs.stringify({keyword : res})
+        )
+          .then(this.getSearchListSucc)
+          .catch(function(res){
+            // console.log("error")
+          })
+      },
+      getSearchListSucc(res) {
+        this.productList = res.data.keyList;
+
+        // console.log(JSON.stringify(res.data));
+        // console.log(this.productList.length);
+        // return this.productList
+      }
     },
     watch: {
        keyword(curVal) {
         var inputVal = curVal;
         // console.log(inputVal);
-        if (curVal == '' || inputVal.length < 3) {
+         this.getSearchList(inputVal);
+         if (curVal == '' || inputVal.length < 2  ) { //bug搜索的时候，输入dresss点下一个s才会隐藏list
           this.listHide = false;
-           this.showRecommand = true
-        } else {
-          this.listHide = true;
-          this.showRecommand = false
+           this.showRecommand = true;
         }
-      }
+         // else if(this.productList.length == 0) {
+         //   this.productList = [];
+         //   console.log('testeest')
+         // }
+        else {
+          this.listHide = true;
+          this.showRecommand = false;
+          // setTimeout(()=>{ this.$refs.childSearchList.getSearchList(inputVal);}, 10)
+        }
+      },
     },
   }
 </script>

@@ -1,23 +1,26 @@
 <template>
   <div>
     <searchResultHeader></searchResultHeader>
-    <searchResultListResult :listResult="listResult"></searchResultListResult>
+    <searchResultListResult ></searchResultListResult>
     <div style="clear:both"></div>
-<!--    <searchProductList :productList="productList"></searchProductList>-->
+    <searchProductList :productList="productList"></searchProductList>
   </div>
 </template>
 
 <script>
   import searchResultHeader from './components/topHeader'
   import searchResultListResult from './components/listResultCategories'
-  import searchProductList from './components/pruductList'
+  import searchProductList from './components/productList'
 
   export default {
     name: "searchResult",
     data() {
       return {
-        productList:[],
+        productList:{
+          priceList:{}
+        },
         listResult: [],
+        keyword:''
       }
     },
     components: {
@@ -26,28 +29,33 @@
       searchProductList
     },
     methods: {
-
-      getSearchList() {
-        // this.$http.get('https://www.import-express.com/searchAutocomplete') // npm run build ==>  /static/mock/index.json
-        //   .then(this.getSearchListSucc)
-        this.$http.get('/api/index.json') // npm run build ==>  /static/mock/index.json
+      getKeyword(){
+        this.keyword = this.$route.params.keyword;
+        // console.log(this.keyword)
+      },
+      getSearchList(res) {
+        var url = 'http://192.168.1.192:10004/mobileSearch';
+        this.$ajax.post( url,
+          this.$qs.stringify({keyword : this.keyword})
+        )
           .then(this.getSearchListSucc)
+          .catch(function(res){
+            // console.log("error")
+          })
       },
       getSearchListSucc(res) {
-        res = res.data;
-        if (res.ret && res.data) {
-          const data = res.data;
-          this.listResult = data.listResult;
-          this.productList = data.productList;
-          // console.log(JSON.stringify(this.listResult))
-          // console.log(JSON.stringify(this.productList))
-        }
+        this.productList = res.data.goodslist;
+
+        // console.log(JSON.stringify(this.productList[1].priceList[1].price));
+        // console.log(this.productList.length);
+        // return this.productList
       }
     },
     mounted() {
-      this.getSearchList()
-
+      this.getKeyword();
+      this.getSearchList();
     }
+
   }
 </script>
 
