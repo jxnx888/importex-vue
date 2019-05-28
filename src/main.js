@@ -11,6 +11,9 @@ axios.defaults.withCredentials =true; //允许请求携带cookie
 import qs from 'qs'
 Vue.prototype.$qs = qs;
 
+//用vue-scroller做上拉刷新，下拉加载的模板
+import VueScroller from 'vue-scroller'
+Vue.use(VueScroller);
 
 // 移动端 取消 按钮点击300ms延迟
 import fasteClick from 'fastclick'

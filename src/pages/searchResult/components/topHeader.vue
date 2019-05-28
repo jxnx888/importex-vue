@@ -28,7 +28,12 @@
 <style scoped lang="stylus">
   .searchResult
     height .5rem
+    width 100%
     line-height .5rem
+    z-index 9
+    position: fixed
+    top 0rem
+    background-color #fff
     .searchResult_Nav
       float: left
       height .5rem

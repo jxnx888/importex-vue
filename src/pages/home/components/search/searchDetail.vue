@@ -14,7 +14,6 @@
           class="searchDetail_input"
           id="searchDetail"
           v-model="keyword "
-
           placeholder="Search by keywords or SKU..."/>
 
         <i @click="()=>{keyword=''}" class="iconfont icon-close1">&#xe616;</i>
@@ -26,7 +25,7 @@
     </div>
 
 <!-- search list -->
-    <searchList v-if="listHide" ref="childSearchList" :productList="productList" ></searchList>
+    <searchList v-if="listHide" ref="childSearchList" :productList="productList" :keyword="keyword"></searchList>
 
 
   <div v-if="showRecommand">
@@ -89,7 +88,7 @@ import searchList from './searchList'
         var _this = this;
         //当keyword>0, 显示Search，
         if (this.keyword.length > 0) {
-          //方法：跳转到默认搜索结果页
+          _this.$router.push({path: "./searchResult/"+ this.keyword});
         } else {
           // 当Keyword<0, 显示cancel，点击可返回主页
             _this.$router.push({path: './'});
@@ -97,7 +96,7 @@ import searchList from './searchList'
       },
       getSearchList(res) {
         this.$ajax.post(
-          'http://192.168.1.192:10004/searchAutocomplete',
+          'http://192.168.1.127:8085/searchAutocomplete',
           this.$qs.stringify({keyword : res})
         )
           .then(this.getSearchListSucc)
@@ -228,7 +227,7 @@ import searchList from './searchList'
       display: block;
       text-align: center
       line-height: 2rem
-      padding-bottom: 7rem
+      padding-bottom: 2rem
       color: #c9c9c9
       font-size .15rem
 </style>

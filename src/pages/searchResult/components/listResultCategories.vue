@@ -60,6 +60,11 @@
   line-height .39rem
   border-top 1px solid rgba(236,236,236,1)
   border-bottom 1px solid rgba(236,236,236,1)
+  width 100%
+  z-index 9
+  position: fixed
+  top .5rem
+  background-color #fff
   .listResult_Expand
     font-size .12rem
 

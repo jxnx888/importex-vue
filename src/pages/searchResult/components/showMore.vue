@@ -79,6 +79,7 @@
 
   .wrapper-container
     position relative
+    z-index 9
     .content
       color #999999
       line-height .4rem
