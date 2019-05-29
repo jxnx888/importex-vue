@@ -25,8 +25,8 @@
     components: {
       searchResultHeader,
       searchResultListResult,
-      searchProductList
-    },
+      searchProductList,
+     },
     // methods: {
     //   getKeyword(){
     //     this.keyword = this.$route.params.keyword;

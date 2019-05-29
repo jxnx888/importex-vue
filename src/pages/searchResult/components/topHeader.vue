@@ -1,5 +1,7 @@
 <template>
   <div class="searchResult">
+    <search-filter v-show="showFilter" @close="handleFilterClose"></search-filter>
+
     <div class="searchResult_Nav">
       <router-link to="/" >
         <span class="iconfont ">&#xe669;</span>
@@ -11,7 +13,7 @@
         <span class="iconfont ">&#xe64c;</span>
       </router-link>
     </div>
-    <div class="searchResult_Filter">
+    <div class="searchResult_Filter"  @click="handleFilterClick()">
       Filter
       <span class="iconfont">&#xe6b5;</span>
     </div>
@@ -20,8 +22,27 @@
 </template>
 
 <script>
+  import searchFilter from './searchfilter'
+
   export default {
-    name: "topHeader"
+    name: "topHeader",
+    components: {
+      searchFilter
+    },
+    data() {
+      return {
+        showFilter:false,
+      }
+    },
+    methods: {
+
+      handleFilterClick() {
+        this.showFilter = true;
+      },
+      handleFilterClose() {
+        this.showFilter = false;
+      },
+    }
   }
 </script>
 

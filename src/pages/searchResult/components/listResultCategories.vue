@@ -61,7 +61,7 @@
   border-top 1px solid rgba(236,236,236,1)
   border-bottom 1px solid rgba(236,236,236,1)
   width 100%
-  z-index 9
+  z-index 8
   position: fixed
   top .5rem
   background-color #fff

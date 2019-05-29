@@ -19,9 +19,7 @@
           >
 <!--           因为接收的数据没有id，所以会有warning，因为没有key-->
 
-
-<!--           <div v-html="productList" >{{ item }}</div>-->
-        </router-link>
+         </router-link>
       </ul>
     </div>
 </template>
@@ -37,9 +35,7 @@
         return {
         }
       },
-      methods: {
-
-      }
+      methods: {}
     }
 </script>
 
@@ -62,6 +58,8 @@
     font-size: .14rem
     text-overflow: ellipsis;
     overflow: hidden;
+
+
     white-space: nowrap;
     .col-xs-7, .col-xs-5, .col-xs-12
       padding-left 0rem

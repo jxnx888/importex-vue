@@ -24,11 +24,17 @@
             <div class="productListItem_info">
               <div v-if="item.priceList">
                 <p v-for="(innerValue, index) in item.priceList" v-if="index<2">
-                  <span :class="{'current_price': index === 0,'wholeSale_price': index === 1}">${{innerValue.price}}</span>
-                  <span :class="{'hotProduct': index === 0,'hotProductHide': index === 1}" v-if="item.is_stock_flag===1">HOT</span>
+                  <span
+                    :class="{'current_price': index === 0,'wholeSale_price': index === 1}">${{innerValue.price}}</span>
+                  <span :class="{'hotProduct': index === 0,'hotProductHide': index === 1}"
+                        v-if="item.is_stock_flag===1">HOT</span>
                   <!--判断是否有sold-->
-                  <span :class="{'soldProduct': index === 0,'soldProductHide': index === 1}" v-if="item.goods_solder > 0">{{item.goods_solder}} Sold</span>
-                  <span :class="{'wholeSale_tagHide': index === 0,'wholeSale_tag': index === 1}" v-if="item.goods_solder > 0">WHOLESALE</span>
+                  <span :class="{'soldProduct': index === 0,'soldProductHide': index === 1}"
+                        v-if="item.goods_solder > 0">{{item.goods_solder}} Sold</span>
+                  <span :class="{'wholeSale_tagHide': index === 0,'wholeSale_tag': index === 1}"
+                        v-if="item.goods_solder > 0">WHOLESALE</span>
+                  <span :class="{'customScoreHide': index === 0,'customScore': index === 1}" v-if="item.customScore==5">{{item.customScore}}.0 <span
+                    class="iconfont">&#xe79d;</span></span>
                 </p>
 
 
@@ -61,7 +67,7 @@
     data() {
       return {
         productList: [],
-        // listResult: [],
+        rootTreeCategory: [],
         keyword: '',
         hasPriceList: true,
         hasNoPriceList: false,
@@ -85,9 +91,8 @@
           })
       },
       getSearchListSucc(res) {
-
         const data = res.data;
-
+        this.rootTreeCategory = data.rootTree;
         this.productList = data.goodslist;
         if (this.productList !== '' && this.productList !== undefined && this.productList !== 'undefined') {
           // console.log(JSON.stringify(this.productList));
@@ -96,6 +101,59 @@
           this.hasProductList = false
         }
       },
+      searchHistory() {
+
+        // this.$parent.searchHistory();
+        //获取路径中的搜索值
+        let searchKeyword = this.$route.params.keyword;
+        // console.log(searchKeyword);
+        // 获取localStorage HistoryList 记录
+        let HistoryList = localStorage.getItem('HistoryList');
+        // 如果HistoryList不存在
+        if (HistoryList == null) {
+          localStorage.setItem('HistoryList', searchKeyword);
+        } else {
+          //如果HistoryList存在
+          // HistoryList类型是string，所以要分割，转化object
+          let HistoryListSplit = HistoryList.split(',');
+          // console.log('get HistoryListSplit type ' + typeof HistoryListSplit);
+          // console.log('get HistoryListSplit: ' + HistoryListSplit);
+          // console.log('get HistoryListSplit: ' + HistoryListSplit.length);
+          if (HistoryListSplit.length < 7) {
+            // 如果keyword存在，移除并重新添加到第一项
+            // console.log('length< 6')
+            if (HistoryListSplit.indexOf(searchKeyword) !== -1) {
+
+              HistoryListSplit.splice(HistoryListSplit.indexOf(searchKeyword), 1);
+              HistoryListSplit.unshift(searchKeyword);
+              // console.log('get new history: ' + HistoryList)
+
+            } else {
+              // 如果keyword不存在，直接添加到第一项
+              HistoryListSplit.unshift(searchKeyword);
+            }
+
+            //处理完localStorage数据后，添加进处理完localStorage数据后
+            localStorage.setItem('HistoryList', HistoryListSplit)
+          } else {
+            //如果HistoryListSplit.length > 7
+            // console.log('length>6')
+            HistoryListSplit.pop();
+
+              // 如果keyword存在，移除并重新添加到第一项
+              if (HistoryListSplit.indexOf(searchKeyword) !== -1) {
+
+                HistoryListSplit.splice(HistoryListSplit.indexOf(searchKeyword), 1);
+                HistoryListSplit.unshift(searchKeyword);
+                // console.log('get new history: ' + HistoryList)
+              } else {
+                // 如果keyword不存在，直接添加到第一项
+                HistoryListSplit.unshift(searchKeyword);
+              }
+          }
+        }
+      }
+
 
       // refresh(done) {
       //   setTimeout(() => {
@@ -131,7 +189,13 @@
     mounted() {
       this.getKeyword();
       this.getSearchList();
+      this.searchHistory();
     },
+    created(){
+
+    console.log(this)
+      console.log(this.$store.state.name)
+  }
 
   }
 </script>
@@ -146,6 +210,8 @@
     .col-xs-6
       border .005rem solid #ECECEC
       padding-top .1rem
+      padding-left .1rem
+      padding-right .1rem
 
       .productListItem_Img
         height 1.65rem
@@ -158,34 +224,46 @@
 
       .productListItem_info
         height .47rem
-        padding-top .06rem
+        margin-bottom .02rem
+
+      .productListItem_info p
+        height .235rem
+        line-height .235rem
+
+        .current_price, .wholeSale_price, .hotProduct, .soldProduct, .wholeSale_tag, .customScore
+          height .235rem
+          line-height .235rem
+
         .current_price
           font-size .15rem
           font-weight bold
           color #333333
+
         .wholeSale_price
           color #666666
           font-size .12rem
           font-weight 400
+
         .hotProduct
           color #FF392A
           font-size .1rem
           font-weight bold
           font-style italic
+
         .hotProductHide
           display none
+
         .soldProduct
           float right
           color #999999
           font-size .11rem
           font-weight 400
-          line-height .15rem
+
         .soldProductHide
           display: none
+
         .wholeSale_tag
           width .76rem
-          height .12rem
-          line-height .12rem
           font-size .1rem
           color #999999
           border .01rem solid #999999
@@ -193,8 +271,23 @@
           -moz-border-radius: .1rem
           border-radius: .1rem
           padding 0rem .08rem
+
         .wholeSale_tagHide
           display: none
+
+        .customScoreHide
+          display none
+
+        .customScore
+          float: right
+          font-size .1rem
+          color #999999
+
+        .iconfont
+          /*float: right*/
+          font-size .08rem
+          color #F53131
+
     .noData
       font-size .28rem
       color red

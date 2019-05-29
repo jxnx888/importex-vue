@@ -11,6 +11,14 @@ axios.defaults.withCredentials =true; //允许请求携带cookie
 import qs from 'qs'
 Vue.prototype.$qs = qs;
 
+//vuex
+import Vuex from 'vuex'
+import store from './vuex/store'
+Vue.use(Vuex);
+//同时在下方 new Vue中，添加store
+//Vuex 依赖 Promise。如果你支持的浏览器并没有实现 Promise (比如 IE)，那么你可以使用一个 polyfill 的库，例如 es6-promise。
+import 'es6-promise/auto'
+
 //用vue-scroller做上拉刷新，下拉加载的模板
 import VueScroller from 'vue-scroller'
 Vue.use(VueScroller);
@@ -36,6 +44,7 @@ import $ from 'jquery'
 import './assets/bootstrap-3.3.7/css/bootstrap.css'
 import './assets/bootstrap-3.3.7/js/bootstrap.js'
 
+import './assets/styles/switchButton.css'
 
 //reset styles
 import './assets/styles/reset.css'
@@ -63,6 +72,7 @@ Vue.use(VueAwesomeSwiper, /* { default global options } */);
 new Vue({
   el: '#app',
   router,
+  store,//use store
   components: { App },
   template: '<App/>'
 })
