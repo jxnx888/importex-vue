@@ -14,7 +14,7 @@
           :key="item.goods_pid">
           <router-link
             tag="div"
-            :to="'../product/'+ item.goods_pid"
+            :to="'product/'+ item.goods_pid"
             class="produtListItem"
           >
             <div class="productListItem_Img">
@@ -62,17 +62,45 @@
   export default {
     name: "pruductList",
     props: {
-      productList: Array,
-      hasProductList: Boolean
+      // productList: Array
     },
     data() {
       return {
+        productList: [],
+        rootTreeCategory: [],
         keyword: '',
+        hasPriceList: true,
+        hasNoPriceList: false,
+        hasProductList: true,
         noDate: false,//判断是否加载
       }
     },
     methods: {
-
+      getKeyword() {
+        this.keyword = this.$route.params.keyword;
+        // console.log(this.keyword)
+      },
+      getSearchList(res) {
+        var url = 'http://192.168.1.127:8085/mobileSearch';
+        this.$ajax.post(url,
+          this.$qs.stringify({keyword: this.keyword})
+        )
+          .then(this.getSearchListSucc)
+          .catch(function (res) {
+            // console.log("error")
+          })
+      },
+      getSearchListSucc(res) {
+        const data = res.data;
+        this.rootTreeCategory = data.rootTree;
+        this.productList = data.goodslist;
+        if (this.productList !== '' && this.productList !== undefined && this.productList !== 'undefined') {
+          // console.log(JSON.stringify(this.productList));
+          this.hasProductList = true;
+        } else {
+          this.hasProductList = false
+        }
+      },
       searchHistory() {
 
         // this.$parent.searchHistory();
@@ -159,6 +187,8 @@
 
     },
     mounted() {
+      this.getKeyword();
+      this.getSearchList();
       this.searchHistory();
     },
     created(){

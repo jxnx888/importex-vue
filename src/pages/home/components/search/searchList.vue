@@ -13,6 +13,7 @@
          <router-link
            tag="li"
            v-for="(item, index) in productList"
+           :key="index"
            class="searchListItems"
            :to="/searchResult/+ item"
            v-html="item"

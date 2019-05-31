@@ -51,6 +51,7 @@
           tag="div"
           class="searchDetail_Hot_bottom"
           v-for="(item, index) in histroyWord"
+          :key="index"
           :to="/searchResult/+ item"
         >
           <button class="btn">{{item}}</button>
@@ -200,6 +201,7 @@
       this.histroyWord = getLocalStorageSplit
 
     },
+
   }
 </script>
 

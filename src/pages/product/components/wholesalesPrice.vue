@@ -1,12 +1,10 @@
 <template>
-    <div class="searchFilterCategory">
-
-    </div>
+    
 </template>
 
 <script>
     export default {
-        name: "searchFilterCategory"
+        name: "wholesalesPrice"
     }
 </script>
 

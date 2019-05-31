@@ -4,7 +4,10 @@ import Home from '@/pages/home/home'
 import searchDetail from '@/pages/home/components/search/searchDetail'
 import searchResult from '@/pages/searchResult/searchResult'
 import shoppingCar from '@/pages/shoppingCar/shoppingCar'
-import productList from '@/pages/searchResult/components/productList'
+import product from '@/pages/product/product'
+
+import filtertest from '../pages/filter/filter'
+
 Vue.use(Router);
 
 export default new Router({
@@ -30,9 +33,14 @@ export default new Router({
       component: shoppingCar
     },
     {
-      path: '/productList',
-      name: 'productList',
-      component: productList
+      path: '/product/:id',
+      name: 'product',
+      component: product
+    },
+    {
+      path: '/filtertest',
+      name: 'filtertest',
+      component: filtertest
     },
   ]
 })

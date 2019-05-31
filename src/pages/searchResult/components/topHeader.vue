@@ -1,6 +1,6 @@
 <template>
   <div class="searchResult">
-    <search-filter v-show="showFilter" @close="handleFilterClose"></search-filter>
+    <search-filter v-show="showFilter" @close="handleFilterClose" :rootTreeCategory="rootTreeCategory"></search-filter>
 
     <div class="searchResult_Nav">
       <router-link to="/" >
@@ -26,6 +26,9 @@
 
   export default {
     name: "topHeader",
+    props: {
+      rootTreeCategory: Array,
+    },
     components: {
       searchFilter
     },
