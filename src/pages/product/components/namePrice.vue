@@ -20,15 +20,22 @@
     <div class="productPriceList">
       <div
         class="col-xs-4"
-        v-for="">
+        v-for="(item, index) in productPriceList">
         <div class="productPrice">
-          $19.59
+          ${{item.price}}
         </div>
         <div class="productPiece">
-          1 piece
+          {{item.quantity}} pieces
         </div>
       </div>
-
+      <div class="productPriceList_bottom">
+        <div class="col-xs-4">
+          Sold:{{productSold}}
+        </div>
+        <div class="col-xs-4">
+          MOQ:{{productMOQ}}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -37,15 +44,15 @@
   export default {
     name: "namePrice",
     props: {
-
-      productName: {
-        type: String,
-        default: 'No name'
-      }
+      productName: String,
+      productPriceList: Array,
+      productSold: String,
+      productMOQ: String
     },
     data() {
       return {}
     },
+    methods: {}
   }
 </script>
 
@@ -63,24 +70,47 @@
       font-style: italic
       color rgba(255, 255, 255, 1)
       background #292929
+
     .productName
       .productName_title
         font-size .15rem
         font-weight 400
         color #333
         padding: .1rem 0
+
       .productSKU
         font-size .12rem
         color #999
-        padding:  0 0 .1rem 0
+        padding: 0 0 .1rem 0
+
       .productShare
         padding-top .12rem
+
       .productShare p
         font-size .13rem
         padding .12rem 0
+
       .productShare
         .iconfont
           font-size .3rem
 
 
+    .productPriceList
+      .productPrice
+        font-size .19rem
+        font-weight bold
+        color #333
+        line-height .18rem
+
+      .productPiece
+        font-size .12rem
+        color #999
+        line-height .13rem
+        padding .05rem 0
+      .productPriceList_bottom
+        .col-xs-4
+          font-size .12rem
+          line-height .10rem
+          color #999
+          padding .05rem .15rem
 </style>

@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from '@/pages/home/home'
 import searchDetail from '@/pages/home/components/search/searchDetail'
 import searchResult from '@/pages/searchResult/searchResult'
-import shoppingCar from '@/pages/shoppingCar/shoppingCar'
+import shoppingCart from '@/pages/shoppingCart/shoppingCart'
 import product from '@/pages/product/product'
 
 import filtertest from '../pages/filter/filter'
@@ -28,9 +28,9 @@ export default new Router({
       component: searchResult
     },
     {
-      path: '/shoppingCar',
-      name: 'shoppingCar',
-      component: shoppingCar
+      path: '/shoppingCart',
+      name: 'shoppingCart',
+      component: shoppingCart
     },
     {
       path: '/product/:id',

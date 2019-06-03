@@ -117,6 +117,7 @@
     width 100%
     height .45rem
     background #fff
+    opacity .7
     .col-xs-6
       padding 0 .15rem
       padding-top .09rem

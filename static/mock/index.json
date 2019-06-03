@@ -134,6 +134,7 @@
         ],
         "currentPrice": "6.52",
         "wholesalePrice": "5.92",
+        "minOrder": "5",
         "priceList": [
           {
             "price": "1.85",

@@ -2,11 +2,14 @@
   <div>
     <product-top-nav></product-top-nav>
     <product-swiper  :productImg="productImg"></product-swiper>
-    <productNamePrice :productName="productName" :productPriceList="productPriceList"></productNamePrice>
-
+    <productNamePrice :productName="productName"
+                      :productPriceList="productPriceList"
+                      :productSold="productSold"
+                      :productMOQ="productMOQ"></productNamePrice>
+    <div style="clear: both;"></div>
+    <product-add-cart></product-add-cart>
     <product-related-product></product-related-product>
-    <div style="height:600px"></div>
-  </div>
+   </div>
 </template>
 
 <script>
@@ -14,6 +17,7 @@
   import productSwiper from './components/topSwiper'
   import productRelatedProduct from './components/relatedProduct'
   import productNamePrice from './components/namePrice'
+  import productAddCart from './components/addCart'
 
   export default {
     name: "product",
@@ -22,14 +26,17 @@
       productTopNav,
       productNamePrice,
       productRelatedProduct,
+      productAddCart
     },
     data() {
       return {
         keyword: '',
         productInfo: [],
         productImg: [],
-        productName:[],
-        productPriceList:[]
+        productName:'',
+        productPriceList:[],
+        productSold:'',
+        productMOQ: ''
       }
     },
     methods: {
@@ -70,7 +77,10 @@
           this.productImg = this.productInfo.url;
           this.productName=this.productInfo.pName;
           this.productPriceList=this.productInfo.priceList;
-          // console.log(typeof this.productName)
+          this.productSold=this.productInfo.sold;
+          this.productMOQ=this.productInfo.minOrder;
+
+          // console.log( this.productPriceList)
         }
       }
     },
