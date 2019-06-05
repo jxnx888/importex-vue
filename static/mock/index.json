@@ -122,38 +122,126 @@
         "sold": "224"
       }
     ],
-    "goodsBean":
-      {
-        "id": "001",
-        "pName": "Women's Handmade British Flag Knitting Head Set Wool Wide Hair Hoop Hair Ornament",
-        "url": [
-          "https://img.import-express.com/importcsvimg/coreimg3/524646586711/2633348717_149379895.400x400.jpg",
-          "https://img.import-express.com/importcsvimg/coreimg3/524646586711/2631295473_149379895.400x400.jpg",
-          "https://img.import-express.com/importcsvimg/coreimg3/524646586711/2631286895_149379895.400x400.jpg",
-          "https://img.import-express.com/importcsvimg/coreimg3/524646586711/2633345869_149379895.400x400.jpg"
-        ],
-        "currentPrice": "6.52",
-        "wholesalePrice": "5.92",
-        "minOrder": "5",
-        "priceList": [
-          {
-            "price": "1.85",
-            "quantity": "1-4",
-            "moq": 1
-          },
-          {
-            "price": "1.68",
-            "quantity": "5-9",
-            "moq": 5
-          },
-          {
-            "price": "1.56",
-            "quantity": "≥10",
-            "moq": 10
-          }
-        ],
-        "sold": "224"
-      }
+    "goodsBean": {
+      "id": "001",
+      "pName": "Women's Handmade British Flag Knitting Head Set Wool Wide Hair Hoop Hair Ornament",
+      "url": [
+        "https://img.import-express.com/importcsvimg/coreimg3/524646586711/2633348717_149379895.400x400.jpg",
+        "https://img.import-express.com/importcsvimg/coreimg3/524646586711/2631295473_149379895.400x400.jpg",
+        "https://img.import-express.com/importcsvimg/coreimg3/524646586711/2631286895_149379895.400x400.jpg",
+        "https://img.import-express.com/importcsvimg/coreimg3/524646586711/2633345869_149379895.400x400.jpg"
+      ],
+      "currentPrice": "6.52",
+      "wholesalePrice": "5.92",
+      "minOrder": "5",
+      "priceList": [
+        {
+          "price": "1.85",
+          "quantity": "1-4",
+          "moq": 1
+        },
+        {
+          "price": "1.68",
+          "quantity": "5-9",
+          "moq": 5
+        },
+        {
+          "price": "1.56",
+          "quantity": "≥10",
+          "moq": 10
+        }
+      ],
+      "sold": "224",
+      "imageList": [
+        "https://img1.import-express.com/importcsvimg/importimg/40884566912/ed68ca9a-2cc8-4b83-8f16-a78b6376c2d7_758_700.jpg",
+        "https://img1.import-express.com/importcsvimg/importimg/40884566912/2236c320-5ace-4538-bdba-2249866b2626_817_700.jpg",
+        "https://img1.import-express.com/importcsvimg/importimg/40884566912/176bdbb2-053f-4a28-b41a-2bb2ffce3f15_59_700.jpg",
+        "https://img1.import-express.com/importcsvimg/importimg/40884566912/25d30e7d-f7f4-4b8f-a96c-41a14813947f_101_700.jpg",
+        "https://img1.import-express.com/importcsvimg/importimg/40884566912/a99bc318-12d3-4537-94d3-4253a37d6ad4_636_700.jpg"
+      ],
+      "customerReviews": [
+        {
+          "name": "AAA",
+          "country": "Canada",
+          "comment": "Fast and very nice. Thanks"
+        },
+        {
+          "name": "ABBB",
+          "country": "USA",
+          "comment": "Fast and very nice. Thanks"
+        },
+        {
+          "name": "CCCC",
+          "country": "Canada",
+          "comment": "Cool thing, not expensive and fast!!! will order from this selwill order from this selwill order from this sel"
+        },
+        {
+          "name": "ddd",
+          "country": "Canada",
+          "comment": "Cool thing, not expensive and fast!!! will order from this selwill order from this selwill order from this sel"
+        },
+        {
+          "name": "Ttttt",
+          "country": "Canada",
+          "comment": "Fast and very nice. Thanks"
+        }
+      ],
+      "commodityDetails": [
+        {
+          "modified": "Cannot Modified"
+        },
+        {
+          "size": "One Size"
+        },
+        {
+          "category": "Night dress"
+        },
+        {
+          "modified1": "Cannot Modified"
+        },
+        {
+          "size1": "One Size"
+        },
+        {
+          "category1": "Night dress"
+        },
+        {
+          "modified2": "Cannot Modified"
+        },
+        {
+          "size2": "One Size"
+        },
+        {
+          "category2": "Night dress"
+        }
+      ],
+      "questionAnswer": [
+        {
+          "name": "Fiso.nkisjjjj",
+          "time": "2019-05-30 13:36:39:0",
+          "question": "Is it possible to expand memory? Will this device win a global version in the future?",
+          "answer": "Hello Christian, External Memory: Not Supported . This item is Chinese version. Let me know if you need any further assistance."
+        },
+        {
+          "name": "Fiso.nkisjjjj",
+          "time": "2019-05-30 13:36:39:0",
+          "question": "Is it possible to expand memory? Will this device win a global version in the future?",
+          "answer": "Hello Christian, External Memory: Not Supported . This item is Chinese version. Let me know if you need any further assistance."
+        },
+        {
+          "name": "Fiso.nkisjjjj",
+          "time": "2019-05-30 13:36:39:0",
+          "question": "Is it possible to expand memory? Will this device win a global version in the future?",
+          "answer": "Hello Christian, External Memory: Not Supported . This item is Chinese version. Let me know if you need any further assistance."
+        },
+        {
+          "name": "Fiso.nkisjjjj",
+          "time": "2019-05-30 13:36:39:0",
+          "question": "Is it possible to expand memory? Will this device win a global version in the future?",
+          "answer": "Hello Christian, External Memory: Not Supported . This item is Chinese version. Let me know if you need any further assistance."
+        }
+      ]
+    }
   }
 }
 

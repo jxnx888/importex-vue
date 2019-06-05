@@ -244,8 +244,8 @@
       },
       catagoryHideClick(){
         this.catagoryShow = false;
-        this.showChild=false,
-        this.selectIndexTab= 0,
+        this.showChild=false;
+        this.selectIndexTab= 0;
         this.currentSelectIndex= 0
       },
       showChildClick(index){

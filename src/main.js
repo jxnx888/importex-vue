@@ -65,6 +65,14 @@ Vue.prototype.$ajax = axios;
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;//配置token,看情况使用
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';//配置请求头信息。
 
+//项目中实现图片懒加载
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload, {
+  preLoad: 1,  //如需测试，改为0.5
+  error: 'dist/error.png',
+  loading: '../static/images/loading.gif', //预加载loading图片
+  attempt: 1
+})
 
 Vue.use(VueAwesomeSwiper, /* { default global options } */);
 

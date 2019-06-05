@@ -1,11 +1,6 @@
 <template>
   <div class="productList">
 
-    <!--    <scroller-->
-    <!--      :on-infinite="infinite"-->
-    <!--      :noDataText="'No More Data'"-->
-    <!--      ref="my_scroller"-->
-    <!--      class="my_scroller">-->
     <div>
       <div v-if="hasProductList">
         <div
@@ -18,7 +13,7 @@
             class="produtListItem"
           >
             <div class="productListItem_Img">
-              <img :src="item.goods_image" class="productListImg">
+              <img v-lazy="item.goods_image" class="productListImg">
             </div>
             <!--  判断是否存在priceList -->
             <div class="productListItem_info">

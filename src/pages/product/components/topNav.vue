@@ -4,7 +4,9 @@
       class="topNav_Normal "
       v-show="!topNavBarFixed">
       <div class="topNav_back col-xs-6" @click="handleGoBackClick()">
-        <span class="iconfont">&#xe73d;</span>
+        <div class="iconWrapper">
+          <span class="iconfont">&#xe73d;</span>
+        </div>
       </div>
 
       <div class="topNav_Search col-xs-2 text-right">
@@ -28,7 +30,9 @@
     >
       <!--      :style="opacityStyle"-->
       <div class="topNav_back col-xs-6" @click="handleGoBackClick()">
+
         <span class="iconfont">&#xe73d;</span>
+
       </div>
 
       <div class="topNav_Search col-xs-2 text-right">

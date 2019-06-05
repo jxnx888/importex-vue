@@ -14,26 +14,25 @@
 
         <!-- Optional controls -->
         <div class="swiper-pagination swiper-pagination-fraction" slot="pagination"></div>
-
       </swiper>
     </div>
     <!--    //点击后的全页swiper-->
     <div class="wrapperBottom" @click="handleGalleryClose()" v-show="showGallery">
 
-      <!--      <div class="wrapper">-->
-      <!--        <swiper-->
-      <!--          :options="swiperOptionThumbs"-->
-      <!--          ref="swiperThumbs">-->
-      <!--          <swiper-slide-->
-      <!--            v-for="(item, index) in productImg"-->
-      <!--            :key="index"-->
-      <!--          >-->
-      <!--            <img class="gallary-img" :src="item" />-->
-      <!--            &lt;!&ndash; <p>{{index}}</p> &ndash;&gt;-->
-      <!--          </swiper-slide>-->
-      <!--          <div class="swiper-pagination" slot="pagination"></div>-->
-      <!--        </swiper>-->
-      <!--      </div>-->
+            <div class="wrapper">
+              <swiper
+                :options="swiperOptionThumbs"
+                ref="swiperThumbs" class="gallery-thumbs" >
+                <swiper-slide
+                  v-for="(item, index) in productImg"
+                  :key="index"
+                >
+                  <img class="gallary-img" :src="item" />
+                  <!-- <p>{{index}}</p> -->
+                </swiper-slide>
+                <div class="swiper-pagination" slot="pagination"></div>
+              </swiper>
+            </div>
     </div>
 
     <!--    <open-gallery-->
@@ -104,12 +103,12 @@
     },
     mounted() {
 
-      // this.$nextTick(() => {
-      //   const swiperTop = this.$refs.swiperTop.swiper;
-      //   const swiperThumbs = this.$refs.swiperThumbs.swiper;
-      //   swiperTop.controller.control = swiperThumbs;
-      //   swiperThumbs.controller.control = swiperTop
-      // })
+      this.$nextTick(() => {
+        const swiperTop = this.$refs.swiperTop.swiper;
+        const swiperThumbs = this.$refs.swiperThumbs.swiper;
+        swiperTop.controller.control = swiperThumbs;
+        swiperThumbs.controller.control = swiperTop
+      })
     },
     watch: {},
   }
