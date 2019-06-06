@@ -1,58 +1,58 @@
 <template>
-  <div>
-    <div class="show" v-show="show" v-clickoutside="handleClose">
-      显示
-    </div>
-  </div>
+    <div class="home">
+
+<!--        <sheet-list v-for="(item,index) in rootTreeCategory" :item="item"></sheet-list>-->
+        <sheet-list ></sheet-list>
+    </div>
 </template>
 
 <script>
-  const clickoutside = {
-    // 初始化指令
-    bind(el, binding, vnode) {
-      function documentHandler(e) {
-        // 这里判断点击的元素是否是本身，是本身，则返回
-        if (el.contains(e.target)) {
-          return false;
-        }
-        // 判断指令中是否绑定了函数
-        if (binding.expression) {
-          // 如果绑定了函数 则调用那个函数，此处binding.value就是handleClose方法
-          binding.value(e);
-        }
-      }
-      // 给当前元素绑定个私有变量，方便在unbind中可以解除事件监听
-      el.__vueClickOutside__ = documentHandler;
-      document.addEventListener('click', documentHandler);
-    },
-    update() {},
-    unbind(el, binding) {
-      // 解除事件监听
-      document.removeEventListener('click', el.__vueClickOutside__);
-      delete el.__vueClickOutside__;
-    },
-  };
+
+  import myMusicSheetList from './testComponent'
+
   export default {
-    name: 'HelloWorld',
-    data() {
+    components:{'sheet-list':myMusicSheetList},
+    data () {
       return {
-        show: true,
-      };
+        rootTreeCategory:[],
+      }
     },
-    directives: {clickoutside},
     methods: {
-      handleClose(e) {
-        this.show = false;
-      },
+
+        getKeyword() {
+          this.keyword = this.$route.params.keyword;
+          // console.log("this.keyword:" +this.keyword)
+        },
+        getSearchList(res) {
+          var url = 'http://192.168.1.127:8085/mobileSearch';
+          this.$ajax.post(url,
+            this.$qs.stringify({keyword: 'dress'})
+          )
+            .then(this.getSearchListSucc)
+            .catch(function (res) {
+              // console.log("error")
+            })
+        },
+        getSearchListSucc(res) {
+          const data = res.data;
+          let _this = this;
+          this.productList = data.goodslist;
+          this.rootTreeCategory = data.rootTree;
+          // console.log("test: " + JSON.stringify(this.rootTreeCategory));
+          // console.log("test: " + typeof this.productList);
+
+
+        },
+
     },
-  };
+    mounted() {
+      this.getKeyword();
+      this.getSearchList();
+    }
+  }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
-  .show {
-    width: 100px;
-    height: 100px;
-    background-color: red;
-  }
+
 </style>

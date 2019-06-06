@@ -152,6 +152,7 @@
         left: 0;
         right: 0;
         margin: auto;
+        width 100%
         max-width: 100%;
         max-height: 100%;
 

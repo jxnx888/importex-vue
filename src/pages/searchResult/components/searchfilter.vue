@@ -154,26 +154,8 @@
           <p class="text-center">Category</p>
         </div>
         <div class="searchFilterCatagorySlide_bottomWrapper">
-        <div class="searchFilterCatagorySlide_bottom"
-             v-for="(category, index ) in rootTreeCategory"
-             >
-          <div
-            class="categoryFather"
-            :class="{'selected': selectIndexTab = index}"
-            @click="showChildClick(index)"
-          >
-          {{category.category}}
-          </div>
-          <div
-            class="categoryChild"
-            v-for="(childItem, childIndex) in category.childens"
-            v-show="showChild"
-            @click="clickChildbar(childItem, childIndex)"
-            :class="{'selected': selectIndex = childIndex}">
-            {{childItem.category}}
-          </div>
+          <sheet-list v-for="(item,index) in rootTreeCategory" :key="index" :singleItem="item"></sheet-list>
         </div>
-      </div>
       </div>
 <!--      <div class="searchFilterSlide searchFilterPatternSlide">-->
 
@@ -199,15 +181,19 @@
 </template>
 
 <script>
+  import sheetList from './components/searchFilterComponent'
   export default {
     name: "searchFilter",
     props: {
       rootTreeCategory: Array,
     },
+    components: {
+      sheetList
+    },
     data() {
       return {
         catagoryShow:false,
-        showChild:false,
+        showChild:[],
         selectIndexTab: 0,
         currentSelectIndex: 0,
         sortList: [
@@ -250,7 +236,9 @@
         this.currentSelectIndex= 0
       },
       showChildClick(index){
-        this.showChild = !this.showChild
+        // this.showChild = !this.showChild
+        this.showChild.push(index)
+        console.log(this.showChild)
       },
 
       // 筛选方法
@@ -346,7 +334,8 @@
 
             .mui-switch:checked
               border-color: #000
-
+            .mui-switch:focus
+              outline none
             .mui-switch:checked:before
               left .3rem
               top -1px
@@ -402,6 +391,7 @@
           width 100%
           border-bottom 1px solid #eee
           background-color #fff
+          z-index 11
         .searchFilterCatagorySlide_top p
           width 80%
         .searchFilterCatagorySlide_top span

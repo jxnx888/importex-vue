@@ -21,6 +21,7 @@
     <question-answer :questionAnswer="questionAnswer"></question-answer>
     <div style="clear: both;"></div>
     <related-searches></related-searches>
+
   </div>
 </template>
 
