@@ -1,18 +1,17 @@
 <template>
   <div class="relatedProduct">
-    <div class="wrapper">
+
       <div class="relatedProduct_Header">
         <span class="col-xs-8">Related Products From This Seller</span>
         <router-link
           tag="span"
-          to="/"
-          class="iconfont col-xs-4 relatedProductViewMore">
+          to="/searchDetail"
+          class="col-xs-4 relatedProductViewMore">
           View more
-         &#xe6b7;
+          <span class="iconfont ">&#xe6b7;</span>
         </router-link>
       </div>
 
-    </div>
     <div style="clear: both;"></div>
     <div class="relatedProduct_slides">
       <swiper :options="swiperOption">
@@ -101,17 +100,21 @@
     margin-top .1rem
     height 2.32rem
     background-color #fff
-    .wrapper
-      .relatedProduct_Header
-        padding-left 15px
-        .col-xs-8
-          padding:0
-      .relatedProduct_Header span
-        line-height .41rem
-        font-size .13rem
-      .relatedProductViewMore
-        font-size .13rem
-        font-weight bold
+    .relatedProduct_Header
+      padding-left 15px
+      .col-xs-8
+        padding:0
+      .col-xs-4
+        padding-right 0
+    .relatedProduct_Header span
+      line-height .41rem
+      font-size .13rem
+    /*.relatedProduct_Header span:last-child*/
+    /*  line-height .41rem*/
+    /*  font-size .07rem*/
+    .relatedProductViewMore
+      font-size .13rem
+      font-weight bold
     .relatedProduct_slides
       background-color #fff
       .swiper-slide

@@ -66,8 +66,8 @@
           <div class="col-xs-4 searchFilterLeft">
             Category
           </div>
-          <div class="col-xs-8  searchFilterSelect text-right" @click="catagoryShowClick()">
-            <div class="">test</div>
+          <div class="col-xs-8  searchFilterSelect text-right searchFilterSelect_category" @click="catagoryShowClick()">
+            <div class="" v-for="(item, index) in rootTreeCategory" v-if="index<1">{{item.category}}</div>
           </div>
         </div>
 
@@ -153,6 +153,7 @@
           <span class="iconfont" @click="catagoryHideClick()">&#xe79b;</span>
           <p class="text-center">Category</p>
         </div>
+        <div class="searchFilterCatagorySlide_bottomWrapper">
         <div class="searchFilterCatagorySlide_bottom"
              v-for="(category, index ) in rootTreeCategory"
              >
@@ -173,7 +174,7 @@
           </div>
         </div>
       </div>
-
+      </div>
 <!--      <div class="searchFilterSlide searchFilterPatternSlide">-->
 
 <!--      </div>-->
@@ -299,6 +300,7 @@
 
       .searchFilter_top span
         position: absolute;
+        padding-left .1rem
 
       .searchFilter_top p
         font-size .15rem
@@ -381,7 +383,10 @@
             -webkit-appearance:none;
           .searchFilterSelect select option
             border 1px solid #fff
-
+          .searchFilterSelect_category
+            font-size .13rem
+            line-height .35rem
+            height .35rem
       .searchFilterSlide
         position: fixed
         flex-direction: column
@@ -392,6 +397,13 @@
         height 500px
         overflow: auto
       .searchFilterCatagorySlide
+        .searchFilterCatagorySlide_top
+          position: fixed
+          width 100%
+          border-bottom 1px solid #eee
+          background-color #fff
+        .searchFilterCatagorySlide_top p
+          width 80%
         .searchFilterCatagorySlide_top span
           position: absolute;
           left .15rem
@@ -399,12 +411,14 @@
           color #999
         .searchFilterCatagorySlide p
           color #333
-        .searchFilterCatagorySlide_bottom
-          color #333
-          font-weight 400
-
-          .categoryFather
-            color red
-          .categoryChild
-            color blue
+        .searchFilterCatagorySlide_bottomWrapper
+          padding-top .5rem
+          .searchFilterCatagorySlide_bottom
+            color #333
+            font-weight 400
+            /*padding-top .5rem*/
+            .categoryFather
+              color red
+            .categoryChild
+              color blue
 </style>

@@ -62,8 +62,29 @@
   .scrollBarSwiper
     padding-top .83rem
     .wrapper
-     .swiper-img
-      width 100%
-      height 1.8rem
-
+      width: 100%
+      height: 0
+      overflow: hidden
+      /*930:572*/
+      padding-bottom: 50%
+      background-color: #fff
+      .swiper-slide
+        position: relative;
+        width: 100%
+        height: 0
+        padding-bottom 50%
+        .swiper-img
+          width 100%
+          /*height 1.8rem*/
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+          max-width: 100%;
+          max-height: 100%;
+      .swiper-scrollbar
+        left 0
+        bottom 10px
 </style>

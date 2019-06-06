@@ -6,15 +6,15 @@
         <div ref="content">
           <slot>
 <!--             当外界 <show-more> 标签中有元素时，使用 <show-more> 标签中的元素进行渲染，否则使用下面这个 div 进行渲染-->
+            <span class="relatedCat">Related Category:</span>
             <router-link
-              tag="div"
-              v-for="item of content"
-              :key="item.id"
-              :to="'/Class/'+item.id"
-              v-html="' [' + item.category + ']&nbsp;'"
+              tag="span"
+              v-for="(item,index) of content"
+              :key="index"
+              :to="'/searchResult/'+item.category"
               class="content" >
-             </router-link>
-<!--            <div v-html="listResult" class="content" ></div>-->
+            <span class="content" >[{{item.category}}] </span>
+            </router-link>
           </slot>
         </div>
       </div>
@@ -33,7 +33,7 @@
       },
       content: {
         type: Array,
-        default: null
+        default: "All Catagory"
       },
       listResult: Array
     },
@@ -48,6 +48,7 @@
       // 每当内容变化时都重新计算一次高度
       content () {
         this._calculateHeight();
+        // console.log("test:" + JSON.stringify(this.content))
       },
 
     },
@@ -80,11 +81,13 @@
   .wrapper-container
     position relative
     z-index 9
+    .relatedCat
+      font-size .12rem
+      line-height .4rem
     .content
       color #999999
       line-height .4rem
       font-size .12rem
-      float: left
 
 
 </style>

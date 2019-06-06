@@ -3,13 +3,13 @@
     <search-filter v-show="showFilter" @close="handleFilterClose" :rootTreeCategory="rootTreeCategory"></search-filter>
 
     <div class="searchResult_Nav">
-      <router-link to="/" >
+      <a @click="handleGoBackClick()">
         <span class="iconfont ">&#xe669;</span>
-      </router-link>
+      </a>
       <router-link to="/searchDetail">
         <span class="iconfont ">&#xe615;</span>
       </router-link>
-      <router-link to="/shoppingCar">
+      <router-link to="/shoppingCart">
         <span class="iconfont ">&#xe64c;</span>
       </router-link>
     </div>
@@ -38,7 +38,9 @@
       }
     },
     methods: {
-
+      handleGoBackClick() {
+        this.$router.go(-1);
+      },
       handleFilterClick() {
         this.showFilter = true;
       },

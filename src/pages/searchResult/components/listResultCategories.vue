@@ -1,11 +1,12 @@
 <template>
     <div class="listResult">
       <div class="col-xs-9 " >
-        <show-more ref="childShowMore" :showHeight="showHeight" :content="listResult" ></show-more>
+        <show-more ref="childShowMore" :showHeight="showHeight" :content="rootTreeCategory" ></show-more>
       </div>
       <div class="col-xs-3 listResult_Expand iconfont" @click="childShowMoreClick">
         {{ showMoreClick ? 'Expand &#xe6b5;' : 'Narrow &#xe610;'}}
       </div>
+
     </div>
 </template>
 
@@ -15,7 +16,7 @@
   export default {
     name: "listResultCategories",
     props:{
-      listResult: Array
+      rootTreeCategory: Array,
     },
     components: {
       showMore
@@ -23,7 +24,8 @@
     data() {
       return {
         showHeight: 40,
-      showMoreClick: true
+        showAll:false,
+        showMoreClick: true
       }
     },
     methods: {
@@ -32,8 +34,8 @@
         this.showMoreClick = !this.showMoreClick;
       },
       test(){
-        console.log("test")
-        console.log(this.listResult)
+        console.log("test: "+JSON.stringify(this.rootTreeCategory))
+        console.log(typeof this.rootTreeCategory)
       },
     },
 
@@ -48,15 +50,15 @@
     //   }
     // },
 
-    // mounted() {
-    //   this.test()
-    // }
+    mounted() {
+      this.test()
+    }
   }
 </script>
 
 <style scoped lang="stylus">
 .listResult
-  height .39rem
+  /*height .39rem*/
   line-height .39rem
   border-top 1px solid rgba(236,236,236,1)
   border-bottom 1px solid rgba(236,236,236,1)
@@ -67,6 +69,9 @@
   background-color #fff
   .listResult_Expand
     font-size .12rem
+  .col-xs-3
+    @media screen and (max-width: 320px)
+      padding-left 0
 
 
 </style>

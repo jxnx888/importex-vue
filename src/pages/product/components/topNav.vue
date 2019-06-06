@@ -1,4 +1,4 @@
-<template>
+<template >
   <div class="topNav">
     <div
       class="topNav_Normal "
@@ -9,16 +9,40 @@
         </div>
       </div>
 
-      <div class="topNav_Search col-xs-2 text-right">
+      <router-link
+        to="/searchDetail/"
+        class="topNav_Search col-xs-2 text-right">
         <span class="iconfont">&#xe736;</span>
-      </div>
+      </router-link>
 
-      <div class="topNav_ShoppingCar col-xs-2 text-right">
+      <router-link
+        to="/shoppingCart/"
+        class="topNav_ShoppingCar col-xs-2 text-right">
         <span class="iconfont">&#xe63b;</span>
+      </router-link>
+
+      <div class="topNav_Menu col-xs-2 text-center" @click="showSmallNav = ! showSmallNav">
+        <span class="iconfont">&#xe7a6;</span>
       </div>
 
-      <div class="topNav_Menu col-xs-2 text-center">
-        <span class="iconfont">&#xe7a6;</span>
+    </div>
+
+    <!--右上角小导航-->
+    <div class="smallNav"
+         v-if="showSmallNav"
+         ref="smallNav"
+         >
+      <router-link to="/" tag="div" class="goHome">
+        <span class="iconfont">&#xe637;</span>
+        <span>Home</span>
+      </router-link>
+      <router-link to="/myAccount" tag="div" class="goAccount">
+        <span class="iconfont">&#xe614;</span>
+        <span>Account</span>
+      </router-link>
+      <div class="goWishList">
+        <span class="iconfont">&#xe651;</span>
+        <span>Wish List</span>
       </div>
     </div>
     <!--    顶部固定导航-->
@@ -35,15 +59,15 @@
 
       </div>
 
-      <div class="topNav_Search col-xs-2 text-right">
+      <router-link tag="div" to="/searchDetail/" class="topNav_Search col-xs-2 text-right">
         <span class="iconfont">&#xe736;</span>
-      </div>
+      </router-link>
 
-      <div class="topNav_ShoppingCar col-xs-2 text-right">
+      <router-link tag="div" to="/shoppingCart/" class="topNav_ShoppingCar col-xs-2 text-right">
         <span class="iconfont">&#xe63b;</span>
-      </div>
+      </router-link>
 
-      <div class="topNav_Menu col-xs-2 text-center">
+      <div class="topNav_Menu col-xs-2 text-center" @click="showSmallNav = ! showSmallNav">
         <span class="iconfont">&#xe7a6;</span>
       </div>
     </div>
@@ -51,10 +75,12 @@
 </template>
 
 <script>
+
   export default {
     name: "topNav",
     data() {
       return {
+        showSmallNav: false,
         topNavBarFixed: false,
         opacityStyle: {
           opacity: 0
@@ -65,6 +91,7 @@
       handleGoBackClick() {
         this.$router.go(-1);
       },
+
       handleScroll() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
         // console.log(scrollTop);
@@ -85,7 +112,19 @@
     },
     mounted() {
       // 给window添加一个滚动滚动监听事件，
-      window.addEventListener('scroll', this.handleScroll)
+      var _this =this
+      window.addEventListener('scroll', this.handleScroll);
+      // document.addEventListener('click', function(e){
+      //   console.log(_this.$refs.smallNav)
+      //   // if(e.target.id !== 'smallNav' || e.target.className !== 'smallNav'  ){
+      //   if(! _this.$refs.smallNav.contains(e.target)){
+      //     _this.showSmallNav=false;
+      //   }
+      //
+      // })
+    },
+    watch: {
+
     }
   }
 </script>
@@ -112,8 +151,11 @@
         color #999
     .topNav_Search
       padding-left .35rem
-
-
+    .topNav_ShoppingCar
+      .iconfont
+        padding-right .08rem
+        @media screen and (max-width: 320px)
+          padding-right .01rem
     .topNav_back span, .topNav_Menu span, .topNav_Search span, .topNav_ShoppingCar span
       font-size .3rem
 
@@ -134,8 +176,44 @@
         color #999
     .topNav_Search
       padding-left .35rem
+    .topNav_ShoppingCar
+      .iconfont
+        padding-right .08rem
+        @media screen and (max-width: 320px)
+          padding-right .01rem
     .topNav_back span, .topNav_Menu span, .topNav_Search span, .topNav_ShoppingCar span
       font-size .3rem
-
+/*.smallNavWrapper*/
+  /*height 100%*/
+  /*width 100%*/
+  /*opacity .1*/
+  .smallNav
+    position: fixed;
+    width 1.25rem
+    right .1rem
+    top .47rem
+    background-color #fff
+    -webkit-border-radius: .1rem
+    -moz-border-radius: .1rem
+    border-radius: .1rem
+    box-shadow: 0 0 3px 3px #ccc;
+    z-index: 11
+    opacity 1
+    .goHome, .goAccount, .goWishList
+      height .37rem
+      line-height .37rem
+      padding-left .05rem
+      .iconfont
+        padding 0 .1rem
+  .smallNav::before
+    content ''
+    position: absolute;
+    width 0
+    height 0
+    top -10px
+    right .12rem
+    border-left .1rem solid transparent
+    border-right .1rem solid transparent
+    border-bottom .1rem solid #ccc
 
 </style>

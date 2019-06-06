@@ -1,7 +1,7 @@
 <template>
   <div>
-    <searchResultHeader :rootTreeCategory="rootTreeCategory"></searchResultHeader>
-    <searchResultListResult></searchResultListResult>
+    <searchResultHeader :rootTreeCategory="rootTreeCategory" :productList="productList"></searchResultHeader>
+    <searchResultListResult :rootTreeCategory="rootTreeCategory" ></searchResultListResult>
     <div style="clear:both"></div>
     <searchProductList :hasProductList="hasProductList" :productList="productList"></searchProductList>
   </div>
@@ -19,7 +19,7 @@
         productList:[],
         rootTreeCategory: [],
         keyword: '',
-        hasProductList: true
+        hasProductList: true,
       }
     },
     components: {
@@ -47,6 +47,8 @@
         let _this = this;
         this.productList = data.goodslist;
         this.rootTreeCategory = data.rootTree;
+        // console.log("test: " + JSON.stringify(this.rootTreeCategory));
+        // console.log("test: " + typeof this.productList);
 
         if (this.productList !== '' && this.productList !== undefined && this.productList !== 'undefined') {
           // console.log("test: " + JSON.stringify(this.productList));

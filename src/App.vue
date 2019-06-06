@@ -2,7 +2,6 @@
   <div id="app">
     <keep-alive>
      <router-view/>
-
     </keep-alive>
     <scroll-top></scroll-top>
   </div>

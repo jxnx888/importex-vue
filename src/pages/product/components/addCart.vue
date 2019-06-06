@@ -28,8 +28,8 @@
 
 <style scoped lang="stylus">
 .addCart
-  height .52rem
-  line-height .52rem
+  height .51rem
+  line-height .51rem
   font-size .1rem
   font-weight bold
   text-align: center
@@ -77,8 +77,8 @@
     background-position center
     opacity: .7
   .addCart_toCart
-    height .52rem
-    line-height: .52rem
+    height .5rem
+    line-height: .5rem
     color #fff
     background #000
     font-size .14rem

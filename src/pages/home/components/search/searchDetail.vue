@@ -2,10 +2,10 @@
   <div class="searchDetail">
 
     <div class="searchDetail_back">
-      <router-link to="/">
+      <div @click="handleGoBackClick">
         <span class="iconfont ">&#xe79b;</span>
         <p class="text-center">Search</p>
-      </router-link>
+      </div>
     </div>
     <div class="searchDetail_searchBox">
       <div class="wrapper">
@@ -54,7 +54,7 @@
           :key="index"
           :to="/searchResult/+ item"
         >
-          <button class="btn">{{item}}</button>
+          <div class="btn btn_content">{{item}}</div>
         </router-link>
 
       </div>
@@ -89,6 +89,9 @@
     },
 
     methods: {
+      handleGoBackClick() {
+        this.$router.go(-1);
+      },
       searchSubmit() {
 
         var _this = this;
@@ -266,6 +269,9 @@
         padding-left: .1rem;
         background: #f2f2f2
         font-size .14rem
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
 
       .searchSubmit
         float right
@@ -301,6 +307,10 @@
           padding: 0 .1rem;
           border-radius: 4px;
           text-transform: capitalize
+          max-width 48%
+          white-space:nowrap
+          overflow:hidden
+          text-overflow:ellipsis
         .CategoriesBtn
           border 1px solid #01A4EF
           color #01A4EF

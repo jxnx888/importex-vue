@@ -28,7 +28,7 @@
     methods: {
 
       getHomeInfo() {
-        this.$ajax.get('/static/mock/index.json') // npm run build ==>  /static/mock/index.json
+        this.$ajax.get('./static/mock/index.json') // npm run build ==>  ./static/mock/index.json
           .then(this.getHomeInfoSucc)
       },
       getHomeInfoSucc(res) {

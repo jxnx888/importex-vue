@@ -83,7 +83,7 @@
 
   .detail_menu
     background-color #fff
-    font-size .15rem
+    font-size .14rem
     height .4rem
     line-height .4rem
     text-align: center
