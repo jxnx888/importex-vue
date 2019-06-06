@@ -1,53 +1,68 @@
 <template>
   <div>
-    <searchResultHeader></searchResultHeader>
-    <searchResultListResult :listResult="listResult"></searchResultListResult>
+    <searchResultHeader :rootTreeCategory="rootTreeCategory" :productList="productList"></searchResultHeader>
+    <searchResultListResult :rootTreeCategory="rootTreeCategory" ></searchResultListResult>
     <div style="clear:both"></div>
-<!--    <searchProductList :productList="productList"></searchProductList>-->
+    <searchProductList :hasProductList="hasProductList" :productList="productList"></searchProductList>
   </div>
 </template>
 
 <script>
   import searchResultHeader from './components/topHeader'
   import searchResultListResult from './components/listResultCategories'
-  import searchProductList from './components/pruductList'
+  import searchProductList from './components/productList'
 
   export default {
     name: "searchResult",
     data() {
       return {
         productList:[],
-        listResult: [],
+        rootTreeCategory: [],
+        keyword: '',
+        hasProductList: true,
       }
     },
     components: {
       searchResultHeader,
       searchResultListResult,
-      searchProductList
+      searchProductList,
     },
     methods: {
-
-      getSearchList() {
-        // this.$http.get('https://www.import-express.com/searchAutocomplete') // npm run build ==>  /static/mock/index.json
-        //   .then(this.getSearchListSucc)
-        this.$http.get('/api/index.json') // npm run build ==>  /static/mock/index.json
+      getKeyword() {
+        this.keyword = this.$route.params.keyword;
+        // console.log("this.keyword:" +this.keyword)
+      },
+      getSearchList(res) {
+        var url = 'http://192.168.1.127:8085/mobileSearch';
+        this.$ajax.post(url,
+          this.$qs.stringify({keyword: this.keyword})
+        )
           .then(this.getSearchListSucc)
+          .catch(function (res) {
+            // console.log("error")
+          })
       },
       getSearchListSucc(res) {
-        res = res.data;
-        if (res.ret && res.data) {
-          const data = res.data;
-          this.listResult = data.listResult;
-          this.productList = data.productList;
-          // console.log(JSON.stringify(this.listResult))
-          // console.log(JSON.stringify(this.productList))
+        const data = res.data;
+        let _this = this;
+        this.productList = data.goodslist;
+        this.rootTreeCategory = data.rootTree;
+        // console.log("test: " + JSON.stringify(this.rootTreeCategory));
+        // console.log("test: " + typeof this.productList);
+
+        if (this.productList !== '' && this.productList !== undefined && this.productList !== 'undefined') {
+          // console.log("test: " + JSON.stringify(this.productList));
+          _this.hasProductList = true;
+        } else {
+          _this.hasProductList = false
         }
-      }
+      },
     },
     mounted() {
-      this.getSearchList()
-
+      this.getKeyword();
+      this.getSearchList();
     }
+
   }
 </script>
 

@@ -1,0 +1,61 @@
+{
+  "recordCount": 4,
+  "isFreeShip": 0,
+  "goodsList": null,
+  "goodslist": [
+    {
+      "goods_url": "",
+      "goods_name": "",
+      "goods_image": "",
+      "goods_price": "1.27-1.53",
+      "priceList": [
+        {
+          "price": "1.53",
+          "quantity": "1-2",
+          "moq": 1
+        },
+        {
+          "price": "1.39",
+          "quantity": "3-11",
+          "moq": 3
+        },
+        {
+          "price": "1.27",
+          "quantity": "≥12",
+          "moq": 12
+        }
+      ],
+      "new_price": "1.53"
+    },
+    {
+      "goods_url": "",
+      "goods_name": "",
+      "goods_image": "",
+      "goods_price": "1.36-1.65",
+      "priceList": [
+        {
+          "price": "1.65",
+          "quantity": "1-2",
+          "moq": 1
+        },
+        {
+          "price": "1.50",
+          "quantity": "3-49",
+          "moq": 3
+        },
+        {
+          "price": "1.36",
+          "quantity": "≥50",
+          "moq": 50
+        }
+      ],
+      "new_price": "1.65"
+    },
+    {
+      "goods_url": "",
+      "goods_name": "",
+      "goods_image": "",
+      "goods_price": "2.56"
+    }]
+
+  }

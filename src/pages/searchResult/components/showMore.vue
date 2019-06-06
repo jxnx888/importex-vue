@@ -6,22 +6,19 @@
         <div ref="content">
           <slot>
 <!--             当外界 <show-more> 标签中有元素时，使用 <show-more> 标签中的元素进行渲染，否则使用下面这个 div 进行渲染-->
+            <span class="relatedCat">Related Category:</span>
             <router-link
-              tag="div"
-              v-for="item of listResult"
-              :key="item.id"
-              v-html="item.category"
+              tag="span"
+              v-for="(item,index) of content"
+              :key="index"
+              :to="'/searchResult/'+item.category"
               class="content" >
-
+            <span class="content" >[{{item.category}}] </span>
             </router-link>
-            <div v-html="listResult" class="content" ></div>
           </slot>
         </div>
       </div>
 
-<!--      <div class="control" v-show="isLongContent" :class="{'show-more' : showMore}">-->
-<!--        <button class="showMore" type="text" @click="_toggleShowMore" v-bind:class="{bgColor:buttonColor}">{{ showMore ? '收起' : '显示更多'}}</button>-->
-<!--      </div>-->
     </div>
   </div>
 </template>
@@ -35,8 +32,8 @@
         default: 40
       },
       content: {
-        type: String,
-        default: null
+        type: Array,
+        default: "All Catagory"
       },
       listResult: Array
     },
@@ -51,6 +48,7 @@
       // 每当内容变化时都重新计算一次高度
       content () {
         this._calculateHeight();
+        // console.log("test:" + JSON.stringify(this.content))
       },
 
     },
@@ -78,39 +76,18 @@
 
 </script>
 
-<style scoped>
+<style scoped lang="stylus">
 
-  .wrapper-container {
-    position: relative;
-    /*padding-bottom: 40px;*/
-  }
-  .control {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding-top: 100px;
-    text-align: center;
-    /*background-image: linear-gradient( rgba(155, 155, 155, 0) 0%, #f7f7f7 100%);*/
-    text-indent: 0rem;
-  }
-  .showMore {
-    background-color: #f7f7f7;
-    color:#9b9b9b;
-    margin: 0 auto;
-  }
-  .bgColor {
-    background-color:#eee;
-    display: none;
-  }
-  .show-more {
-     padding-top: 0;
-     background: none;
-   }
-  .content {
-    color:#9b9b9b;
-    line-height:.4rem;
-    font-size: .13rem;
-  }
+  .wrapper-container
+    position relative
+    z-index 9
+    .relatedCat
+      font-size .12rem
+      line-height .4rem
+    .content
+      color #999999
+      line-height .4rem
+      font-size .12rem
 
 
 </style>

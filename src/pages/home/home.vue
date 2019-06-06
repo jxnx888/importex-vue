@@ -28,15 +28,14 @@
     methods: {
 
       getHomeInfo() {
-        this.$http.get('/api/index.json') // npm run build ==>  /static/mock/index.json
+        this.$ajax.get('./static/mock/index.json') // npm run build ==>  ./static/mock/index.json
           .then(this.getHomeInfoSucc)
       },
       getHomeInfoSucc(res) {
-        res = res.data
+        res = res.data;
         if (res.ret && res.data) {
-          const data = res.data
-          this.homeTopSwiperList = data.homeTopSwiperList
-          // console.log( JSON.stringify(data));
+          const data = res.data;
+          this.homeTopSwiperList = data.homeTopSwiperList;
         }
       }
     },

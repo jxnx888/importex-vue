@@ -7,6 +7,22 @@ import router from './router'
 import axios from 'axios'
 axios.defaults.withCredentials =true; //允许请求携带cookie
 
+// 如果想要发送带json格式参数的请求，则需要使用qs模块来处理参数
+import qs from 'qs'
+Vue.prototype.$qs = qs;
+
+//vuex
+import Vuex from 'vuex'
+import store from './vuex/store'
+Vue.use(Vuex);
+//同时在下方 new Vue中，添加store
+//Vuex 依赖 Promise。如果你支持的浏览器并没有实现 Promise (比如 IE)，那么你可以使用一个 polyfill 的库，例如 es6-promise。
+import 'es6-promise/auto'
+
+//用vue-scroller做上拉刷新，下拉加载的模板
+import VueScroller from 'vue-scroller'
+Vue.use(VueScroller);
+
 // 移动端 取消 按钮点击300ms延迟
 import fasteClick from 'fastclick'
 
@@ -28,6 +44,7 @@ import $ from 'jquery'
 import './assets/bootstrap-3.3.7/css/bootstrap.css'
 import './assets/bootstrap-3.3.7/js/bootstrap.js'
 
+import './assets/styles/switchButton.css'
 
 //reset styles
 import './assets/styles/reset.css'
@@ -41,7 +58,21 @@ fasteClick.attach(document.body);
 // Use Bootstrap
 // Vue.use(BootstrapVue);
 // 使用axios
-Vue.prototype.$http = axios;
+Vue.prototype.$ajax = axios;
+// Vue.prototype.$http = axios;
+
+// axios.defaults.baseURL = 'http://192.168.1.192:10004/';//配置你的接口请求地址
+// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;//配置token,看情况使用
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';//配置请求头信息。
+
+//项目中实现图片懒加载
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload, {
+  preLoad: 1,  //如需测试，改为0.5
+  error: 'dist/error.png',
+  loading: '../static/images/loading.gif', //预加载loading图片
+  attempt: 1
+})
 
 Vue.use(VueAwesomeSwiper, /* { default global options } */);
 
@@ -49,6 +80,7 @@ Vue.use(VueAwesomeSwiper, /* { default global options } */);
 new Vue({
   el: '#app',
   router,
+  store,//use store
   components: { App },
   template: '<App/>'
 })
