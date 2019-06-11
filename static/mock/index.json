@@ -241,7 +241,49 @@
           "answer": "Hello Christian, External Memory: Not Supported . This item is Chinese version. Let me know if you need any further assistance."
         }
       ]
-    }
+    },
+    "shoppingCart":[
+      {
+        "shopName": "SHENZHEN MERUN",
+        "img": "https://img.import-express.com/importcsvimg/coreimg1/520383182212/2273659001_815379416.60x60.jpg",
+        "itemName":"Personal Zipper Pocket Self-cultivation Suit Spring And Autumn Women's Suit Jacket Trend",
+        "itemType":[ {
+          "itemSize": "S",
+          "itemColor": "orange",
+          "itemPiece":"19",
+          "currentPrice": "4.82",
+          "oldPrice": "5.82",
+          "itemWeight":"0.110",
+          "checked": false
+
+        },
+          {
+            "itemSize": "M ",
+            "itemColor": "Black",
+            "itemPiece":"11",
+            "currentPrice": "4.32",
+            "oldPrice": "5.62",
+            "itemWeight":"0.110",
+            "checked": false
+
+          }]
+      },
+      {
+        "shopName": "UGOODFASHION",
+        "img": "https://img.import-express.com/importcsvimg/img/44258315333/imgs/1964276927_1115689769.60x60.jpg",
+        "itemName":"Style Sexy Leather Lace Trimmings Splicing Contrast Colors Vest Over Hip Dress",
+        "itemType":[ {
+          "itemSize": "L",
+          "itemColor": "red",
+          "itemPiece":"2",
+          "currentPrice": "4.82",
+          "oldPrice": "5.82",
+          "itemWeight":"0.58",
+          "checked": false
+
+        } ]
+      }
+    ]
   }
 }
 

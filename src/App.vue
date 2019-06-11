@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div class="masktop" @touchmove.prevent></div>
     <keep-alive v-if="$route.meta.keepAlive">
       <router-view :key="key"></router-view>
     </keep-alive>

@@ -59,7 +59,7 @@
         alert(1111);
       },
       getSearchList(res) {
-        var url = 'http://192.168.1.127:8085/mobileSearch';
+        var url = 'http://192.168.1.163:8085/mobileSearch';
         this.$ajax.post(url,
           this.$qs.stringify({keyword: 'dress'})
         )

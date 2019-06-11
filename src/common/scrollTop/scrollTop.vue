@@ -3,7 +3,7 @@
 <div id="scrollTop">
   <div class="scroll-top-wrapper" v-if="goTopShow" @click="goTop">
 <!--    <span class="scroll-top-inner">-->
-      <i class="iconfont" style="font-size:30px;color:#666">&#xe64d;</i>
+      <i class="iconfont" style="font-size:22px;color:#666">&#xe64d;</i>
 <!--    </span>-->
   </div>
 </div>
@@ -75,9 +75,9 @@
     text-align: center;
     z-index: 99999999;
     background-color: #fff;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
+    width: .35rem;
+    height: .35rem;
+    line-height: .35rem;
     right: 10px;
     bottom: 60px;
     padding-top: 2px;
@@ -90,6 +90,7 @@
     -ms-transition: all 0.5s ease-in-out;
     -o-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
+    opacity: .7;
   }
 
   .scroll-top-wrapper:hover {

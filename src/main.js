@@ -49,8 +49,13 @@ import './assets/styles/switchButton.css'
 //reset styles
 import './assets/styles/reset.css'
 import './assets/styles/border.css'
+
 // iconfont引用
 import './assets/styles/iconfont.css'
+// Element UI 全局引用
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
 // 移动端 取消 按钮点击300ms延迟

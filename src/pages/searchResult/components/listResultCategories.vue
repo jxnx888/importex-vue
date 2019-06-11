@@ -33,10 +33,10 @@
         this.$refs.childShowMore._toggleShowMore();
         this.showMoreClick = !this.showMoreClick;
       },
-      test(){
-        console.log("test: "+JSON.stringify(this.rootTreeCategory))
-        console.log(typeof this.rootTreeCategory)
-      },
+      // test(){
+      //   console.log("test: "+JSON.stringify(this.rootTreeCategory))
+      //   console.log(typeof this.rootTreeCategory)
+      // },
     },
 
     // computed: {
@@ -51,7 +51,7 @@
     // },
 
     mounted() {
-      this.test()
+      // this.test()
     }
   }
 </script>

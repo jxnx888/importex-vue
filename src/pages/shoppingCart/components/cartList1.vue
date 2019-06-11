@@ -78,8 +78,11 @@
                 </div>
               </div>
               <div class="col-xs-4">
-                <el-input-number class="inputNumber iconfont" v-model="itemPiece[childIndex]" size="mini" :min="1"
-                                 label="描述文字"></el-input-number>
+<!--                <el-input-number class="inputNumber iconfont" v-model="itemPiece[childIndex]" size="mini" :min="1"-->
+<!--                                 label="描述文字"></el-input-number>-->
+                <button @click="handleReduce(index)" :disable="item.count === 1">-</button>
+                {{ item.count }}
+                <button @click="handleAdd(index)">+</button>
               </div>
             </div>
             <div class="col-xs-12 removeSave">
@@ -125,6 +128,7 @@
   }
   },
       getItemPeice1() {
+
       }
 
   },

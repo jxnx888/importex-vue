@@ -107,7 +107,7 @@
       },
       getSearchList(res) {
         this.$ajax.post(
-          'http://192.168.1.127:8085/searchAutocomplete',
+          'http://192.168.1.163:8085/searchAutocomplete',
           this.$qs.stringify({keyword: res})
         )
           .then(this.getSearchListSucc)

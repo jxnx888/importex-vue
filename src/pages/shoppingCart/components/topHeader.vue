@@ -1,6 +1,6 @@
 <template>
 <div class="topHeader">
-  <div class="col-xs-3">
+  <div class="col-xs-3" @click="handleGoBackClick">
     <span class="iconfont">&#xe643;</span>
     <span>My cart</span>
   </div>
@@ -19,7 +19,12 @@
 
 <script>
     export default {
-        name: "topHeader"
+        name: "topHeader",
+      methods: {
+        handleGoBackClick() {
+          this.$router.go(-1);
+        },
+      }
     }
 </script>
 
