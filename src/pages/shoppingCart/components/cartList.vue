@@ -78,8 +78,16 @@
                 </div>
               </div>
               <div class="col-xs-4">
-                <el-input-number class="inputNumber iconfont" v-model="itemPiece[childIndex]" size="mini" :min="1"
-                                 label="描述文字"></el-input-number>
+                <el-input-number
+                  class="inputNumber iconfont"
+                  v-model="itemPiece[childIndex]"
+                  @change="handleChange(itemPiece[childIndex],childItem.currentPrice, childIndex)"
+                  size="mini"
+                  :min="1"
+                  :key="childIndex"
+                  label="描述文字 "></el-input-number>
+
+
               </div>
             </div>
             <div class="col-xs-12 removeSave">
@@ -105,7 +113,8 @@
     data() {
       return {
         count1: 1,
-        itemPiece: []
+        itemPiece: [],
+        totalPrice:0
       }
     },
     methods: {
@@ -118,12 +127,19 @@
               if (itemType.itemPiece !== '' || itemType.itemPiece !== null || itemType.itemPiece !== undefined) {
                 console.log(itemType.itemPiece);
                 this.itemPiece.push(itemType.itemPiece);
-                console.log('this.itemPiece: ' + this.itemPiece)
+                console.log('this.itemPiece:  ' + this.itemPiece)
                 console.log('this.itemPiece: ' + JSON.stringify(this.itemPiece))
               }
     }
   }
   },
+      handleChange(pieces, price, index) {
+        console.log("pieces:" +pieces," price: " + price +" index: "+index );
+
+        var totlePrice = pieces* price
+        console.log("totleprice:" + totlePrice)
+
+      },
       getItemPeice1() {
       }
 
@@ -308,12 +324,16 @@
             padding 0 0 0 .06rem
             overflow: hidden
             display: -webkit-box
-            -ms-text-overflow: ellipsis
-            text-overflow: ellipsis
+            /* autoprefixer: ignore next */
+            -webkit-box-orient: vertical;
+            /*! autoprefixer: off */
+            -webkit-box-orient:vertical;
+            /* autoprefixer: on */
+            /* autoprefixer: off */
+            -webkit-box-orient:vertical;
+            /* autoprefixer: on */
             -webkit-line-clamp: 2
-            line-clamp: 2
-            -webkit-box-orient vertical
-            white-space normal
+
 
             .remark
               width 100%

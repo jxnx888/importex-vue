@@ -1,162 +1,110 @@
 <template>
-   <div>
-    <div class="wrapper" v-for="(item,index) in rootTreeCategory">
-  <div class="sheet-list">
-     
-    <div class="sheet-header" @click="toggleSheet">
-        <i class="icon iconfont icon-enter" ref="toggleicon"></i>
-        <span class="sheet-header-span">{{item.category}}
-      <!--  <span> ({{data_item.num}}) </span>-->
-          </span>
-        <i class="sheet-header-i icon iconfont icon-setup" @click.stop="showSheetMenu(item.category)"></i>
-       
+  <div class="finalPrice">
+    <div class="col-xs-12 ">
+      <div class="Hint">
+        Hint: Once shipping weight exceeds 21KG, you will enjoy much lower
+        shipping rate (at least 20% less).
+        <span>Current weight: 2.45KG</span>
+      </div>
+      <div class="Hint">
+        Hint:  You can save up to $xxx by changing shipping method.
+      </div>
     </div>
 
-     
-    <div v-if="showSheets" class="sheet-content" v-for="i in item.childens">
-       
-      <div class="sheet-content-image">
-        <!--        <img :src="i.details_image" width="50" height="50" style="padding: 5px;overflow: hidden">-->
-         
+    <div class="finalPrice_price col-xs-12">
+      <div class="col-xs-6">
+        Total Price:
       </div>
-       
-      <div class="sheet-content-middle">
-              <p style="">{{i.category}}</p>
-        <!--        <p style="margin-top: 10px;font-size: 14px;color: #666">{{i.details_num}}首歌曲</p>-->
-         
+      <div class="col-xs-6 text-right finalPrice_num" >
+        $1163.82
       </div>
-        <i class="icon iconfont icon-switch" @click.stop="showSheetMenu()"></i>
-       
+      <div class="col-xs-6">
+        Shipping Price:
+      </div>
+      <div class="col-xs-6  text-right">
+        <span style="text-decoration: line-through">($15.54)</span>
+        <span class="finalPrice_num">$13</span>
+      </div>
+      <div class="col-xs-6">
+        Initial Order Discount:
+      </div>
+      <div class="col-xs-6 text-right finalPrice_num" >
+        -$3
+      </div>
     </div>
-     </div>
-  </div></div>
+    <div class="finalPrice_bottom_checkout col-xs-12">
+      <div class="col-xs-7">
+        Grand Total:
+        <span >${{totalPrice}}</span>
+      </div>
+      <div class="col-xs-5 text-center">
+        Proceed To Checkout
+      </div>
+    </div>
+  </div>
 </template>
-
 
 <script>
   export default {
-    components: {},
-    props: {
-      item: {
-        type: Object
-      }
+    name: "finalPrice",
+    props:{
+      totalPrice: Number
     },
-    data() {
+    data(){
       return {
-        showSheets: false,
-        rootTreeCategory:[],
-      }
+       }
     },
-    methods: {
+    watch:{
 
-//向右的小图标动画
-      toggleSheet: function (index) {
-        console.log(this.$refs);
-        this.$refs.toggleicon.style.transform = !this.showSheets ? 'rotate(90deg)' : 'rotate(0)'
-        this.showSheets = !this.showSheets
-      },
-      showSheetMenu: function () {
-        alert(1111);
-      },
-      getSearchList(res) {
-        var url = 'http://192.168.1.163:8085/mobileSearch';
-        this.$ajax.post(url,
-          this.$qs.stringify({keyword: 'dress'})
-        )
-          .then(this.getSearchListSucc)
-          .catch(function (res) {
-            // console.log("error")
-          })
-      },
-      getSearchListSucc(res) {
-        const data = res.data;
-        let _this = this;
-        this.productList = data.goodslist;
-        this.rootTreeCategory = data.rootTree;
-        // console.log("test: " + JSON.stringify(this.rootTreeCategory));
-        // console.log("test: " + typeof this.productList);
-
-
-      },
-    },
-    created() {
-      // this.data_item = this.item;
-      // console.log( 'test: '+JSON.stringify(this.data_item ))
-    },
-    mounted() {
-      this.getSearchList();
     }
   }
 </script>
 
+<style scoped lang="stylus">
 
-<style scoped>
-  .sheet-list {
-    clear: both;
-  }
 
-  .sheet-header {
-    height: 30px;
-    background: #e5e5e5;
-    position: relative;
-  }
-
-  .sheet-header i:nth-child(1) {
-    line-height: 30px;
-    position: absolute;
-    left: 10px;
-    color: #666;
-    transition: all 0.5s;
-  }
-
-  .sheet-header-i {
-    line-height: 30px;
-    position: absolute;
-    right: 10px;
-  }
-
-  .sheet-header-span {
-    left: 40px;
-    font-size: 14px;
-    position: absolute;
-    line-height: 30px;
-  }
-
-  .sheet-content {
-    position: relative;
-    width: 100%;
-    display: flex;
-  }
-
-  .sheet-content i {
-    font-size: 26px;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translate(0, -50%);
-  }
-
-  .sheet-content-image {
-    width: 60px;
-    float: left;
-    text-align: center;
-  }
-
-  .sheet-content-middle {
-    position: relative;
-    width: 100%;
-    border-bottom: 1px solid #e5e5e5;
-    padding-bottom: 10px;
-    margin-top: 10px;
-    margin-left: 10px;
-  }
-
-  .sheet-content-middle p {
-    font-size: 16px;
-    width: 70%;
-    color: #666;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
+  .finalPrice
+    .col-xs-12
+      padding 0 .1rem
+      .Hint
+        height auto
+        background-color #F7D789
+        border 1px solid rgba(247,215,137,1)
+        font-size .1rem
+        color #F97424
+        line-height .15rem
+        padding .08rem .06rem
+        margin .07rem 0
+      .Hint span
+        color #999
+        font-size .1rem
+    .finalPrice_price.col-xs-12
+      line-height .25rem
+      padding 0
+      padding-bottom:  .9rem
+      font-size .12rem
+      color #666
+    .finalPrice_num
+      color #000
+    .finalPrice_bottom_checkout
+      position: fixed;
+      bottom 0
+      height .5rem
+      line-height .5rem
+      font-size .13rem
+      background-color #fff
+      padding 0
+      -webkit-box-shadow: 0 -0.06rem 0.1rem rgba(28,28,28,.2)
+      -moz-box-shadow: 0 -0.06rem 0.1rem rgba(28,28,28,.2)
+      box-shadow: 0 -0.06rem 0.1rem rgba(28,28,28,.2)
+      z-index 9
+      .col-xs-7 span
+        color #FF0101
+        font-weight bold
+      .col-xs-5
+        background-color #000
+        color #fff
+        @media screen and (max-width: 320px)
+          font-size .11rem
+          padding 0 .05rem
 </style>

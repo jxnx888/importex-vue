@@ -7,7 +7,7 @@
                       :productSold="productSold"
                       :productMOQ="productMOQ"></productNamePrice>
     <div style="clear: both;"></div>
-    <product-add-cart  ></product-add-cart>
+    <product-add-cart  :productInfo="productInfo"></product-add-cart>
     <select-color-size></select-color-size>
     <free-shipping></free-shipping>
     <div style="clear: both;"></div>

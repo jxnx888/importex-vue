@@ -15,7 +15,7 @@
         </a>
       </div>
       <div class="col-xs-6 text-center">
-        <div class="addCart_toCart" @click="addToCart(item)">ADD TO CART</div>
+        <div class="addCart_toCart" @click="addToCart(shoppingCartInfor)">ADD TO CART</div>
       </div>
     </div>
 </template>
@@ -23,6 +23,13 @@
 <script>
     export default {
         name: "addCart",
+      props:{
+      },
+      data(){
+          return{
+            shoppingCartInfor:[]
+          }
+      },
       methods: {
         getSearchList() {
           this.$ajax.get('/static/mock/index.json') // npm run build ==>  /static/mock/index.json

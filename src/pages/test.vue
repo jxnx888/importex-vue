@@ -62,7 +62,7 @@
         <!--different type of item-->
         <div class="items_type col-xs-12" v-for="(childItem, childIndex) in item.itemType">
           <div class="col-xs-2">
-            <input type="checkbox" class="checkAll">
+            <input type="checkbox" class="checkAll" @click="selectGoods(childItem)">
           </div>
           <div class="col-xs-10">
             <div class="col-xs-12">
@@ -78,16 +78,16 @@
                 </div>
               </div>
               <div class="col-xs-4">
-                <!--                <el-input-number class="inputNumber iconfont" v-model="itemPiece[childIndex]" size="mini" :min="1"-->
-                <!--                                 label="描述文字"></el-input-number>-->
-                <button @click="handleReduce(childIndex)" :disable="childItem.itemPiece === 1">-</button>
-                <span>{{ childItem.itemPiece }}</span>
-                <button @click="handleAdd(childIndex)">+</button>
+                <div class="num-btn" @click="changeQty(true, childItem)">+</div>
+                <div class="show-num">{{ childItem.itemPiece }}</div>
+                <div class="num-btn" @click="changeQty(false, childItem)">-</div>
+
+
               </div>
             </div>
             <div class="col-xs-12 removeSave">
               <div class="saveLateItem">Save for late</div>
-              <div class="removeItem" @click="handleRemove(index)">Remove</div>
+              <div class="removeItem">Remove</div>
             </div>
           </div>
         </div>
@@ -95,25 +95,29 @@
       </div>
 
     </div>
+    <div class="total">合计：<span>¥<b>{{ totalPrice }}</b></span></div>
+
+    <check :totalPrice="totalPrice"></check>
+
   </div>
 </template>
 
 <script>
-
+import check from './testComponent'
   export default {
     name: "cartList",
-    props: {
-      shoppingCartInfor: []
+    components: {
+      check
     },
     data() {
       return {
         count1: 1,
-        // itemPiece: [],
-        list:[],
-        checkBoxModel: [],
-          allp: false
-
-    }
+        itemPiece: [],
+        shoppingCartInfor:[],
+        selectedNum: 0,
+        checkAllFlag: false,
+        cart: []
+      }
     },
     methods: {
       getSearchList() {
@@ -126,118 +130,98 @@
           const data = res.data;
           this.shoppingCartInfor = data.shoppingCart;
           // console.log(JSON.stringify(this.shoppingCartInfors))//object
-          for (var i = 0; i < this.shoppingCartInfor.length; i++) {
-            for (var j = 0; j < this.shoppingCartInfor[i].itemType.length; j++) {
-              let itemType = this.shoppingCartInfor[i].itemType[j]
-              this.list.push(itemType)
-              console.log(this.list)
-            }
+          // for (var i = 0; i < this.shoppingCartInfor.length; i++) {
+          //   for (var j = 0; j < this.shoppingCartInfor[i].itemType.length; j++) {
+          //     let itemType = this.shoppingCartInfor[i].itemType[j]
+          //     this.list.push(itemType)
+          //     console.log(this.list)
+          //   }
+          // }
+        }
+      },
+      handleChange(pieces, price, index) {
+        console.log("pieces:" +pieces," price: " + price +" index: "+index );
+
+        var totlePrice = pieces* price
+        console.log("totleprice:" + totlePrice)
+
+      },
+      /**
+       * @method 增减单品数量
+       * @param {Boolean} isAdd 是否增加
+       * @param {Number} index 商品下标
+       */
+      changeQty: function (isAdd, item) {
+        var num = item.itemPiece;
+          // stock = item.stock;
+
+        if (isAdd ) {
+          this.$set(item, 'itemPiece', ++num);
+        } else if (!isAdd) {
+          this.$set(item, 'itemPiece', --num);
+        }
+
+        this.$set(item, 'subtotal', (item.price * num).toFixed(1));
+      },
+      /**
+       * @method 选择商品
+       * @param {Object} item 商品对象
+       */
+      selectGoods: function (item) {
+        // 状态值取反，并根据状态值对selectedNum进行加减
+        item.checked = !item.checked;
+        item.checked ? ++this.selectedNum : --this.selectedNum;
+        console.log("checked Status:" + item.checked)
+        // 设置全选
+        this.selectedNum === this.shoppingCartInfor.length
+          ? this.checkAllFlag = true
+          : this.checkAllFlag = false
+
+        console.log("selectedNum: " + JSON.stringify(this.selectedNum))
+
+
+      },
+
+      /**
+       * @method 全选
+       */
+      checkAll: function () {
+        var self = this;
+        this.checkAllFlag = !this.checkAllFlag;
+
+        this.shoppingCartInfor.forEach(function (item) {
+          if (self.checkAllFlag) {
+            // 全选
+            item.checked = true;
+            self.selectedNum = self.shoppingCartInfor.length;
+          } else {
+            // 取消全选
+            item.checked = false;
+            self.selectedNum = 0;
           }
-        }
+        });
       },
-      getItemPeice() {
-        // console.log('this.itemPiece  new: ' + this.itemPiece)
-        // for (var i = 0; i < this.shoppingCartInfor.length; i++) {
-        //   // this.itemPiece = [];
-        //   for (var j = 0; j < this.shoppingCartInfor[i].itemType.length; j++) {
-        //     let itemType = this.shoppingCartInfor[i].itemType[j]
-        //     if (itemType.itemPiece !== '' || itemType.itemPiece !== null || itemType.itemPiece !== undefined) {
-        //       console.log(itemType.itemPiece);
-        //       this.itemPiece.push(itemType.itemPiece);
-        //       console.log('this.itemPiece: ' + this.itemPiece)
-        //       console.log('this.itemPiece: ' + JSON.stringify(this.itemPiece))
-        //     }
-        //   }
-        // }
-      },
-      handleReduce: function (index) {
-        if (this.list[index].itemPiece === 1) return;
-        this.list[index].itemPiece--;
-      },
-      handleAdd: function (index) {
-        this.list[index].itemPiece++;
-      },
-      handleRemove: function (index) {
-        // this.list.splice(index, 1);
-        this.list[index].itemPiece === 0
-      },
-      allPick: function () {
-        var _this = this;
-        if (_this.allp) {
-          _this.checkBoxModel = [];
-          _this.allp = false;
-        } else {
-          _this.checkBoxModel = [];
-          _this.list.forEach(function (item) {
-            _this.checkBoxModel.push(item.id);
-          });
-          _this.allp = true;
-        }
-        //全选的实现通过checkBoxModel的状态
-      },
-      pickOne: function (index) {
-        if (this.list[index].checked) {
-          this.list[index].checked = false;
-        } else {
-          this.list[index].checked = true;
-        }
-        //单选的实现依靠的是checked通过click的切换实现
-      },
-      checkPick: function () {
-        _this = this;
-        var sumPic = 0;
-        for (var i = 0; i < _this.list.length; i++) {
-          if (_this.list[i].checked) {
-            sumPic++;
-          }
-        }
-        if (sumPic == _this.list.length) {
-          _this.allp = true;
-        } else {
-          _this.allp = false;
-        }
-      },
-      checkModel: function () {
-        _this = this;
-        if (_this.checkBoxModel.length) {
-          newArr = _this.checkBoxModel.concat();
-          console.log(newArr);
-          for (var i = 0; i < _this.checkBoxModel.length; i++) {
-            newone = newArr.shift().toString();
-            //console.log(newone);
-            _this.list[newone - 1].checked = true;
-            //console.log(newone);
-            // console.log(_this.list[newone-1]);
-          }
-        } else {
-          newArr = _this.checkBoxModel.concat();
-          //console.log(newArr);
-          for (var i = 0; i < _this.list.length; i++) {
-            _this.list[i].checked = false;
-          }
-        }
-        // 利用checkBoxModel的绑定的状态来分别给每个物品确认checked的状态，避免与pickOne的冲突
-      }
 
 
     },
-    computed: {
-      totalPrice: function () {
-        var total = 0;
-        for (var i = 0; i < this.list.length; i++) {
-          if (this.list[i].checked) {
-            var item = this.list[i];
-            total += item.price * item.itemPiece;
-          }
-        }
-        return total.toString().replace(/\B(?=(\d{3})+$)/g, ',');
-      }
-    },
-
     mounted()
     {
-      this.getItemPeice();
+
       this.getSearchList();
+    },
+    computed: {
+      /**
+       * @method 已选商品的总额
+       */
+      totalPrice: function () {
+        console.log("cart: " + this.shoppingCartInfor)
+        var num = 0;
+        this.shoppingCartInfor.forEach(function (item) {
+          item.checked && (num += parseFloat(item.itemPrice));
+          console.log("total: "+ num)
+        });
+        return num;
+      }
     }
   }
 </script>

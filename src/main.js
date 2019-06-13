@@ -14,6 +14,7 @@ Vue.prototype.$qs = qs;
 //vuex
 import Vuex from 'vuex'
 import store from './vuex/store'
+// import store from './store/index'
 Vue.use(Vuex);
 //同时在下方 new Vue中，添加store
 //Vuex 依赖 Promise。如果你支持的浏览器并没有实现 Promise (比如 IE)，那么你可以使用一个 polyfill 的库，例如 es6-promise。

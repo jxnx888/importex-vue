@@ -280,10 +280,17 @@
           "oldPrice": "5.82",
           "itemWeight":"0.58",
           "checked": false
-
         } ]
       }
-    ]
+    ],
+    "personalInfo":
+      {
+        "email": "teset123@test.com",
+        "accountNumber": "000001",
+        "contactInfo": "",
+        "password": ""
+      }
+
   }
 }
 

@@ -12,11 +12,15 @@ import Router from 'vue-router'
 //路由懒加载模式
 const Home = () => import('@/pages/home/home');
 const myAccount = () => import('@/pages/myAccount/myAccount');
+const personalInfo = () => import('@/pages/myAccount/components/personalInfoDetail');
+const updateInfo = () => import('@/pages/myAccount/components/updateInfo');
+const changeEmail = () => import('@/pages/myAccount/components/changeEmail');
 const searchDetail = () => import('@/pages/home/components/search/searchDetail');
 const searchResult = () => import('@/pages/searchResult/searchResult');
 const shoppingCart = () => import('@/pages/shoppingCart/shoppingCart');
 const product = () => import('@/pages/product/product');
 const test = () => import('@/pages/test');
+const productTest = () => import('@/pages/productTest/product');
 
 
 Vue.use(Router);
@@ -38,23 +42,36 @@ export default new Router({
       mode: 'history',
       path: '/myAccount',
       name: 'myAccount',
-      // component: searchDetail
-      component: resolve => require(['../pages/myAccount/myAccount.vue'], resolve),//懒加载,
-
+      component: myAccount
+    },
+    {
+        path: '/myAccount/personalInfo',
+        name: 'personalInfo',
+        component: personalInfo
+    },
+    {
+      path: '/myAccount/personalInfo/updateInfo',
+      name: 'updateInfo',
+      component: updateInfo
+    },
+    {
+      path: '/myAccount/personalInfo/changeEmail',
+      name: 'changeEmail',
+      component: changeEmail
     },
     {
       mode: 'history',
       path: '/searchDetail',
       name: 'searchDetail',
       // component: searchDetail
-      component: resolve => require(['../pages/home/components/search/searchDetail.vue'], resolve),//懒加载,
+      component: searchDetail
 
     },
     {
       mode: 'history',
       path: '/searchResult/:keyword',
       name: 'searchResult',
-      component: resolve => require(['@/pages/searchResult/searchResult.vue'], resolve),//懒加载,
+      component: searchResult,
       meta: {
         title: 'searchDetail',
         keepAlive: true
@@ -64,8 +81,7 @@ export default new Router({
       mode: 'history',
       path: '/shoppingCart',
       name: 'shoppingCart',
-      // component: shoppingCart,
-      component: resolve => require(['@/pages/shoppingCart/shoppingCart.vue'], resolve),//懒加载,
+      component: shoppingCart,
       meta: {
         title: 'searchDetail',
         keepAlive: true
@@ -75,13 +91,19 @@ export default new Router({
       mode: 'history',
       path: '/product/:id',
       name: 'product',
-      component: resolve => require(['@/pages/product/product.vue'], resolve),//懒加载,
+      component: product
     },
     {
       mode: 'history',
       path: '/test',
       name: 'test',
-      component: resolve => require(['@/pages/test.vue'], resolve),//懒加载,
+      component: test
+    },
+    {
+      mode: 'history',
+      path: '/productTest',
+      name: 'productTest',
+      component: productTest
     }
   ],
   scrollBehavior (to, from, savedPosition) {

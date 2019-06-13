@@ -8,6 +8,9 @@ export default new Vuex.Store({
     age: '18'
   },
   mutations:{
-
+    newImg(state, msg){
+      sessionStorage.setItem('headImg', JSON.stringify(msg))
+      state.headImg = msg;
+    }
   }
 })

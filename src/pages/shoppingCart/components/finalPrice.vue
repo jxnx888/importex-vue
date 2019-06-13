@@ -46,7 +46,26 @@
 
 <script>
     export default {
-        name: "finalPrice"
+        name: "finalPrice",
+      data(){
+          return {
+            totalPrice: ''
+          }
+      },
+      watch:{
+        price(curVal) {
+          var inputVal = curVal;
+          // console.log(inputVal);
+          this.getSearchList(inputVal);
+          if (curVal == '' || inputVal.length < 2) { //bug搜索的时候，输入dresss点下一个s才会隐藏list
+            this.listHide = false;
+            this.showRecommand = true;
+          } else {
+            this.listHide = true;
+            this.showRecommand = false;
+          }
+        },
+      }
     }
 </script>
 
