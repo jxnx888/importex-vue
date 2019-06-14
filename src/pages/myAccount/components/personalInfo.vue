@@ -29,7 +29,10 @@
     </div>
   </div>
   <div class=" personalInfo_bottom row">
-    <div class="col-xs-12 margin-top">
+    <router-link
+      tag="div"
+      to="/shoppingCart"
+      class="col-xs-12 margin-top">
       <div class="col-xs-10">
         <span class="iconfont">&#xe607;</span>
         Shopping Cart
@@ -37,7 +40,7 @@
       <div class="col-xs-2 iconfont text-right">
         <span class="itemNum">3</span>&#xe620;
       </div>
-    </div>
+    </router-link>
     <div class="col-xs-12  margin-top">
       <div class="col-xs-10">
         <span class="iconfont">&#xe65c;</span>
@@ -85,7 +88,10 @@
       </div>
     </div>
 
-    <div class="col-xs-12  margin-top margin-bottom">
+    <router-link
+      tag="div"
+      to="/contact"
+      class="col-xs-12  margin-top margin-bottom">
       <div class="col-xs-10">
         <span class="iconfont" >&#xe699;</span>
         Customer Service
@@ -93,7 +99,7 @@
       <div class="col-xs-2 iconfont text-right">
          &#xe620;
       </div>
-    </div>
+    </router-link>
    </div>
 </div>
 </template>

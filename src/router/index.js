@@ -19,6 +19,7 @@ const searchDetail = () => import('@/pages/home/components/search/searchDetail')
 const searchResult = () => import('@/pages/searchResult/searchResult');
 const shoppingCart = () => import('@/pages/shoppingCart/shoppingCart');
 const product = () => import('@/pages/product/product');
+const contact = () => import('@/pages/customerService/customerService');
 const test = () => import('@/pages/test');
 const productTest = () => import('@/pages/productTest/product');
 
@@ -58,6 +59,11 @@ export default new Router({
       path: '/myAccount/personalInfo/changeEmail',
       name: 'changeEmail',
       component: changeEmail
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: contact
     },
     {
       mode: 'history',
@@ -104,7 +110,32 @@ export default new Router({
       path: '/productTest',
       name: 'productTest',
       component: productTest
-    }
+    },
+    {
+      path: '/facebook',
+      beforeEnter() {location.href = 'https://www.facebook.com/importexpressofficial/'}
+    },
+    {
+      path: '/pinterest',
+      beforeEnter() {location.href = 'https://www.pinterest.com/importexpressofficial'}
+    },
+    {
+      path: '/twitter',
+      beforeEnter() {location.href = 'https://twitter.com/importexpresss'}
+    },
+    {
+      path: '/youtube',
+      beforeEnter() {location.href = 'https://www.youtube.com/channel/UCQ1BcpyhuJdpCXzJuOswOKw'}
+    },
+    {
+      path: '/instagram',
+      beforeEnter() {location.href = 'https://www.instagram.com/importexpressofficial/'}
+    },
+    {
+      path: '/blog',
+      beforeEnter() {location.href = ''}
+    },
+
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
