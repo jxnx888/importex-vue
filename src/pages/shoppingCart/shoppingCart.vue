@@ -13,6 +13,8 @@
   import qualityControl from './components/qualityControl'
   import finalPrice from './components/finalPrice'
 
+  import {mapState} from "vuex"
+
   export default {
     name: "shoppingCar",
     components: {
@@ -44,7 +46,12 @@
     },
     mounted() {
       this.getSearchList();
-    }
+    },
+    created(){
+      console.log(this)
+      console.log(this.$store.state.cart)
+    },
+
   }
 </script>
 

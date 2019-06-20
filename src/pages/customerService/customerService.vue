@@ -1,5 +1,6 @@
 <template>
     <div class="customerService">
+      <top-nav></top-nav>
       <contact-info></contact-info>
        <footerBar></footerBar>
     </div>
@@ -8,9 +9,12 @@
 <script>
   import footerBar from '../../common/footer/footerBar'
   import ContactInfo from "./components/contactInfo";
-    export default {
+  import TopNav from "./components/topNav";
+
+  export default {
         name: "customerService",
       components:{
+        TopNav,
         ContactInfo,
         footerBar
       }

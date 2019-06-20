@@ -89,6 +89,7 @@
 
 <style scoped lang="stylus">
   .contactInfo
+    padding-top .49rem
     .contactInfo_title
       color #FF9900
       font-size .17rem

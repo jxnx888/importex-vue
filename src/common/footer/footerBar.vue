@@ -134,6 +134,7 @@
         font-size .12rem
         height .2rem
         line-height .2rem
+        margin-bottom .1rem
 
 
 </style>

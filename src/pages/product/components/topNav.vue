@@ -10,12 +10,14 @@
       </div>
 
       <router-link
+        tag="div"
         to="/searchDetail/"
         class="topNav_Search col-xs-2 text-right">
         <span class="iconfont">&#xe736;</span>
       </router-link>
 
       <router-link
+        tag="div"
         to="/shoppingCart/"
         class="topNav_ShoppingCar col-xs-2 text-right">
         <span class="iconfont">&#xe63b;</span>
@@ -28,23 +30,8 @@
     </div>
 
     <!--右上角小导航-->
-    <div class="smallNav"
-         v-if="showSmallNav"
-         ref="smallNav"
-         >
-      <router-link to="/" tag="div" class="goHome">
-        <span class="iconfont">&#xe637;</span>
-        <span>Home</span>
-      </router-link>
-      <router-link to="/myAccount" tag="div" class="goAccount">
-        <span class="iconfont">&#xe614;</span>
-        <span>Account</span>
-      </router-link>
-      <div class="goWishList">
-        <span class="iconfont">&#xe651;</span>
-        <span>Wish List</span>
-      </div>
-    </div>
+    <small-nav v-if="showSmallNav"></small-nav>
+
     <!--    顶部固定导航-->
     <div
       class="topNav_Fixed"
@@ -75,9 +62,12 @@
 </template>
 
 <script>
-
+import smallNav from "../../../common/smallNav/smallNav"
   export default {
     name: "topNav",
+    components:{
+      smallNav
+    },
     data() {
       return {
         showSmallNav: false,

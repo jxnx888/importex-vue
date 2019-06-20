@@ -2,15 +2,19 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+import state from './cart/state'
+import getters from './cart/getters'
+import mutations from './cart/mutations'
+import actions from './cart/action'
+
+
+
 export default new Vuex.Store({
-  state:{
-    name:'Alan',
-    age: '18'
+  modules: {
+    state,
+    getters,
+    mutations,
+    actions
   },
-  mutations:{
-    newImg(state, msg){
-      sessionStorage.setItem('headImg', JSON.stringify(msg))
-      state.headImg = msg;
-    }
-  }
+  strict: process.env.NODE_ENV !== 'production', // 严格模式
 })

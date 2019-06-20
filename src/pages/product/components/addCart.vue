@@ -15,14 +15,22 @@
         </a>
       </div>
       <div class="col-xs-6 text-center">
-        <div class="addCart_toCart" @click="addToCart(item)">ADD TO CART</div>
+        <div class="addCart_toCart" @click="showItmeType()">ADD TO CART</div>
       </div>
+      <choose-item-type v-if="showItemType"  @hideItmeType="hideItmeType()"></choose-item-type>
     </div>
 </template>
 
 <script>
+    import ChooseItemType from "./chooseItemType";
     export default {
         name: "addCart",
+      components: {ChooseItemType},
+      data(){
+          return {
+            showItemType:false
+          }
+      },
       methods: {
         getSearchList() {
           this.$ajax.get('/static/mock/index.json') // npm run build ==>  /static/mock/index.json
@@ -43,37 +51,49 @@
             }
           }
         },
+        showItmeType(){
+          this.showItemType = true;
+          console.log(this.showItemType)
+        },
+        hideItmeType(){
+          this.showItemType = false;
+          console.log(this.showItemType)
+        },
         /**
          * @method 添加到购物车
          * @param {Object} goods 商品
          */
-        addToCart: function (goods) {
-          var alreadyIndex = Cart.cart.findIndex(function (item, index) {
-            return item.id === goods.id;
+        addToCart(goods) {
+          var id = shop.id;
+
+          //检测是否存在购物车中,如果存在修改state.curState为true,并设置state.curIndex为当前菜品在购物车中的索引
+          this.$store.dispatch('check_db', {
+            id
           });
 
-          // 如果不存在则添加
-          if (alreadyIndex === -1) {
-            var cartIndex = Cart.cart.length;
-            // 添加新的商品，并初始化其数量、价格、被选中状态
-            Cart.cart.push(goods);
-            Cart.$set(Cart.cart[cartIndex], 'quantity', 1);
-            Cart.$set(Cart.cart[cartIndex], 'subtotal', goods.price.toFixed(1));
-            Cart.$set(Cart.cart[cartIndex], 'checked', false);
-            // 新增商品，购物车不能为全选
-            Cart.checkAllFlag = false;
-            return;
+          //如果存在,先自增当前菜品中的num，再设置购物车的数量
+          //如果不存在，直接往购物车中push一个新的菜品
+          if (this.$store.state.cart.curIndex != -1) {
+            console.log('add_db');
+            this.$store.dispatch('add_db');
+          } else {
+            console.log('create_db');
+            this.$set(shop, 'num', 1);
+            this.$store.dispatch('create_db', {
+              shop
+            });
           }
-
-          // 如果商品已存在并且库存足够，数量加1
-          var alreadyGoods = Cart.cart[alreadyIndex];
-          var num = alreadyGoods.quantity,
-            stock = alreadyGoods.stock;
-
-          if (num < stock) {
-            Cart.$set(alreadyGoods, 'quantity', ++alreadyGoods.quantity);
-            Cart.$set(alreadyGoods, 'subtotal', (alreadyGoods.price * alreadyGoods.quantity).toFixed(1));
-          }
+        },
+        /**
+         * 点击菜品列表中的减号
+         */
+        reduce_db(shop) {
+          var id = shop.id;
+          this.$store.dispatch('check_db', {
+            id
+          });
+          shop.num = parseInt(shop.num);
+          this.$store.dispatch('reduce_db');
         }
       },
     }
