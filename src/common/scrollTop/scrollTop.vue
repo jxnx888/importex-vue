@@ -79,7 +79,7 @@
     height: .35rem;
     line-height: .35rem;
     right: 10px;
-    bottom: 60px;
+    bottom: 15px;
     padding-top: 2px;
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;

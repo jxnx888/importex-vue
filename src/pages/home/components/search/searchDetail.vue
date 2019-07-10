@@ -52,7 +52,7 @@
           class="searchDetail_Hot_bottom"
           v-for="(item, index) in histroyWord"
           :key="index"
-          :to="/searchResult/+ item"
+          :to="{path: '/searchResult/' + item, params:{catid:'0'}}"
         >
           <div class="btn btn_content">{{item}}</div>
         </router-link>
@@ -93,19 +93,21 @@
         this.$router.go(-1);
       },
       searchSubmit() {
-
         var _this = this;
         //当keyword>0, 显示Search，
         if (this.keyword.length > 0) {
           this.searchHistory();
-          _this.$router.push({path: "./searchResult/" + this.keyword});
+          // _this.$router.push({path: "./searchResult/" + this.keyword+ '&catid=0&minprice=&maxprice=&sort=default&pvid=&collection=0&newArrivalDate=&isFreeShip=1&unkey='});
+          _this.$router.push({name: '"./searchResult/" + this.keyword', params:{catid:'311', minprice:'',maxprice:'',sort:'default',pvid:'',collection:'0', newArrivalDate:'',isFreeShip:'1', unkey:''}})
         } else {
           // 当Keyword<0, 显示cancel，点击可返回主页
-          _this.$router.push({path: './'});
+          // _this.$router.push({path: './'});
+          _this.$router.go(-1)
         }
 
       },
       getSearchList(res) {
+        // 搜索推荐词
         this.$ajax.post(
           'http://192.168.1.163:8085/searchAutocomplete',
           this.$qs.stringify({keyword: res})
@@ -221,11 +223,7 @@
       font-size .2rem
       color #fff
 
-    .searchDetail_back a
-      color #fff
-      font-size .15rem
-
-    .searchDetail_back p
+    .searchDetail_back a, .searchDetail_back p
       color #fff
       font-size .15rem
 

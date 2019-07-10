@@ -1,11 +1,11 @@
 <template>
     <div class="listResult">
-      <div class="col-xs-9 " >
-        <show-more ref="childShowMore" :showHeight="showHeight" :content="rootTreeCategory" ></show-more>
+      <div class="col-xs-12" >
+        <show-more ref="childShowMore" :showHeight="showHeight"  :data="data"></show-more>
       </div>
-      <div class="col-xs-3 listResult_Expand iconfont" @click="childShowMoreClick">
-        {{ showMoreClick ? 'Expand &#xe6b5;' : 'Narrow &#xe610;'}}
-      </div>
+<!--      <div class="listResult_Expand iconfont" @click="childShowMoreClick">-->
+<!--        {{ showMoreClick ? 'Expand &#xe6b5;' : 'Narrow &#xe610;'}}-->
+<!--      </div>-->
 
     </div>
 </template>
@@ -16,7 +16,7 @@
   export default {
     name: "listResultCategories",
     props:{
-      rootTreeCategory: Array,
+      data:Object,
     },
     components: {
       showMore
@@ -29,10 +29,10 @@
       }
     },
     methods: {
-      childShowMoreClick(){
-        this.$refs.childShowMore._toggleShowMore();
-        this.showMoreClick = !this.showMoreClick;
-      },
+      // childShowMoreClick(){
+      //   this.$refs.childShowMore._toggleShowMore();
+      //   this.showMoreClick = !this.showMoreClick;
+      // },
       // test(){
       //   console.log("test: "+JSON.stringify(this.rootTreeCategory))
       //   console.log(typeof this.rootTreeCategory)

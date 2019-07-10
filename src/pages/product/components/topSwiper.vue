@@ -4,7 +4,7 @@
     <div class="wrapperTop text-center">
       <swiper :options="swiperOptionTop" ref="swiperTop">
         <swiper-slide
-          v-for="(item, index) in productImg"
+          v-for="(item, index) in current400Img"
           :key="index">
           <img
             class="swiper-img"
@@ -24,7 +24,7 @@
                 :options="swiperOptionThumbs"
                 ref="swiperThumbs" class="gallery-thumbs" >
                 <swiper-slide
-                  v-for="(item, index) in productImg"
+                  v-for="(item, index) in current400Img"
                   :key="index"
                 >
                   <img class="gallary-img" :src="item" />
@@ -37,7 +37,7 @@
 
     <!--    <open-gallery-->
     <!--      :index="this.index"-->
-    <!--      :imgs="productImg"-->
+    <!--      :imgs="current400Img"-->
     <!--      v-show="showGallery"-->
     <!--      :data-hash="'slide='+index"-->
     <!--      @close="handleGalleryClose"-->
@@ -53,7 +53,7 @@
     name: "topSwiper",
     props: {
       // productInfo: Array,
-      productImg: Array
+      current400Img: Array
     },
     components: {
       openGallery
@@ -72,6 +72,8 @@
           loop: true,
           loopedSlides: 5, //looped slides should be the same
           centeredSlides: true,
+          watchSlidesVisibility:true,
+          lazy: true,
         },
         swiperOptionThumbs: {
           spaceBetween: 10,
@@ -81,7 +83,7 @@
           loopedSlides: 5, //looped slides should be the same
           centeredSlides: true,
           slideToClickedSlide: true,
-        }
+        },
       }
     },
     methods: {
@@ -95,20 +97,17 @@
       handleGalleryClose() {
         this.showGallery = false;
       },
-
-
     },
-    created() {
+    beforeMount() {
       // console.log(JSON.stringify(this.productInfo.url))
     },
     mounted() {
-
       this.$nextTick(() => {
         const swiperTop = this.$refs.swiperTop.swiper;
         const swiperThumbs = this.$refs.swiperThumbs.swiper;
         swiperTop.controller.control = swiperThumbs;
         swiperThumbs.controller.control = swiperTop
-      })
+      });
     },
     watch: {},
   }

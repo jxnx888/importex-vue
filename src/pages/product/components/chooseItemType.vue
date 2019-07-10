@@ -1,5 +1,6 @@
 <template>
-<div class="chooseItemType">
+<div class="chooseItemType" >
+  <div class="cover" @click="handleItemTypeClick()"></div>
   <div class="container">
     <div class="top_title ">
       <div class="col-xs-12">
@@ -14,54 +15,26 @@
 
     </div>
     <div class="row color_Size">
-      <div class="col-xs-12">
-        <div class="size">
+      <div class="col-xs-12" >
+        <div class="size" >
           <p class="text-left">Size:</p>
-          <div class="sizeType">S</div>
-          <div class="sizeType">M</div>
-          <div class="sizeType">L</div>
-          <div class="sizeType">XL</div>
+          <div v-for="(item, index) in goodColorSize">
+            <div class="sizeType" v-if="item.type === 'Size'">
+              <span> {{item.value}}</span>
+            </div>
+          </div>
         </div>
 
       </div>
       <div class="col-xs-12">
         <div class="color">
           <p class="text-left">Colour:</p>
-          <div class="col-xs-2">
-            <div class="colorType ">
-              <img class="colorType_img" src="https://img.import-express.com/importcsvimg/coreimg/536709015334/3320251426_495041239.60x60.jpg" alt="white" title="white">
+            <div class="col-xs-2" v-for="(itemColor, indexColor) in goodColorSize">
+
+              <div class="colorType" v-if="itemColor.type === 'Colour'">
+                <img class="colorType_img" :src="itemColor.img" alt="white" title="white">
+              </div>
             </div>
-          </div>
-          <div class="col-xs-2">
-            <div class="colorType ">
-              <img class="colorType_img" src="https://img.import-express.com/importcsvimg/coreimg/536709015334/3320251426_495041239.60x60.jpg" alt="white" title="white">
-            </div>
-          </div>
-          <div class="col-xs-2">
-            <div class="colorType ">
-              <img class="colorType_img" src="https://img.import-express.com/importcsvimg/coreimg/536709015334/3320251426_495041239.60x60.jpg" alt="white" title="white">
-            </div>
-          </div>
-          <div class="col-xs-2">
-            <div class="colorType ">
-              <img class="colorType_img" src="https://img.import-express.com/importcsvimg/coreimg/536709015334/3320251426_495041239.60x60.jpg" alt="white" title="white">
-            </div>
-          </div>
-          <div class="col-xs-2">
-            <div class="colorType ">
-              <img class="colorType_img" src="https://img.import-express.com/importcsvimg/coreimg/536709015334/3320251426_495041239.60x60.jpg" alt="white" title="white">
-            </div>
-          </div>
-          <div class="col-xs-2">
-            <div class="colorType ">
-              <img class="colorType_img" src="https://img.import-express.com/importcsvimg/coreimg/536709015334/3320251426_495041239.60x60.jpg" alt="white" title="white">
-            </div>
-          </div>
-          <div class="col-xs-2">
-            <div class="colorType ">
-              <img class="colorType_img" src="https://img.import-express.com/importcsvimg/coreimg/536709015334/3320251426_495041239.60x60.jpg" alt="white" title="white">
-            </div>
-          </div>
         </div>
       </div>
 
@@ -71,11 +44,13 @@
         <div class="col-xs-8 quantity_title">Quantity (Minimum Order: 1)</div>
         <el-input-number
           class="inputNumber iconfont text-right"
+          v-model="num"
+          @change="numberChange"
           size="mini"
-          :min="1"
-          label="描述文字 "></el-input-number>
+          :min="0">
+        </el-input-number>
       </div>
-      <div class="addCart text-center ">
+      <div class="addCart text-center " @click="addToCart()">
         ADD TO CART
       </div>
     </div>
@@ -87,24 +62,51 @@
 <script>
     export default {
         name: "chooseItemType",
+      props:{
+        goodColorSize: Array,
+      },
+      data(){
+          return{
+            num:0,
+          }
+      },
       methods:{
         handleItemTypeClick() {
           this.$emit('hideItmeType');
-        }
+        },
+        // add_goods(goods){
+        //   this.$emit('addToCart(goods)');
+        // },
+        /**
+         * @method 添加到购物车
+         * @param {Object} goods 商品
+         */
+        addToCart(goods) {
+          var id = shop.id;
 
-      }
+          //检测是否存在购物车中,如果存在修改state.curState为true,并设置state.curIndex为当前菜品在购物车中的索引
+          this.$store.dispatch('check_db', {
+            id
+          });
+          },
+        numberChange(value) {
+          console.log("choosing item piece:" +value);
+        },
+      },
     }
 </script>
 
 <style scoped lang="stylus">
 .chooseItemType
-  position: fixed;
-  top: 0
-  left: 0
-  height: 100%
-  width: 100%
-  background rgba(0, 0, 0, .5)
-  z-index 999
+  z-index: 9
+  .cover
+    position: fixed;
+    top: 0
+    left: 0
+    height: 100%
+    width: 100%
+    background rgba(0, 0, 0, .5)
+    z-index 12
   .container
     position: fixed
     bottom 0
@@ -112,6 +114,7 @@
     left 0
     top 20%
     background #fff
+    z-index 99
     .top_title
       height .8rem
       line-height .8rem

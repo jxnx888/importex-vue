@@ -9,7 +9,7 @@
             <span class="relatedCat">Related Category:</span>
             <router-link
               tag="span"
-              v-for="(item,index) of content"
+              v-for="(item,index) of data.rootTree"
               :key="index"
               :to="'/searchResult/'+item.category"
               class="content" >
@@ -18,7 +18,9 @@
           </slot>
         </div>
       </div>
-
+      <div class="listResult_Expand iconfont" @click="_toggleShowMore">
+        {{ showMoreClick ? 'Expand &#xe6b5;' : 'Narrow &#xe610;'}}
+      </div>
     </div>
   </div>
 </template>
@@ -31,17 +33,15 @@
         required: true,
         default: 40
       },
-      content: {
-        type: Array,
-        default: "All Catagory"
-      },
-      listResult: Array
+      listResult: Array,
+      data:Object,
     },
     data () {
       return {
         showMore: false,
         isLongContent: false,
-        buttonColor: false
+        buttonColor: false,
+        showMoreClick: true
       }
     },
     watch: {
@@ -70,7 +70,65 @@
       _toggleShowMore () {
         this.showMore = !this.showMore;
         // this.buttonColor = !this.buttonColor
+      },
+      searchLink(){
+        var rootTree = this.data.rootTree;
+        var param = this.data.param;
+        var keywordNow =param.keyword;
+        var searchLink ="";
+        var htmlTree="";
+        // console.log(JSON.stringify(rootTree));
+        // console.log("keyword: " + keywordNow);
+        if(rootTree.length>0){
+          for (var a = 0; a < rootTree.length; a++) {
+            var keyword = keywordNow;
+            var cid = rootTree[a].cid;
+            var minprice = param.minprice;
+            var maxprice = param.maxprice;
+            var sort = param.sort;
+            var page = "1";
+            var collection = param.collection;
+            // var newArrivalDate = param.newArrivalDate;
+            var freeShipping = param.freeShipping;
+            searchLink='?keyword='+keyword+'&cid='+cid+'&minprice='+minprice+'&maxprice='+maxprice+
+              '&sort='+sort+'&collection='+collection;
+            htmlTree+='<a href="'+searchLink+'"><span class="content">'+rootTree.category + '</span>'
+            // console.log('searchLink: '+ searchLink)
+            // console.log('htmlTree: '+ htmlTree)
+          }
+        }
+      },
+    /*  loadData(keyword,catid,price1,price2,srt,page ,collection,freeshipping,category2){
+        var url = 'http://192.168.1.163:8085/mobileSearch';
+        this.$ajax.post(url,
+          this.$qs.stringify({
+            keyword: keyword,
+            catid:catid,
+            price1:price1,
+            price2:price2,
+            srt:srt,
+            page:page,
+            pvid:pvid,
+            collection:collection,
+            newArrivalDate:category2,
+            flagRange:flagRange,
+            backRows : backRows,
+            isFreeShip:freeshipping,
+            unkey:unkey
+          })
+        )
+          .then(this.getSearchListSucc)
+          .catch(function (res) {
+            // console.log("error")
+          })
+      },*/
+      getSearchListSucc(res) {
+        const data = res.data;
+        this.data = data;
       }
+    },
+    mounted() {
+      // this.searchLink();
     }
   }
 
@@ -89,5 +147,11 @@
       line-height .4rem
       font-size .12rem
 
+    .listResult_Expand.iconfont
+      position: absolute
+      right: 0
+      bottom: 0rem
+      font-size: .12rem
+      background: #fff
 
 </style>

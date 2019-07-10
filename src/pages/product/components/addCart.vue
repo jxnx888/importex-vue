@@ -17,7 +17,7 @@
       <div class="col-xs-6 text-center">
         <div class="addCart_toCart" @click="showItmeType()">ADD TO CART</div>
       </div>
-      <choose-item-type v-if="showItemType"  @hideItmeType="hideItmeType()"></choose-item-type>
+      <choose-item-type v-if="showItemType" :goodColorSize="goodColorSize"   @hideItmeType="hideItmeType()"></choose-item-type>
     </div>
 </template>
 
@@ -25,6 +25,9 @@
     import ChooseItemType from "./chooseItemType";
     export default {
         name: "addCart",
+      props:{
+        goodColorSize: Array,
+      },
       components: {ChooseItemType},
       data(){
           return {
@@ -51,51 +54,15 @@
             }
           }
         },
-        showItmeType(){
+        showItmeType() {
           this.showItemType = true;
-          console.log(this.showItemType)
+          // console.log(this.showItemType)
         },
-        hideItmeType(){
+        hideItmeType() {
           this.showItemType = false;
-          console.log(this.showItemType)
+          // console.log(this.showItemType)
         },
-        /**
-         * @method 添加到购物车
-         * @param {Object} goods 商品
-         */
-        addToCart(goods) {
-          var id = shop.id;
-
-          //检测是否存在购物车中,如果存在修改state.curState为true,并设置state.curIndex为当前菜品在购物车中的索引
-          this.$store.dispatch('check_db', {
-            id
-          });
-
-          //如果存在,先自增当前菜品中的num，再设置购物车的数量
-          //如果不存在，直接往购物车中push一个新的菜品
-          if (this.$store.state.cart.curIndex != -1) {
-            console.log('add_db');
-            this.$store.dispatch('add_db');
-          } else {
-            console.log('create_db');
-            this.$set(shop, 'num', 1);
-            this.$store.dispatch('create_db', {
-              shop
-            });
-          }
-        },
-        /**
-         * 点击菜品列表中的减号
-         */
-        reduce_db(shop) {
-          var id = shop.id;
-          this.$store.dispatch('check_db', {
-            id
-          });
-          shop.num = parseInt(shop.num);
-          this.$store.dispatch('reduce_db');
-        }
-      },
+      }
     }
 </script>
 

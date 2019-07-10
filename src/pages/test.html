@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+
+    .sideButtom {
+      position: absolute;
+      /*//隐藏溢出的径向渐变背景*/
+      overflow: hidden;
+      background-color: #4ab77d;
+      width: 23px;
+      height: 186px;
+      border-top-left-radius: 23px;
+      border-bottom-left-radius: 23px;
+    }
+    .sideArrow {
+      position: absolute;
+      content: "";
+      border-right: 14px solid #fff;
+      border-top: 14px solid transparent;
+      border-bottom: 14px solid transparent;
+      top: 78px;
+      left: 4px;
+    }
+    .sideButtom:hover {
+      background-color:#41aa72;
+    }
+    .sideButtom:after{
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      /*//设置径向渐变*/
+      background-image: radial-gradient(circle, #666 10%, transparent 10.01%);
+      background-repeat: no-repeat;
+      background-position: 50%;
+      transform: scale(10, 10);
+      opacity: 0;
+      transition: transform .3s, opacity .5s;
+    }
+    .sideButtom:active:after {
+      transform: scale(0, 0);
+      opacity: .3;
+      /*//设置初始状态*/
+      transition: 0s;
+    }
+  </style>
+</head>
+<body>
+<div class="sideButtom "><span class="sideArrow"></span></div>
+
+</body>
+</html>

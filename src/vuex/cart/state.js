@@ -14,7 +14,8 @@ export default {
 
   //当前菜品是否在购物车的状态。在则是对应的索引，不在则是-1
   curIndex: -1,
-
+  //添加到购物车的商品（已选商品）
+  added:[]
 
 // computed:{
 //   list(){

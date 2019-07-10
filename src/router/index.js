@@ -137,6 +137,7 @@ export default new Router({
     },
 
   ],
+  // history模式下的一个属性
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition

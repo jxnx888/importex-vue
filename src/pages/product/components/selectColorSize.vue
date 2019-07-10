@@ -2,12 +2,14 @@
     <div class="selectColorSize">
       <div
         class="selectColorSize_title col-xs-12"
-        @click="ShowSelectOptionClick()"
+        @click="showItmeType()"
       >
         Select: Color/Size
         <span class="iconfont">&#xe620;</span>
       </div>
-      <div
+      <choose-item-type v-if="showItemType" :goodColorSize="goodColorSize" @hideItmeType="hideItmeType()"></choose-item-type>
+
+    <!--  <div
         class="selectColorSize_option"
         v-show="showSelectOption">
           <div class="option_color">
@@ -44,23 +46,34 @@
 
         </div>
 
-      </div>
+      </div>-->
     </div>
 </template>
 
 <script>
-    export default {
-        name: "selectColorSize"
-      ,
+  import ChooseItemType from "./chooseItemType";
+  export default {
+        name: "selectColorSize",
+    props:{
+      goodColorSize: Array,
+    },
+    components: {ChooseItemType},
       data() {
         return {
-          showSelectOption: false
+          showSelectOption: false,
+        showItemType:false
         }
       },
       methods: {
         ShowSelectOptionClick(){
           this.showSelectOption = true
-        }
+        },
+        showItmeType() {
+          this.showItemType = true;
+        },
+        hideItmeType() {
+          this.showItemType = false;
+        },
       }
     }
 </script>
