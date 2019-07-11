@@ -123,6 +123,9 @@
         font-size .14rem
         line-height .38rem
         text-transform capitalize
+        white-space:nowrap
+        overflow:hidden
+        text-overflow:ellipsis
       .detail_left
         color #999
       .detail_right

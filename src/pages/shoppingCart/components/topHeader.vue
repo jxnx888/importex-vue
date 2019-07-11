@@ -30,9 +30,14 @@
 
 <style scoped lang="stylus">
 .topHeader
+  position fixed
+  top 0
+  width 100%
   height .5rem
   line-height .5rem
   background-color #fff
+  border-bottom 1px solid #eee
+  z-index 10
   .col-xs-3
     font-size .15rem
     font-weight bold

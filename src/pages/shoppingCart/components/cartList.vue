@@ -26,7 +26,7 @@
           <div class="col-xs-1">
             <input type="checkbox" class="checkAll">
           </div>
-          <div class="col-xs-11">Shop Name: {{item.shopName}}</div>
+          <div class="col-xs-11">Shop Name: {{item.shopNameEn}}</div>
         </div>
 
         <div class="coupon col-xs-12">
@@ -35,7 +35,7 @@
           <span class="col-xs-2 iconfont">&#xe6b7;</span>
         </div>
 
-        <div class="items col-xs-12">
+        <div class="items col-xs-12" v-for="(childItem, childIndex) in item.spiderBeans">
           <div class="col-xs-2">
             <input type="checkbox" class="checkAll">
           </div>

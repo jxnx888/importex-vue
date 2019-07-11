@@ -14,9 +14,29 @@
       </div>
 
     </div>
+
+    <div class="selectType">
+      <div class="col-xs-12">
+        <div v-for="(item,index) in goodColorSize" class="">
+          <div v-if="item.type[index-1] === item.type[index] && item.img === ''" class="sizeType">
+            <p class="text-left">{{item.type}}123123:</p>
+            {{item.value}}</div>
+          <div v-else-if="item.type[index-1] === item.type[index] && item.img !== ''" class="sizeType" >
+            <p class="text-left">{{item.type}}:</p>
+            {{item.img}}
+          </div>
+          <div v-else class="sizeType" >
+            <p class="text-left">{{item.type}}::::::::::::</p>
+            {{item.value}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--
     <div class="row color_Size">
       <div class="col-xs-12" >
-        <div class="size" >
+        <div class="size" v-if="">
           <p class="text-left">Size:</p>
           <div v-for="(item, index) in goodColorSize">
             <div class="sizeType" v-if="item.type === 'Size'">
@@ -29,16 +49,18 @@
       <div class="col-xs-12">
         <div class="color">
           <p class="text-left">Colour:</p>
-            <div class="col-xs-2" v-for="(itemColor, indexColor) in goodColorSize">
-
-              <div class="colorType" v-if="itemColor.type === 'Colour'">
+          <div v-for="(itemColor, indexColor) in goodColorSize">
+            <div class="" v-if="itemColor.type === 'Size'">
+            </div>
+            <div class="col-xs-2" v-if="itemColor.type === 'Colour'">
+              <div class="colorType" >
                 <img class="colorType_img" :src="itemColor.img" alt="white" title="white">
               </div>
             </div>
+          </div>
         </div>
       </div>
-
-    </div>
+    </div>-->
     <div class="row quantity_addCart ">
       <div class="quantity text-center ">
         <div class="col-xs-8 quantity_title">Quantity (Minimum Order: 1)</div>
@@ -60,7 +82,9 @@
 </template>
 
 <script>
-    export default {
+  import { mapState, mapActions } from 'vuex'
+
+  export default {
         name: "chooseItemType",
       props:{
         goodColorSize: Array,
@@ -93,7 +117,10 @@
           console.log("choosing item piece:" +value);
         },
       },
-    }
+    mounted() {
+    },
+
+  }
 </script>
 
 <style scoped lang="stylus">
@@ -181,6 +208,21 @@
           /*float: left*/
         .inputNumber
           width 1rem
+    .selectType
+      overflow hidden
+      .sizeType
+        float left
+        height .25rem
+        min-width .3rem
+        line-height .25rem
+        border 1px solid #000
+        padding 0 .05rem
+        margin 0 2% 0 0
+      .colorType
+        position: relative;
+        width .44rem
+        height .44rem
+        border 1px solid #000
 
   //element ui 样式需要穿透修改
 

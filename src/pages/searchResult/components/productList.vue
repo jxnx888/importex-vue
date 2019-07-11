@@ -12,6 +12,8 @@
             :to="'../product/'+ item.goods_pid"
             class="produtListItem"
           >
+<!--            :to="{name:'../product/'+item.goods_pid,query:{goods_pid:item.goods_pid}}"-->
+
             <div class="productListItem_Img">
               <img v-lazy="item.goods_image" class="productListImg">
             </div>

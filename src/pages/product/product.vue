@@ -82,32 +82,40 @@
       getKeyword() {
         //提取url路由中的参数产品id
         this.keyword = this.$route.params.id;
-        this.goodsID =1+this.keyword;
       },
       getSearchList(res) {
-        var url = 'http://192.168.1.163:8085/spider/detail/json';
+        let url = 'http://192.168.1.163:8085/product/getProductDetailsJ';
         this.$ajax.post(url,
-          //markid 为传值的key
-          this.$qs.stringify({markid:this.goodsID})
+          //pid 为传值的key
+          this.$qs.stringify({pid:this.keyword})
         )
           .then(this.getSearchListSucc)
           .catch(function (res) {
-            console.log("error")
+            console.log("error, no data")
           })
       },
 
       getSearchListSucc(res) {
-        const data = res.data;
-        // console.log(JSON.stringify(data ))
-        this.productImg = data.spider.pImage;
+        const data = res.data.goodsBean;
+        // console.log("data: "+JSON.stringify(data ));
+        this.productImg = data.pImage;
         this.changeTo400Img();
-        this.productName= data.title;
-        this.productSold = data.spider.sell;
-        this.productMOQ = data.spider.minOrder;
-        this.productPriceList = data.spider.priceList;
-        this.commodityDetails = data.spider.pInfo;
+        this.productName= data.pName;
+        this.productSold = data.sell;
+        this.productMOQ = data.minOrder;
+        this.productPriceList = data.priceList;
+        this.commodityDetails = data.pInfo;
         this.currentCommodityDetailsFN();
-        this.goodColorSize = data.spider.type;
+        this.goodColorSize = data.type;
+        // this.productImg = data.spider.pImage;
+        // this.changeTo400Img();
+        // this.productName= data.title;
+        // this.productSold = data.spider.sell;
+        // this.productMOQ = data.spider.minOrder;
+        // this.productPriceList = data.spider.priceList;
+        // this.commodityDetails = data.spider.pInfo;
+        // this.currentCommodityDetailsFN();
+        // this.goodColorSize = data.spider.type;
       },
       changeTo400Img(){
         // 替换为轮播图所使用的img的尺寸

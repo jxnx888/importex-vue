@@ -34,7 +34,7 @@
           Categories
         </div>
         <div class="searchDetail_Categories_bottom">
-          <button class="btn CategoriesBtn" onclick="Pajamas&home()">Pajamas & Home Wear & ...</button>
+<!--          <button class="btn CategoriesBtn" onclick="Pajamas&home()">Pajamas & Home Wear & ...</button>-->
           <button class="btn CategoriesBtn" onclick="allCategories()">in All Categories</button>
 
         </div>

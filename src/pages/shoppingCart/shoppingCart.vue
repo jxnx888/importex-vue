@@ -29,27 +29,28 @@
       }
     },
     methods: {
-      getSearchList() {
-        this.$ajax.get('/static/mock/index.json') // npm run build ==>  /static/mock/index.json
+      getSearchList(res) {
+        // let url = "http://192.168.1.163:8085/Goods/getCartGoodsData";
+        let url = "/static/mock/test.json";
+        // this.$ajax.get('/static/mock/test.json') // npm run build ==>  /static/mock/index.json
+        this.$ajax.get(url) //线上用post
           .then(this.getSearchListSucc)
+          .catch(function (res) {
+            console.log("error, no data")
+          })
       },
       getSearchListSucc(res) {
-        res = res.data;
-        if (res.ret && res.data) {
-          const data = res.data;
-          this.shoppingCartInfor = data.shoppingCart;
-          // console.log(JSON.stringify(this.shoppingCartInfors))//object
-
-
-        }
+        const data = res.data;
+        this.shoppingCartInfor =data.everyShopProductLists;
+          // console.log(JSON.stringify(data))//object
       }
     },
     mounted() {
       this.getSearchList();
     },
     created(){
-      console.log(this)
-      console.log(this.$store.state.cart)
+      // console.log(this)
+      // console.log(this.$store.state.cart)
     },
 
   }

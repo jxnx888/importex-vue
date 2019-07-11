@@ -1,19 +1,18 @@
 // 状态的计算属性
 export default {
-  getInfos(state) {
-    state.cartInfos.total_price = 0;
-    state.cartInfos.total_nums = 0;
-    var list = state.cartList;
-    for (var i = 0; i < list.length; i++) {
-      var price = parseInt(list[i].price),
-        num = parseInt(list[i].num);
-
-      state.cartInfos.total_price += price * num;
-      state.cartInfos.total_nums += num;
+    cartProducts: (state, getters, rootState) => {
+      return state.cartItems.map(({ id, quantity }) => {
+        const product = rootState.products.all.find(product => product.id === id)
+        return {
+          title: product.title,
+          price: product.price,
+          quantity
+        }
+      })
+    },
+    cartTotalPrice: (state, getters) => {
+      return getters.cartProducts.reduce((total, product) => {
+        return total + product.price * product.quantity
+      }, 0)
     }
-    return state.cartInfos;
-  },
-  getCartList(state) {
-    return state.cartList;
-  }
 }

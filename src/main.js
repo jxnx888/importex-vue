@@ -74,7 +74,7 @@ Vue.prototype.$ajax = axios;
 //项目中实现图片懒加载
 import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload, {
-  preLoad: 1,  //如需测试，改为0.5
+  preLoad: 1.3,  //如需测试，改为0.5 屏幕比例
   error: 'dist/error.png',
   loading: '../static/images/loading.gif', //预加载loading图片
   attempt: 1
