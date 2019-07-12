@@ -1,9 +1,20 @@
 <template>
   <div class="shoppingCart">
+
     <topHeader></topHeader>
-    <cart-list :shoppingCartInfor="shoppingCartInfor"></cart-list>
-    <qualityControl></qualityControl>
-    <finalPrice></finalPrice>
+    <div v-if = "shopCarEmpty">
+      <cart-list :shoppingCartInfor="shoppingCartInfor"></cart-list>
+      <qualityControl></qualityControl>
+      <finalPrice></finalPrice>
+    </div>
+    <div  v-else>
+    <router-link
+      tag="div"
+      to="/"
+      class="goShopping">
+      Your shopping cart is empty! Let's go shopping!
+    </router-link>
+    </div>
   </div>
 </template>
 
@@ -25,6 +36,7 @@
     },
     data (){
       return{
+        shopCarEmpty:true,
         shoppingCartInfor:[]
       }
     },
@@ -41,12 +53,45 @@
       },
       getSearchListSucc(res) {
         const data = res.data;
+        // console.log(JSON.stringify(data))//object
+        if(data.everyShopProductLists.length < 1){
+          this.shopCarEmpty=false;
+        }
+        else {
+          this.shopCarEmpty=true;
+          // this.shoppingCartInfor = data.shoppingCart;
         this.shoppingCartInfor =data.everyShopProductLists;
           // console.log(JSON.stringify(data))//object
+        // this.productTypeSplic(this.shoppingCartInfor);
+
+        // for(var i =0;i<1; i++){
+        //   console.log(JSON.stringify("外层1："+this.shoppingCartInfor[i].spiderBeans[j]))
+        //
+        //   for(var j=0; j<1;j++)
+        //   console.log(JSON.stringify(this.shoppingCartInfor[i].spiderBeans[j]))
+        // }
+        }
+      },
+      productTypeSplic(data){
+        let productType = data;
+        let shopInfo = [];
+        let shopInfo_type = [];
+        for (var i in productType){
+          console.log(productType[i]);
+
+          for(let j in productType[i].spiderBeans){
+            console.log(productType[i].spiderBeans[j])
+            // if(productType[i].spiderBeans[j].shopId == productType[i].spiderBeans[j+1]){
+            //   console.log("same shop")
+            // }
+          }
+
+        }
       }
     },
     mounted() {
       this.getSearchList();
+      // this.productTypeSplic();
     },
     created(){
       // console.log(this)
@@ -59,4 +104,6 @@
 <style scoped lang="stylus">
   .shoppingCart
     background #eee
+    .goShopping
+      padding-top 50%
 </style>

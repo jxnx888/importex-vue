@@ -9,7 +9,7 @@
     <div style="clear: both;"></div>
     <product-add-cart  :goodColorSize="goodColorSize"></product-add-cart>
     <select-color-size :goodColorSize="goodColorSize"></select-color-size>
-    <free-shipping></free-shipping>
+    <free-shipping :isFreeShipping="isFreeShipping" :shippingTime="shippingTime" :country="country" :freeShippingMehtod="freeShippingMehtod"></free-shipping>
     <div style="clear: both;"></div>
     <coupons></coupons>
     <detail  :commodityDetails="currentCommodityDetails"></detail>
@@ -20,7 +20,7 @@
     <customer-reviews :customerReviews="customerReviews"></customer-reviews>
     <question-answer :questionAnswer="questionAnswer"></question-answer>
     <div style="clear: both;"></div>
-    <related-searches></related-searches>
+    <related-searches :hotKeyWords="hotKeyWords"></related-searches>
 
   </div>
 </template>
@@ -70,12 +70,18 @@
         productSold:'',
         productMOQ: '',
         imageList:[],
+        imageList1:String,
         customerReviews:[],
         commodityDetails:{},
         currentCommodityDetails:[],
         questionAnswer:[],
         current400Img:[],
         goodColorSize:[],
+        hotKeyWords:[],
+        isFreeShipping: 0,
+        shippingTime:'',
+        country:'',
+        freeShippingMehtod:'',
       }
     },
     methods: {
@@ -107,15 +113,15 @@
         this.commodityDetails = data.pInfo;
         this.currentCommodityDetailsFN();
         this.goodColorSize = data.type;
-        // this.productImg = data.spider.pImage;
-        // this.changeTo400Img();
-        // this.productName= data.title;
-        // this.productSold = data.spider.sell;
-        // this.productMOQ = data.spider.minOrder;
-        // this.productPriceList = data.spider.priceList;
-        // this.commodityDetails = data.spider.pInfo;
-        // this.currentCommodityDetailsFN();
-        // this.goodColorSize = data.spider.type;
+        this.imageList =data.enInfoList;
+        // this.imageList1 =data.info_ori;
+        // this.imageListToArray(this.imageList1);
+        this.hotKeyWords =res.data.hotKeyWord;
+        this.isFreeShipping = data.is_sold_flag;
+        this.shippingTime = res.data.shippingTime;
+        this.country = res.data.country;
+        this.freeShippingMehtod = res.data.freeShippingMehtod;
+        // console.log(typeof this.freeShippingMehtod);
       },
       changeTo400Img(){
         // 替换为轮播图所使用的img的尺寸
@@ -137,6 +143,15 @@
         // console.log(lastArr);
         // console.log(JSON.stringify(lastArr));
         this.currentCommodityDetails = lastArr;
+      },
+      imageListToArray(imageList){
+        //图片为string， 逗号分隔生成数组
+        // console.log(imageList);
+        var imageArray = [];
+        var imageList;
+        imageArray = imageList.split(",");
+        // console.log(imageArray);
+        this.imageList = imageArray;
       },
       // getSearchList() {
       //   this.$ajax.get('/static/mock/index.json') // npm run build ==>  /static/mock/index.json

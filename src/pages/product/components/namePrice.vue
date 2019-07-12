@@ -118,7 +118,11 @@
         color #999
         line-height .13rem
         padding .05rem 0
-      .productPriceList_bottom
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+
+  .productPriceList_bottom
         .col-xs-4
           font-size .12rem
           line-height .12rem

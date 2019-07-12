@@ -7,7 +7,7 @@
     </div>
     <router-link
       class="relatedSearches_link"
-      v-for="(item, index) in list"
+      v-for="(item, index) in hotKeyWords"
       :key="index"
       :to="'/searchResult/'+ item"
       >
@@ -20,9 +20,11 @@
 <script>
   export default {
     name: "relatedSearches",
+    props: {
+      hotKeyWords: Array
+    },
     data() {
       return {
-      list:["Crown Chain", "Assemble Ornament Pendant", "Key Pendant Necklace", "Ornament Pendant", "Sweater Chain"]
       }
     }
   }
@@ -33,7 +35,7 @@
   margin-top .1rem
   background-color #fff
   .wrapper
-    padding 0 15px
+    padding 0 15px 15px 15px
     .relatedSearches_title
       font-size .15rem
       font-weight bold

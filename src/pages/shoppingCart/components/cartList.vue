@@ -35,64 +35,81 @@
           <span class="col-xs-2 iconfont">&#xe6b7;</span>
         </div>
 
-        <div class="items col-xs-12" v-for="(childItem, childIndex) in item.spiderBeans">
-          <div class="col-xs-2">
-            <input type="checkbox" class="checkAll">
-          </div>
-          <div class="col-xs-10">
-            <div class="col-xs-4">
-              <img :scr="item.img" class="item_img"  >
-            </div>
-            <div class="col-xs-8">
-              <div class="col-xs-12">
-                {{item.itemName}}
-              </div>
-              <div class="col-xs-12">
-                <span class="freeShipping">Free shipping</span>
-                <span class="iconfont">&#xe688;</span>
-                <span class="shipOutDays">Ship out in 3-6 Days</span>
-              </div>
-              <div class="col-xs-12">
-                <input class="remark" placeholder="Remark:">
-              </div>
-            </div>
-          </div>
-        </div>
+<!--        <div class="items col-xs-12" v-for="(childItem, childIndex) in item.spiderBeans" >-->
+
+<!--          <div class="col-xs-2">-->
+<!--            <input type="checkbox" class="checkAll" >-->
+<!--          </div>-->
+<!--          <div class="col-xs-10">-->
+<!--            <div class="col-xs-4">-->
+<!--              <div class="item_img">-->
+<!--                <img v-lazy="childItem.img_url">-->
+<!--                &lt;!&ndash;                <img :src="childItem.img_url">&ndash;&gt;-->
+<!--              </div>-->
+
+<!--            </div>-->
+<!--            <div class="col-xs-8">-->
+<!--              <div class="col-xs-12">-->
+<!--                {{childItem.name}}-->
+<!--              </div>-->
+<!--              <div class="col-xs-12">-->
+<!--                <span class="freeShipping">Free shipping</span>-->
+<!--                <span class="iconfont">&#xe688;</span>-->
+<!--                <span class="shipOutDays">Ship out in 3-6 Days</span>-->
+<!--              </div>-->
+<!--              <div class="col-xs-12">-->
+<!--                <input class="remark" placeholder="Remark:">-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
 
         <!--different type of item-->
-        <div class="items_type col-xs-12" v-for="(childItem, childIndex) in item.itemType">
+        <div class="items_type col-xs-12" v-for="(childItem, childIndex) in item.spiderBeans">
           <div class="col-xs-2">
             <input type="checkbox" class="checkAll">
           </div>
           <div class="col-xs-10">
             <div class="col-xs-12">
-              <div class="col-xs-8">
-                <div class="col-xs-12 specColor">
-                  <span>Spec: {{childItem.itemSize}}</span>
-                  <span>Color: {{childItem.itemColor}}</span>
-                </div>
-                <div class="col-xs-12 weight">Weight: {{childItem.itemWeight}}kg</div>
-                <div class="col-xs-12">
-                  <span class="currentPrice">${{childItem.currentPrice}}</span>
-                  <span class="oldPrice">${{childItem.oldPrice}}</span>
+              <div class="col-xs-3 ">
+                <div class="item_img">
+                  <img v-lazy="childItem.img_url">
                 </div>
               </div>
-              <div class="col-xs-4">
-                <el-input-number
-                  class="inputNumber iconfont"
-                  v-model="itemPiece[childIndex]"
-                  @change="handleChange(itemPiece[childIndex],childItem.currentPrice, childIndex)"
-                  size="mini"
-                  :min="1"
-                  :key="childIndex"
-                  label="描述文字 "></el-input-number>
-
-
+              <div class="col-xs-9">
+                <div class="col-xs-7">
+                  <div class="col-xs-12 specColor">
+                    <span>Spec: {{childItem.itemSize}}</span>
+                  </div>
+                  <div class="col-xs-12 specColor">
+                    <span>Color: {{childItem.itemColor}}</span>
+                  </div>
+                  <div class="col-xs-12 weight">Weight: {{childItem.perWeight}}kg</div>
+                  <!--                <div class="col-xs-12">-->
+                  <!--                  <span class="currentPrice">${{childItem.price}}</span>-->
+                  <!--                  <span class="oldPrice">${{childItem.comparealiPrice}}</span>-->
+                  <!--                </div>-->
+                </div>
+                <div class="col-xs-5">
+                  <!--                <div class=" col-xs-12">-->
+                  <el-input-number
+                    class="inputNumber iconfont"
+                    v-model="childItem.number"
+                    @change="handleChange(childItem.number,childItem.price, childIndex)"
+                    size="mini"
+                    :min="1"
+                    :key="childIndex"
+                    label="描述文字 "></el-input-number>
+                </div>
+                <div class="col-xs-4">
+                  <span class="currentPrice">${{childItem.price}}</span>
+                  <span class="oldPrice">${{childItem.comparealiPrice}}</span>
+                </div>
+                <div class="col-xs-8">
+                  <div class="saveLateItem">Save for late</div>
+                  <div class="removeItem">Remove</div>
+                </div>
               </div>
-            </div>
-            <div class="col-xs-12 removeSave">
-              <div class="saveLateItem">Save for late</div>
-              <div class="removeItem">Remove</div>
             </div>
           </div>
         </div>
@@ -100,6 +117,7 @@
       </div>
 
     </div>
+
   </div>
 </template>
 
@@ -114,7 +132,7 @@
       return {
         count1: 1,
         itemPiece: [],
-        totalPrice:0
+        totalPrice: 0
       }
     },
     methods: {
@@ -122,32 +140,31 @@
         console.log('this.itemPiece  new: ' + this.itemPiece)
         for (var i = 0; i < this.shoppingCartInfor.length; i++) {
           // this.itemPiece = [];
-            for (var j = 0; j < this.shoppingCartInfor[i].itemType.length; j++) {
-              let itemType = this.shoppingCartInfor[i].itemType[j]
-              if (itemType.itemPiece !== '' || itemType.itemPiece !== null || itemType.itemPiece !== undefined) {
-                console.log(itemType.itemPiece);
-                this.itemPiece.push(itemType.itemPiece);
-                console.log('this.itemPiece:  ' + this.itemPiece)
-                console.log('this.itemPiece: ' + JSON.stringify(this.itemPiece))
-              }
-    }
-  }
-  },
+          for (var j = 0; j < this.shoppingCartInfor[i].itemType.length; j++) {
+            let itemType = this.shoppingCartInfor[i].itemType[j]
+            if (itemType.itemPiece !== '' || itemType.itemPiece !== null || itemType.itemPiece !== undefined) {
+              console.log(itemType.itemPiece);
+              this.itemPiece.push(itemType.itemPiece);
+              console.log('this.itemPiece:  ' + this.itemPiece)
+              console.log('this.itemPiece: ' + JSON.stringify(this.itemPiece))
+            }
+          }
+        }
+      },
       handleChange(pieces, price, index) {
-        console.log("pieces:" +pieces," price: " + price +" index: "+index );
+        console.log("pieces:" + pieces, " price: " + price + " index: " + index);
 
-        var totlePrice = pieces* price
+        var totlePrice = pieces * price
         console.log("totleprice:" + totlePrice)
 
       },
       getItemPeice1() {
       }
 
-  },
-  mounted()
-  {
-    this.getItemPeice();
-  }
+    },
+    mounted() {
+      this.getItemPeice();
+    }
   }
 </script>
 
@@ -309,12 +326,27 @@
 
         .col-xs-4
           padding 0
+
           .item_img
+            position: relative;
             width 1rem
             height 1rem
+            border 1px solid #eee
+            margin .1rem 0
             @media screen and (max-width: 320px)
               width .9rem
               height .9rem
+
+          .item_img img
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+
         .col-xs-8
           line-height .15rem
           font-size .12rem
@@ -327,13 +359,12 @@
             /* autoprefixer: ignore next */
             -webkit-box-orient: vertical;
             /*! autoprefixer: off */
-            -webkit-box-orient:vertical;
+            -webkit-box-orient: vertical;
             /* autoprefixer: on */
             /* autoprefixer: off */
-            -webkit-box-orient:vertical;
+            -webkit-box-orient: vertical;
             /* autoprefixer: on */
             -webkit-line-clamp: 2
-
 
             .remark
               width 100%
@@ -347,6 +378,7 @@
             padding .1rem 0 .1rem .06rem
             @media screen and (max-width: 320px)
               padding .02rem 0 .02rem .06rem
+
             .freeShipping
               color #1FA32E
               font-size .11rem
@@ -361,6 +393,7 @@
       padding 0
       background-color #fff
       padding-bottom .1rem
+      //check input
 
       .col-xs-2
         width 10%
@@ -369,6 +402,8 @@
         height .86rem
         line-height .86rem
 
+      //右侧整体
+
       .col-xs-10
         padding 0
         height .83rem
@@ -376,38 +411,84 @@
         background-color #F7F7F7
 
         .col-xs-12:nth-of-type(1)
-          .col-xs-8
-            padding 0
+          padding 0
+          //左侧图片
 
-            .col-xs-12
+          .col-xs-3
+            padding 0
+            height .82rem
+
+            .item_img
               padding 0
+              position: relative;
+              width .47rem
+              height .47rem
+              border 1px solid #eee
+              margin 0.2rem 0 0 .1rem
 
-            .specColor
-              padding-top .06rem
-              line-height .2rem
-              font-size .11rem
+            .item_img img
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin: auto;
+              width: 100%;
+              height: 100%;
 
-            .weight
-              line-height .2rem
-              font-size .11rem
+          //spec color weight
 
-            .currentPrice
-              font-size .13rem
-              color #333
-
-            .oldPrice
-              font-size .13rem
-              text-decoration line-through
-
-          .col-xs-4
+          .col-xs-9
             padding 0
 
-            .el-input-number
-              width 100%
-              padding .17rem 0
+            .col-xs-7
+              padding .05rem 0 0 0
+              //spec
 
-        .removeSave
-          .removeItem, .saveLateItem
-            float: right
-            padding 0 .1rem
+              .col-xs-12
+                padding 0
+
+              //spec color
+
+              .specColor
+                line-height .2rem
+                font-size .11rem
+
+              // weight
+
+              .weight
+                line-height .2rem
+                font-size .11rem
+
+            //input 数量
+
+            .col-xs-5
+              padding 0
+              height .65rem
+
+              .col-xs-12
+                padding 0
+
+              .el-input-number
+                width 100%
+                padding .17rem 0
+            //price save remove
+            .col-xs-4, .col-xs-8
+              padding 0
+              height unset
+              line-height: 0.2rem;
+
+            .col-xs-3
+              .currentPrice
+                font-size .13rem
+                color #333
+
+              .oldPrice
+                font-size .13rem
+                text-decoration line-through
+
+            .col-xs-8
+              .removeItem, .saveLateItem
+                float: right
+                padding 0 .1rem
 </style>
