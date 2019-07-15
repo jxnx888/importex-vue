@@ -32,7 +32,7 @@
           -$3
         </div>
       </div>
-      <div class="finalPrice_bottom_checkout col-xs-12">
+      <!--<div class="finalPrice_bottom_checkout col-xs-12">
         <div class="col-xs-7">
           Grand Total:
           <span >$1163.82</span>
@@ -40,7 +40,7 @@
         <div class="col-xs-5 text-center">
           Proceed To Checkout
         </div>
-      </div>
+      </div>-->
     </div>
 </template>
 

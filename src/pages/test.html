@@ -1,59 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  <style>
-
-    .sideButtom {
-      position: absolute;
-      /*//隐藏溢出的径向渐变背景*/
-      overflow: hidden;
-      background-color: #4ab77d;
-      width: 23px;
-      height: 186px;
-      border-top-left-radius: 23px;
-      border-bottom-left-radius: 23px;
-    }
-    .sideArrow {
-      position: absolute;
-      content: "";
-      border-right: 14px solid #fff;
-      border-top: 14px solid transparent;
-      border-bottom: 14px solid transparent;
-      top: 78px;
-      left: 4px;
-    }
-    .sideButtom:hover {
-      background-color:#41aa72;
-    }
-    .sideButtom:after{
-      content: "";
-      display: block;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      /*//设置径向渐变*/
-      background-image: radial-gradient(circle, #666 10%, transparent 10.01%);
-      background-repeat: no-repeat;
-      background-position: 50%;
-      transform: scale(10, 10);
-      opacity: 0;
-      transition: transform .3s, opacity .5s;
-    }
-    .sideButtom:active:after {
-      transform: scale(0, 0);
-      opacity: .3;
-      /*//设置初始状态*/
-      transition: 0s;
-    }
-  </style>
+  <title>购物车</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" href="shop.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<style>
+  *{padding: 0;margin: 0;}
+  a{text-decoration: none;color: black;}
+  #app{width: 500px;height: 600px;border: 1px solid;position: absolute;margin-top:20px;margin-left:50px;}
+  .header{width: 500px;height: 30px;line-height: 30px;background-color: darkmagenta;}
+  .header span{display: inline-block;width: 50px;height: 30px;}
+  .show{width: 500px;height: 85px;margin-top: 5px;}
+  #footer{position: absolute;bottom: 0;width: 500px;height: 50px;background-color: #c7c7c9;}
+  .output{width: 40px;height: 20px;}
+  .image{width: 60px;height: 80px;float:left;}
+  .choice{display: inline-block;width: 15px;height: 15px;border-radius: 15px;border: 1px solid;float: left;margin-top: 30px;margin-left: 20px;}
+  .checked{background-color: darkorange;}
+  .icon{background-image: url(del.png);display: inline-block;width: 30px;height: 30px;margin-left: 50px;margin-top: 20px;}
+  .text{display:inline-block;width:50px;height:20px;line-height:20px;font:12px;margin-top:20px;margin-left:5px;float:left;}
+  .count{width:100px;height:40px;background-color:red;line-height:40px;font-size:16px;margin-left:40px;margin-top:5px;}
+  #footer a{display:inline-block;margin-left:5px;height:22px;}
+  #info{width:250px;height:100px;position:absolute;border:1px solid;margin-top:-250px;margin-left:120px;background-color:#c7c7c9;text-align:center;z-index:999;}
+  .get{width:80px;height:30px;font:17px;margin-top:10px;}
+  .shadow{width:100%;height:100%;background-color:black;opacity:0.8;margin-top:-480px;z-index:1;}
+  .close{position:absolute;right:2px;top:-5px;cursor:pointer;}
+</style>
 </head>
 <body>
-<div class="sideButtom "><span class="sideArrow"></span></div>
-
+<div id="app">
+  <div class="header"><span style="margin-left: 75px;">商品</span><span style="margin-left: 70px;">单价</span><span style="margin-left: 35px;">数量</span><span style="margin-left: 40px;">总价</span></div>
+  <div v-for="item in goods">
+    <div class="show" v-show="item.selected">
+      <span class="choice" v-bind:class="{'checked':item.checked}" @click="check(item)"></span>
+      <div style="float:left;margin-left: 20px;"><img v-bind:src="item.image" v-bind:alt="item.alt" class="image"/><span class="text">{{item.name}}</span></div>
+      <span style="float:left;margin-left: 20px;margin-top:20px;width:40px;">{{item.price}}元</span>
+      <div style="float:left;margin-left: 30px;margin-top: 20px;">
+        <span v-on:click="changeNum(item,-1)"><a href="javascript:void(0)">-</a></span>
+        <input v-model="item.number" class="output" disabled/>
+        <span v-on:click="changeNum(item,1)"><a href="javascript:void(0)">+</a></span>
+      </div>
+      <div style="float:left;margin-left: 30px;margin-top: 25px;width:51px;">￥{{item.price * item.number}}元</div>
+      <span class="icon" @click="seen=true"></span>
+    </div>
+  </div>
+  <!--footer-->
+  <div id="footer">
+    <span class="choice" style="margin-top:18px;" v-bind:class="{'checked':checkAllFlag}"></span>
+    <a href="javascript:void(0)" @click="checkAll(true)">全选</a>
+    <a href="javascript:void(0)" style="color:;" @click="checkAll(false)">取消全选</a>
+    <span style="display:inline-block;margin-left:70px;width:95px;">Total:￥{{totalAll}}元</span>
+    <span><button class="count">结&nbsp;算</button></span>
+  </div>
+  <div id="info" v-show="seen">
+    <p style="margin-top:20px;">是否删除该商品?</p><div class="close" @click="seen=false">&times</div>
+    <button class="get" style="padding-left:10px;" @click="">yes</button><button class="get" style="margin-left:20px;" @click="seen=false">no</button>
+  </div>
+  <div class="shadow" v-show="seen"></div>
+</div>
 </body>
-</html>
+<script src="./src/vue.min.js"></script>
+<script src="./src/vue-resource.min.js"></script>
+<script >
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      total: 0,
+      totalAll: 0,
+      goods: [],//商品为数组
+      checkAllFlag: false,
+      seen: false,
+      delFlag: true,
+
+    },
+    mounted: function () {
+      this.goodlist();
+    },
+    methods:{
+      //改变商品数量
+      changeNum:function (item,flag) {
+        if (flag>0) {
+          item.number++;
+        }else{
+          item.number--;
+          if(item.number<1){
+            item.number = 1;
+          }
+        }
+        this.totalMoney();
+      },
+      //是否选中
+      check:function (item) {
+        if(typeof item.checked == 'undefined'){
+          this.$set(item,"checked",true);
+          //局部为item添加“checked”，值为true
+        }else{
+          item.checked = !item.checked;
+        }
+        this.totalMoney();
+      },
+      //通过$http.get方法ajax地交互获取商品信息，一定要引入vue-resource组件
+      goodlist:function () {
+        var self = this;
+        this.$http.get("shop.json").then(function (res) {
+          self.goods = res.data.result.goods;
+        },function () {
+          console.log("failed");
+        });
+      },
+      //是否全选
+      checkAll:function (flag) {
+        this.checkAllFlag = flag;
+        var self = this;
+        this.goods.forEach(function(value,index){
+          if(typeof value.checked == 'undefined'){
+            self.$set(value,"checked",self.checkAllFlag);
+          }else{
+            value.checked = self.checkAllFlag;
+          }
+        });
+        this.totalMoney();
+      },
+      //结算选中商品的价格
+      totalMoney:function () {
+        //初始化总价
+        this.totalAll = 0;
+        var self =this;
+        //通过foreach循环判断是否被选中
+        this.goods.forEach(function(value,index){
+          if(value.checked){
+            self.totalAll += value.price * value.number;
+          }
+        });
+      }
+    }
+  })
+</script>

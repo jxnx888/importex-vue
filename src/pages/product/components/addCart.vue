@@ -17,7 +17,7 @@
       <div class="col-xs-6 text-center">
         <div class="addCart_toCart" @click="showItmeType()">ADD TO CART</div>
       </div>
-      <choose-item-type v-if="showItemType" :goodColorSize="goodColorSize"   @hideItmeType="hideItmeType()"></choose-item-type>
+      <choose-item-type v-if="showItemType" :goodColorSize="goodColorSize"   @hideItmeType="hideItmeType()" :productID="productID"></choose-item-type>
     </div>
 </template>
 
@@ -27,6 +27,7 @@
         name: "addCart",
       props:{
         goodColorSize: Array,
+        productID:String,
       },
       components: {ChooseItemType},
       data(){

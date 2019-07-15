@@ -101,7 +101,7 @@
                     :key="childIndex"
                     label="描述文字 "></el-input-number>
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-4 price">
                   <span class="currentPrice">${{childItem.price}}</span>
                   <span class="oldPrice">${{childItem.comparealiPrice}}</span>
                 </div>
@@ -478,7 +478,7 @@
               height unset
               line-height: 0.2rem;
 
-            .col-xs-3
+            .col-xs-4
               .currentPrice
                 font-size .13rem
                 color #333

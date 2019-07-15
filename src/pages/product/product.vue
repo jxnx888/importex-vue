@@ -7,14 +7,14 @@
                       :productSold="productSold"
                       :productMOQ="productMOQ"></productNamePrice>
     <div style="clear: both;"></div>
-    <product-add-cart  :goodColorSize="goodColorSize"></product-add-cart>
+    <product-add-cart  :goodColorSize="goodColorSize" :skuProducts="skuProducts" :productID="productID"></product-add-cart>
     <select-color-size :goodColorSize="goodColorSize"></select-color-size>
     <free-shipping :isFreeShipping="isFreeShipping" :shippingTime="shippingTime" :country="country" :freeShippingMehtod="freeShippingMehtod"></free-shipping>
     <div style="clear: both;"></div>
     <coupons></coupons>
     <detail  :commodityDetails="currentCommodityDetails"></detail>
     <div style="clear: both;"></div>
-    <product-related-product></product-related-product>
+    <product-related-product :oriData="oriData"></product-related-product>
     <image-list :imageList="imageList"></image-list>
     <add-cart-bottom></add-cart-bottom>
     <customer-reviews :customerReviews="customerReviews"></customer-reviews>
@@ -62,6 +62,7 @@
     data() {
       return {
         keyword: '',
+        oriData:{},
         goodsID:'',
         productInfo: [],
         productImg: [],
@@ -82,6 +83,8 @@
         shippingTime:'',
         country:'',
         freeShippingMehtod:'',
+        skuProducts:[],
+        productID:''
       }
     },
     methods: {
@@ -103,7 +106,8 @@
 
       getSearchListSucc(res) {
         const data = res.data.goodsBean;
-        // console.log("data: "+JSON.stringify(data ));
+        this.oriData = data;
+        // console.log("data: "+JSON.stringify(this.oriData  ));
         this.productImg = data.pImage;
         this.changeTo400Img();
         this.productName= data.pName;
@@ -121,7 +125,11 @@
         this.shippingTime = res.data.shippingTime;
         this.country = res.data.country;
         this.freeShippingMehtod = res.data.freeShippingMehtod;
-        // console.log(typeof this.freeShippingMehtod);
+        let skuProductsJSON = eval(data.skuProducts);
+        // console.log(skuProductsJSON)
+        this.skuProducts = skuProductsJSON;
+        this.productID = data.pID;
+        console.log(this.productID)
       },
       changeTo400Img(){
         // 替换为轮播图所使用的img的尺寸

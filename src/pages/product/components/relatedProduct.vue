@@ -83,15 +83,84 @@
 <script>
   export default {
     name: "relatedProduct",
+    props:{
+      oriData: {
+        type: Object,
+        default() {
+        }
+      }
+    },
     data() {
       return {
+        goodsInfo: {},
         swiperOption: {
           slidesPerView: 3,
           spaceBetween: 15,
           loop: true
         }
       }
-    }
+    },
+    methods:{
+      getRelatedProduct(res) {
+        let url = 'http://192.168.1.163:8085/getHotSale';
+        var data =   this.goodsInfo;
+        console.log(JSON.stringify(this.oriData))
+        var keyword = '';
+        var shopID = data.goodsBean.sID;
+        var productID = data.goodsBean.pid;
+        var catname = data.goodsBean.category;
+        var productName = data.goodsBean.pName;
+        var uuid = data.goodsUuid;
+        var pImg = data.coverPictureUrl;
+        var catid= data.goodsBean.catid1;
+
+        this.$ajax.post(url,
+          //pid 为传值的key
+          this.$qs.stringify({shopid:shopID, catid:catid})
+        )
+          .then(this.getRelatedProductSucc)
+          .catch(function (res) {
+            console.log("Error, no data")
+          })
+      },
+
+      getRelatedProductSucc(res) {
+        const data = res.data;
+        console.log(JSON.stringify(data))
+      },
+    },
+    mounted(){
+      this.$nextTick(function() {
+        this.getRelatedProduct();
+      })
+    },
+    watch: {
+      oriData:function(newVal,oldVal){
+        // console.log(newVal)
+        this.goodsInfo = newVal;
+        console.log(  this.goodsInfo)
+        let url = 'http://192.168.1.163:8085/getHotSale';
+        var data =  this.goodsInfo;
+        // console.log(JSON.stringify(this.oriData))
+        var keyword = '';
+        var shopID = data.goodsBean.sID;
+        var productID = data.goodsBean.pid;
+        var catname = data.goodsBean.category;
+        var productName = data.goodsBean.pName;
+        var uuid = data.goodsUuid;
+        var pImg = data.coverPictureUrl;
+        var catid= data.goodsBean.catid1;
+
+        this.$ajax.post(url,
+          //pid 为传值的key
+          this.$qs.stringify({shopid:shopID, catid:catid})
+        )
+          .then(this.getRelatedProductSucc)
+          .catch(function (res) {
+            console.log("Error, no data")
+          })
+      }
+    },
   }
 </script>
 
