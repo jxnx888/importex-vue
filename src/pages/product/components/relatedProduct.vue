@@ -1,5 +1,5 @@
 <template>
-  <div class="relatedProduct">
+  <div class="relatedProduct" v-if="storesale.length >3">
 
       <div class="relatedProduct_Header">
         <span class="col-xs-8">Related Products From This Seller</span>
@@ -15,6 +15,22 @@
     <div style="clear: both;"></div>
     <div class="relatedProduct_slides">
       <swiper :options="swiperOption">
+        <swiper-slide
+         v-for="(item, index) in this.storesale"
+         :key="index"
+        >
+          <router-link
+          :to="/product/+item.goods_pid">
+          <img class="swiper_img"
+               v-lazy="item.goods_image">
+          <p class="relatedProductName">{{item.goods_name}}</p>
+          <div class="swiper_price">
+            <span>$0.91</span>-<span>$1.18</span>
+          </div>
+          </router-link>
+        </swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+<!--
         <swiper-slide>
           <img class="swiper_img"
                src="https://img.import-express.com/importcsvimg/coreimg/529011675740/2888284836_149379895.220x220.jpg">
@@ -63,17 +79,7 @@
           <div class="swiper_price">
             <span>$0.91</span>-<span>$1.18</span>
           </div>
-        </swiper-slide>
-
-        <swiper-slide>
-          <img class="swiper_img"
-               src="https://img.import-express.com/importcsvimg/coreimg/529011675740/2888284836_149379895.220x220.jpg">
-          <p class="relatedProductName">Exclusive Child Hair Belt Baby Drill Flower Headband Bright Pink Baby Hair
-            Belt</p>
-          <div class="swiper_price">
-            <span>$0.91</span>-<span>$1.18</span>
-          </div>
-        </swiper-slide>
+        </swiper-slide>-->
 
       </swiper>
     </div>
@@ -93,30 +99,30 @@
     data() {
       return {
         goodsInfo: {},
+        storesale:[],
         swiperOption: {
-          slidesPerView: 3,
-          spaceBetween: 15,
-          loop: true
-        }
+          spaceBetween: 30,
+          }
       }
     },
     methods:{
       getRelatedProduct(res) {
         let url = 'http://192.168.1.163:8085/getHotSale';
-        var data =   this.goodsInfo;
-        console.log(JSON.stringify(this.oriData))
-        var keyword = '';
-        var shopID = data.goodsBean.sID;
-        var productID = data.goodsBean.pid;
-        var catname = data.goodsBean.category;
-        var productName = data.goodsBean.pName;
+        var data = this.goodsInfo;
+        // console.log(JSON.stringify(this.goodsInfo))
+        var keyword = data.catNameMin;
+        var shopID = data.sID;
+        var productID = data.pid;
+        var catname = data.category;
+        var productName = data.pName;
         var uuid = data.goodsUuid;
         var pImg = data.coverPictureUrl;
-        var catid= data.goodsBean.catid1;
-
+        var catid= data.catid1;
+        var pSprice=data.pSprice;
+        var minorder =data.minOrder;
         this.$ajax.post(url,
           //pid 为传值的key
-          this.$qs.stringify({shopid:shopID, catid:catid})
+          this.$qs.stringify({shopid:shopID, catid:catid,pid:productID,catname:catname,pname:productName, uuid:uuid,pimage:pImg,pSprice:pSprice,minorder:minorder })
         )
           .then(this.getRelatedProductSucc)
           .catch(function (res) {
@@ -126,39 +132,20 @@
 
       getRelatedProductSucc(res) {
         const data = res.data;
-        console.log(JSON.stringify(data))
+        this.storesale = data.storesale;
       },
     },
     mounted(){
-      this.$nextTick(function() {
-        this.getRelatedProduct();
-      })
+      // this.$nextTick(function() {
+      //   this.getRelatedProduct();
+      // })
     },
     watch: {
       oriData:function(newVal,oldVal){
         // console.log(newVal)
         this.goodsInfo = newVal;
-        console.log(  this.goodsInfo)
-        let url = 'http://192.168.1.163:8085/getHotSale';
-        var data =  this.goodsInfo;
-        // console.log(JSON.stringify(this.oriData))
-        var keyword = '';
-        var shopID = data.goodsBean.sID;
-        var productID = data.goodsBean.pid;
-        var catname = data.goodsBean.category;
-        var productName = data.goodsBean.pName;
-        var uuid = data.goodsUuid;
-        var pImg = data.coverPictureUrl;
-        var catid= data.goodsBean.catid1;
-
-        this.$ajax.post(url,
-          //pid 为传值的key
-          this.$qs.stringify({shopid:shopID, catid:catid})
-        )
-          .then(this.getRelatedProductSucc)
-          .catch(function (res) {
-            console.log("Error, no data")
-          })
+        // console.log(JSON.stringify(this.goodsInfo));
+        this.getRelatedProduct();
       }
     },
   }

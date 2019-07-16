@@ -1,5 +1,5 @@
 <template>
-  <div class="questionAnswer">
+  <div class="questionAnswer" >
       <div class="col-xs-12 text-left questionAnswer_title">Customer Questions & Answers</div>
       <div class="col-xs-12 questionAnswer_input"
       >
@@ -7,8 +7,8 @@
 
       </div>
 
-      <div class="wrapper-container col-xs-12 questionAnswer_content">
-        <div v-for="(item, index) in showList"
+      <div class="wrapper-container col-xs-12 questionAnswer_content " v-if="showQA" >
+        <div v-for="(item, index) in QAInfo"
              class="content "
         >
           <div class="row">
@@ -16,7 +16,7 @@
               <div class="questionIcon text-center">Q</div>
             </div>
             <div class="col-xs-10 question">
-              {{item.question}}
+              {{item.userName}}
             </div>
           </div>
           <div class="row">
@@ -24,7 +24,7 @@
               <div class="answerIcon text-center">A</div>
             </div>
             <div class="col-xs-10 answer">
-              {{item.answer}}
+              {{item.replyContent}}
             </div>
           </div>
         </div>
@@ -42,14 +42,15 @@
     name: "questionAnswer",
     props: {
       questionAnswer: Array,
-
+      oriData:Object
     },
     data() {
       return {
         showAll: false,  //标记数据是否需要完全显示的属性
+        showQA: true,
+        QAInfo:[]
       }
     },
-    methods: {},
     computed: {
       showList: function () {
 
@@ -69,7 +70,53 @@
       },
 
     },
-    watch: {}
+    methods:{
+      getQuestionAnswer(res) {
+        let url = 'http://192.168.1.163:8085/spider/getQuestionData';
+        var itemID = this.oriData.pID;
+        var shopID= this.oriData.sID;
+        var mincatID = this.oriData.catid1;
+        console.log(itemID,shopID ,mincatID)
+        this.$ajax.post(url,
+          this.$qs.stringify({spider_itemid:itemID,spider_shop_id:shopID,spider_mincatid:mincatID})
+        )
+          .then(this.getQuestionAnswerSucc)
+          .catch(function (res) {
+            console.log("Error, no data")
+          })
+      },
+
+      getQuestionAnswerSucc(res) {
+        const data = res.data.data;
+        this.QAInfo = data;
+        if(data.length<1){
+          this.showQA = false;
+          console.log("No Questions and Answers!")
+        }
+      },
+    },
+
+    watch: {
+      oriData:function(newVal,oldVal){
+        // console.log(newVal)
+        this.oriData = newVal;
+        // console.log(JSON.stringify(this.oriData));
+        this.getQuestionAnswer();
+      }
+    },
+    filters:{
+      format:function(name){
+        var newName='';
+        if(name.length<=2){
+          newName=name;
+        }else{
+          var char='';
+          char='******';
+          newName=name.substring(0,1)+char+name.substr(-1,1);
+        }
+        return newName
+      }
+    }
   }
 </script>
 
@@ -85,6 +132,7 @@
       background-color #fff
     .questionAnswer_input
       background-color #fff
+      padding-bottom: .1rem
     .questionAnswer_input textarea
       width 100%
       border 1px solid #D1D1D1

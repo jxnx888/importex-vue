@@ -7,7 +7,7 @@
                       :productSold="productSold"
                       :productMOQ="productMOQ"></productNamePrice>
     <div style="clear: both;"></div>
-    <product-add-cart  :goodColorSize="goodColorSize" :skuProducts="skuProducts" :productID="productID"></product-add-cart>
+    <product-add-cart  :goodColorSize="goodColorSize" :skuProducts="skuProducts" :productID="productID" :goodType="goodType"></product-add-cart>
     <select-color-size :goodColorSize="goodColorSize"></select-color-size>
     <free-shipping :isFreeShipping="isFreeShipping" :shippingTime="shippingTime" :country="country" :freeShippingMehtod="freeShippingMehtod"></free-shipping>
     <div style="clear: both;"></div>
@@ -17,8 +17,8 @@
     <product-related-product :oriData="oriData"></product-related-product>
     <image-list :imageList="imageList"></image-list>
     <add-cart-bottom></add-cart-bottom>
-    <customer-reviews :customerReviews="customerReviews"></customer-reviews>
-    <question-answer :questionAnswer="questionAnswer"></question-answer>
+    <customer-reviews :customerReviews="customerReviews" :productID="productID"></customer-reviews>
+    <question-answer :questionAnswer="questionAnswer" :oriData="oriData"></question-answer>
     <div style="clear: both;"></div>
     <related-searches :hotKeyWords="hotKeyWords"></related-searches>
 
@@ -84,7 +84,9 @@
         country:'',
         freeShippingMehtod:'',
         skuProducts:[],
-        productID:''
+        productID:'',
+        storesale:[],
+        goodType:{}
       }
     },
     methods: {
@@ -106,6 +108,8 @@
 
       getSearchListSucc(res) {
         const data = res.data.goodsBean;
+        this.goodType = res.data.typeMap;
+        console.log("goodType: "+JSON.stringify(this.goodType  ));
         this.oriData = data;
         // console.log("data: "+JSON.stringify(this.oriData  ));
         this.productImg = data.pImage;
@@ -129,7 +133,7 @@
         // console.log(skuProductsJSON)
         this.skuProducts = skuProductsJSON;
         this.productID = data.pID;
-        console.log(this.productID)
+        console.log(this.productID);
       },
       changeTo400Img(){
         // 替换为轮播图所使用的img的尺寸
@@ -161,6 +165,36 @@
         // console.log(imageArray);
         this.imageList = imageArray;
       },
+      getRelatedProduct(res) {
+        let url = 'http://192.168.1.163:8085/getHotSale';
+        let data =   this.oriData;
+        console.log(JSON.stringify(data));
+        var keyword = '';
+        var shopID = data.sID;
+        console.log(shopID);
+        var productID = data.pid;
+        var catname = data.category;
+        var productName = data.pName;
+        var uuid = data.goodsUuid;
+        var pImg = data.coverPictureUrl;
+        var catid= data.catid1;
+
+        this.$ajax.post(url,
+          //pid 为传值的key
+          this.$qs.stringify({shopid:shopID, catid:catid})
+        )
+          .then(this.getRelatedProductSucc)
+          .catch(function (res) {
+            console.log("Error, no data")
+          })
+      },
+
+      getRelatedProductSucc(res) {
+        console.log("related Product")
+        const data = res.data.storesale;
+        console.log(JSON.stringify(data));
+        this.storesale =data;
+      },
       // getSearchList() {
       //   this.$ajax.get('/static/mock/index.json') // npm run build ==>  /static/mock/index.json
       //     .then(this.getSearchListSucc)
@@ -189,6 +223,14 @@
       this.getKeyword();
       this.getSearchList();
     },
+    // watch: {
+    //   oriData:function(newVal,oldVal){
+    //     // console.log(newVal)
+    //     this.goodsInfo = newVal;
+    //     console.log(JSON.stringify(this.goodsInfo))
+    //     this.getRelatedProduct();
+    //   }
+    // },
   }
 </script>
 

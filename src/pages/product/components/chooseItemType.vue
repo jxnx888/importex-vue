@@ -15,24 +15,18 @@
 
     </div>
 
-    <!--<div class="selectType">
+    <div class="selectType">
       <div class="col-xs-12">
-        <div v-for="(item,index) in goodColorSize" class="">
-          <div v-if="item.type[index-1] === item.type[index] && item.img === ''" class="sizeType">
-            <p class="text-left">{{item.type}}123123:</p>
-            {{item.value}}</div>
-          <div v-else-if="item.type[index-1] === item.type[index] && item.img !== ''" class="sizeType" >
-            <p class="text-left">{{item.type}}:</p>
-            {{item.img}}
-          </div>
+        <div v-for="(value,key,index) in goodType" class="">
+          <p class="text-left">{{key}}</p>
+          <div >{{value}}</div>
           <div v-else class="sizeType" >
-            <p class="text-left">{{item.type}}::::::::::::</p>
-            {{item.value}}
+
           </div>
         </div>
       </div>
-    </div>-->
-    <div class="row color_Size">
+    </div>
+   <!-- <div class="row color_Size">
       <div class="col-xs-12" >
         <div class="size" >
           <div v-for="(item, index) in goodColorSize">
@@ -94,7 +88,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
     <div class="row quantity_addCart ">
       <div class="quantity text-center ">
         <div class="col-xs-8 quantity_title">Quantity (Minimum Order: 1)</div>
@@ -123,7 +117,8 @@
       props:{
         goodColorSize: Array,
         productID:String,
-        skuProducts:Array
+        skuProducts:Array,
+        goodType:Object,
       },
       data(){
           return{
@@ -232,6 +227,14 @@
         },
 
       },
+    watch: {
+      goodType:function(newVal,oldVal){
+        // console.log(newVal)
+        // this.productID = newVal;
+        // console.log(JSON.stringify(this.goodsInfo));
+        // this.getCustomerReview();
+      }
+    },
   }
 </script>
 
