@@ -109,7 +109,7 @@
       getSearchListSucc(res) {
         const data = res.data.goodsBean;
         this.goodType = res.data.typeMap;
-        console.log("goodType: "+JSON.stringify(this.goodType  ));
+        // console.log("goodType: "+JSON.stringify(this.goodType  ));
         this.oriData = data;
         // console.log("data: "+JSON.stringify(this.oriData  ));
         this.productImg = data.pImage;
@@ -133,7 +133,6 @@
         // console.log(skuProductsJSON)
         this.skuProducts = skuProductsJSON;
         this.productID = data.pID;
-        console.log(this.productID);
       },
       changeTo400Img(){
         // 替换为轮播图所使用的img的尺寸

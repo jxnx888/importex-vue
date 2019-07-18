@@ -17,78 +17,37 @@
 
     <div class="selectType">
       <div class="col-xs-12">
-        <div v-for="(value,key,index) in goodType" class="">
-          <p class="text-left">{{key}}</p>
-          <div >{{value}}</div>
-          <div v-else class="sizeType" >
+        <div v-for="(value, key, index) in goodType" >
+          <p class="text-left typeTitle">{{key}}:</p>
+          <div v-for="(childItem, childIndex) in value" >
+            <div
+                 class="typeInfo"
+
+                 >
+              <div
+                class="typeInfo_value"
+                v-if="childItem.img == ''"
+                v-bind:class="{active:childIndex==isActive}"
+                @click="chooseTheType(childIndex, childItem.id, childItem.type, childItem.value)">
+                {{childItem.value }}</div>
+              <div class="typeInfo_img"
+                   v-else
+                   v-bind:class="{active:childIndex==isActive2}"
+                   @click="chooseTheType2(childIndex, childItem.id, childItem.type, childItem.value)">
+                <img :src="childItem.img" alt=""></div>
+
+            </div>
+<!--            <div v-if="childItem.img !== ''" class="typeInfo_img"-->
+<!--                 v-bind:class="{active:childIndex==isActive2}"-->
+<!--                 @click="chooseTheType2(childIndex, childItem.id, childItem.type, childItem.value)"-->
+<!--            ><img :src="childItem.img" alt=""></div>-->
 
           </div>
+
         </div>
       </div>
     </div>
-   <!-- <div class="row color_Size">
-      <div class="col-xs-12" >
-        <div class="size" >
-          <div v-for="(item, index) in goodColorSize">
 
-            <p class="text-left" v-if="index<1 && item.type === 'Size'" >Size:</p>
-            <div class="sizeType" v-if="item.type === 'Size'"
-                 v-bind:class="{active:index==isSizeActive}"
-                 @click="chooseTheTypeSize(index,item.id, item.type, item.value)">
-              <span > {{item.value}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12">
-        <div class="height">
-          <div v-for="(itemHeight, indexHeight) in goodColorSize">
-            <p class="text-left" v-if="itemHeight.type === 'Height'&&  indexHeight<1 " >Height:</p>
-            <div class="" v-if="itemHeight.type === 'Height'"
-                 @click="chooseTheTypeHeight(indexHeight, itemHeight.id, itemHeight.type, itemHeight.value)">
-              <div class="heightType"
-                   v-bind:class="{active:indexHeight==isHeightActive}" >
-                <span v-if="itemHeight.img == ''"> {{itemHeight.value}}</span>
-                <img v-else class="colorType_img" :src="itemHeight.img" alt="white" title="white">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12">
-        <div class="color">
-          <div v-for="(itemColor, indexColor) in goodColorSize">
-            <p class="text-left" v-if="(itemColor.type == 'Colour' || itemColor.type == 'Color') &&  indexColor<1 " >Colour:</p>
-            <div class="col-xs-2" v-if="itemColor.type == 'Colour' || itemColor.type == 'Color'"
-                 @click="chooseTheTypeColor(indexColor, itemColor.id, itemColor.type, itemColor.value)">
-              <div class="colorType"
-                   v-bind:class="{active:indexColor==isColorActive}" >
-                <span v-if="itemColor.img == ''"> {{itemColor.value}}</span>
-                <img v-else class="colorType_img" :src="itemColor.img" >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12">
-        <div class="Specifications">
-          <div v-for="(itemSpec, indexSpec) in goodColorSize">
-            <p class="text-left" v-if="indexSpec<1 && itemSpec.type !== 'Colour'&& itemSpec.type !== 'Color' && itemSpec.type !== 'Size' && itemSpec.type !== 'Height'">Specifications:</p>
-            <div
-                 v-if="itemSpec.type !== 'Colour'&& itemSpec.type !== 'Color' && itemSpec.type !== 'Size' && itemSpec.type !== 'Height'"
-                 @click="chooseTheTypeSpec(indexSpec, itemSpec.id)">
-              <div class="SpecificationsType"
-                   v-bind:class="{active:indexSpec==isSpecActive}">
-                <span v-if="itemSpec.img == ''"> {{itemSpec.value}}</span>
-                <img v-else class="colorType_img" :src="itemSpec.img" alt="white" title="white">
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>-->
     <div class="row quantity_addCart ">
       <div class="quantity text-center ">
         <div class="col-xs-8 quantity_title">Quantity (Minimum Order: 1)</div>
@@ -105,7 +64,6 @@
       </div>
     </div>
   </div>
-  <input type="hidden" :value="this.productID"></input>
 
 </div>
 </template>
@@ -122,29 +80,24 @@
       },
       data(){
           return{
-            num:0,
-            itemNum:0,
+            num:1,
+            itemNum:1,
             itemPrice:0,
-            isSizeActive:-1,
-            isColorActive:-1,
-            isSpecActive:-1,
-            isHeightActive:-1,
+            isActive:-1,
+            isActive2:-1,
+            activeType:[],
             currentProductID:'',
             typePriceList:'',
             view_url:'',
-            sizeID:'',
-            sizeType:'',
-            sizeValue:'',
-            heightID:'',
-            heightType:'',
-            heightValue:'',
-            colorID:'',
-            colorValue:'',
-            colorType:'',
-            specID:'',
-            specType:'',
-            specValue:'',
+            itemID:'',
+            itemType:'',
+            itemValue:'',
+            itemID2:'',
+            itemType2:'',
+            itemValue2:'',
             addToCartInfo:'',
+            chooseTypeOne:false,
+            chooseTypeTwo:false,
           }
       },
       methods:{
@@ -177,49 +130,48 @@
 
         },
         getGoodType(){
-          if(this.sizeID){
-            var str = this.sizeID+"|"+this.colorID+"@"+this.itemPrice+"@"+this.itemNum+"@"+ this.sizeType+ ":" +this.sizeValue+"|"+this.sizeID+"&&"+this.colorType+ ":"+this.colorValue+"|"+this.colorID
-          }
-          if(this.heightID){
-            var str = this.heightID+"|"+this.colorID+"@"+this.itemPrice+"@"+this.itemNum+"@"+ this.heightType+ ":" +this.heightValue+"|"+this.heightID+"&&"+this.colorType+ ":"+this.colorValue+"|"+this.colorID
-          }
-           if(this.specID){
-            var str = this.specID+"|"+this.colorID+"@"+this.itemPrice+"@"+this.itemNum+"@"+ this.heightType+ ":" +this.heightValue+"|"+this.heightID+"&&"+this.colorType+ ":"+this.colorValue+"|"+this.colorID
-          }
-          if(this.colorID){
-            var str = "0|"+this.colorID+"@"+this.itemPrice+"@"+this.itemNum+"@"+this.colorType+ ":"+this.colorValue+"|"+this.colorID
-          }
+          // itemPrice 暂时默认为0
+          if(this.chooseTypeOne == true && this.chooseTypeTwo == true){
+            var str = this.itemID+"|"+this.itemID2+"@"+this.itemPrice+"@"+this.itemNum+"@"+ this.itemType+ ":" +this.itemValue+"|"+this.itemID+"&&"+this.itemType2+ ":"+this.itemValue2+"|"+this.itemID2;
           this.addToCartInfo = str;
-          console.log(this.addToCartInfo)
-          console.log("productID:"+this.productID)
+          console.log(this.addToCartInfo);
+          console.log("productID:"+this.productID);
+            this.handleItemTypeClick();
+          }
+          else if(this.chooseTypeOne == true && this.chooseTypeTwo == false){
+            var str = 0+"|"+this.itemID+"@"+this.itemPrice+"@"+this.itemNum+"@"+ this.itemType+ ":" +this.itemValue+"|"+this.itemID;
+            this.addToCartInfo = str;
+            console.log(this.addToCartInfo);
+          }
+          else if(this.chooseTypeOne == false && this.chooseTypeTwo == true){
+            var str = 0+"|"+this.itemID2+"@"+this.itemPrice+"@"+this.itemNum+"@"+ this.itemType2+ ":"+this.itemValue2+"|"+this.itemID2;
+            this.addToCartInfo = str;
+            console.log(this.addToCartInfo);
+          }
+          else{
+            console.log("pick type");
+
+          }
         },
-        chooseTheTypeSize(index,id, type, value){
-          this.isSizeActive=index;
-          this.sizeID = id;
-          this.sizeType = type;
-          this.sizeValue = value;
-          console.log(this.sizeID,this.sizeType,this.sizeValue)
+        chooseTheType(index,id, type, value){
+          this.isActive=index;
+          this.activeType.push(index);
+          this.itemID = id;
+          this.itemType = type;
+          this.itemValue = value;
+          this.chooseTypeOne = true;
+          // this.chooseTypeTwo = true;
+          console.log(this.itemID,this.itemType,this.itemValue)
         },
-        chooseTheTypeHeight(index,id, type, value){
-          this.isHeightActive=index;
-          this.heightID =id;
-          this.heightType = type;
-          this.heightValue = value;
-          console.log(this.heightID,this.heightType,this.heightValue)
-        },
-        chooseTheTypeColor(index,id, type, value){
-          this.isColorActive=index;
-          this.colorID = id;
-          this.colorType = type;
-          this.colorValue = value;
-          console.log(this.colorID,this.colorType,this.colorValue)
-        },
-        chooseTheTypeSpec(index,id, type, value){
-          this.isSpecActive=index;
-          this.specID = id;
-          this.specType = type;
-          this.specValue = value;
-          console.log(this.specID,this.specType,this.specValue)
+        chooseTheType2(index,id, type, value){
+          this.isActive2=index;
+          this.activeType.push(index);
+          this.itemID2 = id;
+          this.itemType2 = type;
+          this.itemValue2 = value;
+          this.chooseTypeTwo = true;
+
+          console.log(this.itemID2,this.itemType2,this.itemValue2)
         },
         numberChange(value) {
           this.itemNum = value;
@@ -273,54 +225,48 @@
         margin-top -.2rem
         font-size .2rem
         color #666
-    .color_Size
-      .size
-        .sizeType
-          float left
-          height .25rem
+    .selectType
+      position: absolute;
+      bottom: 1.1rem;
+      top: .8rem
+      left: 0;
+      right: 0;
+      overflow: auto;
+      z-index 99
+      .typeTitle
+        padding .1rem 0
+        line-height .25rem
+        clear both
+      .typeInfo
+        float left
+        padding 0 .05rem
+        .typeInfo_value
           min-width .3rem
           line-height .25rem
           border 1px solid #000
-          padding 0 .05rem
-          margin 0 2% 0 0
-      .height
-        .heightType
-          float: left;
-          height .3rem
-          line-height .3rem
-          margin 2% 2% 2% 0
-          padding 0 .05rem
-          border 1px solid #000
-      .color
-        .col-xs-2
-          padding 0
-          height .5rem
-        .colorType
+          padding 0 .1rem
+          margin 0 .05rem .1rem 0
+        .typeInfo_img
           position: relative;
           width .44rem
           height .44rem
           border 1px solid #000
-          .colorType_img
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-            max-width: 100%;
-            max-height: 100%;
-      .SpecificationsType
-        float: left;
-        height .3rem
-        line-height .3rem
-        margin 2% 2% 2% 0
-        padding 0 .05rem
-        border 1px solid #000
+          margin 0 .05rem .1rem 0
+        .typeInfo_img img
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: auto;
+          max-width: 100%;
+          max-height: 100%;
     .quantity_addCart
       position: fixed;
       bottom 0
       line-height .5rem
       width 100%
+      z-index 100
       .addCart
         height .5rem
         color #fff
@@ -338,21 +284,6 @@
           /*float: left*/
         .inputNumber
           width 1rem
-    .selectType
-      overflow hidden
-      .sizeType
-        float left
-        height .25rem
-        min-width .3rem
-        line-height .25rem
-        border 1px solid #000
-        padding 0 .05rem
-        margin 0 2% 0 0
-      .colorType
-        position: relative;
-        width .44rem
-        height .44rem
-        border 1px solid #000
 
   .active {
     border 1px solid red!important;

@@ -63,41 +63,10 @@
           // this.shoppingCartInfor = data.shoppingCart;
           this.shoppingCartInfor = data.everyShopProductLists;
           // console.log(JSON.stringify(data))//object
-          this.productTypeSplic(this.shoppingCartInfor);
+          // this.productTypeSplic(this.shoppingCartInfor);
+        }
+      },
 
-        }
-      },
-      productTypeSplic(data) {
-        let productType = data;
-        let shopInfo = [];
-        let shopInfo_type = [];
-        let shopInfo_show = [];
-        let shopInfo_param = [];
-        let shopInfo_show_temp = [];
-        let shopInfo_param_temp = [];
-        for (var i in productType) {
-          for (let j in productType[i].spiderBeans) {
-            let str_type = productType[i].spiderBeans[j].types;
-            let type_length = str_type.length;
-            // 判断数据最后是否有逗号
-            if (str_type.substr(type_length - 1, type_length).indexOf(",") > -1) {
-              str_type = str_type.substr(0, type_length - 1)
-            }
-            // 数据逗号分开，再循环@分割
-            let str_type_split = str_type.split(",");
-            for (let k in str_type_split) {
-              shopInfo_show_temp.push(JSON.parse((str_type_split[k].split('@'))[0]));
-              shopInfo_param_temp.push(JSON.parse((str_type_split[k].split('@'))[1]));
-              console.log(shopInfo_show_temp);
-            }
-            shopInfo_show.push(shopInfo_show_temp);
-            console.log(shopInfo_show);
-            // shopInfo_type.push((str_type_split.split('@'))[0]);
-            // console.log('shopInfo_type:'+shopInfo_type)
-          }
-        }
-        ;
-      },
     },
     mounted() {
       this.getSearchList();

@@ -35,34 +35,34 @@
           <span class="col-xs-2 iconfont">&#xe6b7;</span>
         </div>
 
-<!--        <div class="items col-xs-12" v-for="(childItem, childIndex) in item.spiderBeans" >-->
+      <!--  <div class="items col-xs-12" v-for="(childItem, childIndex) in item.spiderBeans" >
 
-<!--          <div class="col-xs-2">-->
-<!--            <input type="checkbox" class="checkAll" >-->
-<!--          </div>-->
-<!--          <div class="col-xs-10">-->
-<!--            <div class="col-xs-4">-->
-<!--              <div class="item_img">-->
-<!--                <img v-lazy="childItem.img_url">-->
-<!--                &lt;!&ndash;                <img :src="childItem.img_url">&ndash;&gt;-->
-<!--              </div>-->
+          <div class="col-xs-2">
+            <input type="checkbox" class="checkAll" >
+          </div>
+          <div class="col-xs-10">
+            <div class="col-xs-4">
+              <div class="item_img">
+                <img v-lazy="childItem.img_url">
+                &lt;!&ndash;                <img :src="childItem.img_url">&ndash;&gt;
+              </div>
 
-<!--            </div>-->
-<!--            <div class="col-xs-8">-->
-<!--              <div class="col-xs-12">-->
-<!--                {{childItem.name}}-->
-<!--              </div>-->
-<!--              <div class="col-xs-12">-->
-<!--                <span class="freeShipping">Free shipping</span>-->
-<!--                <span class="iconfont">&#xe688;</span>-->
-<!--                <span class="shipOutDays">Ship out in 3-6 Days</span>-->
-<!--              </div>-->
-<!--              <div class="col-xs-12">-->
-<!--                <input class="remark" placeholder="Remark:">-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
+            </div>
+            <div class="col-xs-8">
+              <div class="col-xs-12">
+                {{childItem.name}}
+              </div>
+              <div class="col-xs-12">
+                <span class="freeShipping">Free shipping</span>
+                <span class="iconfont">&#xe688;</span>
+                <span class="shipOutDays">Ship out in 3-6 Days</span>
+              </div>
+              <div class="col-xs-12">
+                <input class="remark" placeholder="Remark:">
+              </div>
+            </div>
+          </div>
+        </div>-->
 
         <!--different type of item-->
         <div class="items_type col-xs-12" v-for="(childItem, childIndex) in item.spiderBeans">
@@ -79,10 +79,11 @@
               <div class="col-xs-9">
                 <div class="col-xs-7">
                   <div class="col-xs-12 specColor">
-                    <span>Spec: {{childItem.itemSize}}</span>
+                    {{childItem.types}}
                   </div>
                   <div class="col-xs-12 specColor">
-                    <span>Color: {{childItem.itemColor}}</span>
+                    {{childItem.types}}
+<!--                    <span>{{childItem.types.split(",")[1].split("@")[0]}}</span>-->
                   </div>
                   <div class="col-xs-12 weight">Weight: {{childItem.perWeight}}kg</div>
                   <!--                <div class="col-xs-12">-->
@@ -107,7 +108,7 @@
                 </div>
                 <div class="col-xs-8">
                   <div class="saveLateItem">Save for late</div>
-                  <div class="removeItem">Remove</div>
+                  <div class="removeItem" @click="deleteItem(childItem.guId)">Remove</div>
                 </div>
               </div>
             </div>
@@ -136,7 +137,7 @@
       }
     },
     methods: {
-      getItemPeice() {
+      /*getItemPeice() {
         console.log('this.itemPiece  new: ' + this.itemPiece)
         for (var i = 0; i < this.shoppingCartInfor.length; i++) {
           // this.itemPiece = [];
@@ -150,20 +151,28 @@
             }
           }
         }
-      },
+      },*/
       handleChange(pieces, price, index) {
         console.log("pieces:" + pieces, " price: " + price + " index: " + index);
-
-        var totlePrice = pieces * price
-        console.log("totleprice:" + totlePrice)
-
+        var totlePrice = pieces * price;
+        console.log("totleprice:" + totlePrice);
+        console.log("this.totalPrice:" + this.totalPrice)
       },
-      getItemPeice1() {
-      }
+      deleteItem(guid){
+        let url = "http://192.168.1.163:8085/shopcart/deleteCartGood";
+        this.$ajax.post(url,
+          //pid 为传值的key
+          this.$qs.stringify({guid: guid})
+        )
+          .then( console.log("Deleted") )
+          .catch(function (res) {
+            console.log("error, no data")
+          })
+      },
 
     },
     mounted() {
-      this.getItemPeice();
+      // this.getItemPeice();
     }
   }
 </script>
@@ -281,7 +290,10 @@
 
       .col-xs-1
         padding 0 .1rem
-
+      .col-xs-11
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
     .coupon
       width 100%
       height .34rem
@@ -453,7 +465,9 @@
               .specColor
                 line-height .2rem
                 font-size .11rem
-
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow:ellipsis;
               // weight
 
               .weight

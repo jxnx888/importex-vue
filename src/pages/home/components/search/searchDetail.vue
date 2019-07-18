@@ -98,7 +98,7 @@
         if (this.keyword.length > 0) {
           this.searchHistory();
           // _this.$router.push({path: "./searchResult/" + this.keyword+ '&catid=0&minprice=&maxprice=&sort=default&pvid=&collection=0&newArrivalDate=&isFreeShip=1&unkey='});
-          _this.$router.push({path: "./searchResult/" + this.keyword, query:{catid:'0', minprice:'',maxprice:'',sort:'default',pvid:'',collection:'0', newArrivalDate:'',isFreeShip:'1', unkey:''}})
+          _this.$router.push({path: "../searchResult/" + this.keyword, query:{catid:'0', minprice:'',maxprice:'',sort:'default',pvid:'',collection:'0', newArrivalDate:'',isFreeShip:'1', unkey:''}})
         } else {
           // 当Keyword<0, 显示cancel，点击可返回主页
           // _this.$router.push({path: './'});

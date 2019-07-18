@@ -76,7 +76,7 @@
         var itemID = this.oriData.pID;
         var shopID= this.oriData.sID;
         var mincatID = this.oriData.catid1;
-        console.log(itemID,shopID ,mincatID)
+        // console.log(itemID,shopID ,mincatID)
         this.$ajax.post(url,
           this.$qs.stringify({spider_itemid:itemID,spider_shop_id:shopID,spider_mincatid:mincatID})
         )

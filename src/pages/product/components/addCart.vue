@@ -58,10 +58,12 @@
         },
         showItmeType() {
           this.showItemType = true;
+          this.stopScroll()
           // console.log(this.showItemType)
         },
         hideItmeType() {
           this.showItemType = false;
+          this.canScroll()
           // console.log(this.showItemType)
         },
       }
