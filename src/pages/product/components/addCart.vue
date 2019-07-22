@@ -17,27 +17,38 @@
       <div class="col-xs-6 text-center">
         <div class="addCart_toCart" @click="showItmeType()">ADD TO CART</div>
       </div>
-      <choose-item-type v-if="showItemType" :goodColorSize="goodColorSize"   @hideItmeType="hideItmeType()" :productID="productID" :goodType="goodType"></choose-item-type>
+      <choose-item-type v-if="showItemType"
+                        @hideItmeType="hideItmeType()"
+                        :productID="productID"
+                        :goodType="goodType"
+                        :defaultTypeShowImg="defaultTypeShowImg">
+      </choose-item-type>
     </div>
 </template>
 
 <script>
     import ChooseItemType from "./chooseItemType";
+    import {oldLayOutOfType} from "./js/goodType"
     export default {
         name: "addCart",
       props:{
         goodColorSize: Array,
         productID:String,
-        goodType:Object
+        goodType:Object,
+        goodsBeanType:Array,
+        oriData:Object,
+        defaultTypeShowImg:String
       },
       components: {ChooseItemType},
       data(){
           return {
-            showItemType:false
+            showItemType:false,
+            types:[],
+            addTypeHtml:''
           }
       },
       methods: {
-        getSearchList() {
+        /*getSearchList() {
           this.$ajax.get('/static/mock/index.json') // npm run build ==>  /static/mock/index.json
             .then(this.getSearchListSucc)
         },
@@ -55,7 +66,7 @@
               }
             }
           }
-        },
+        },*/
         showItmeType() {
           this.showItemType = true;
           this.stopScroll()
@@ -66,12 +77,22 @@
           this.canScroll()
           // console.log(this.showItemType)
         },
-      }
+
+      },
+     mounted(){
+     },
+      watch: {
+
+      },
     }
 </script>
 
 <style scoped lang="stylus">
 .addCart
+  position: fixed;
+  bottom 0
+  left 0
+  right 0
   height .51rem
   line-height .51rem
   font-size .1rem
@@ -80,6 +101,7 @@
   border-top 1px solid #DADADA
   border-bottom 1px solid #DADADA
   background-color #fff
+  z-index 9
   .col-xs-12
     line-height .15rem
   .col-xs-6
@@ -127,5 +149,7 @@
     background #000
     font-size .14rem
     font-weight bold
+
+
 
 </style>

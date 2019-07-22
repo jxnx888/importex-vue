@@ -34,6 +34,7 @@
 .relatedSearches
   margin-top .1rem
   background-color #fff
+  margin-bottom: .5rem;
   .wrapper
     padding 0 15px 15px 15px
     .relatedSearches_title

@@ -18,7 +18,27 @@
     </div>
 
     <div class="productPriceList">
-      <div
+      <div class="col-xs-12">
+        <div class="col-xs-4 productPricePiece">
+          <div v-if="this.fullData.firstIntervalPrice"  class="productPrice">
+            ${{this.fullData.firstIntervalPrice}}</div>
+          <div v-if="this.fullData.firstIntervalQuantity" class="productPiece">
+            {{this.fullData.firstIntervalQuantity}} pieces</div>
+        </div>
+        <div class="col-xs-4">
+          <div v-if="this.fullData.secondIntervalPrice"  class="productPrice">
+            ${{this.fullData.secondIntervalPrice}}</div>
+          <div v-if="this.fullData.secondIntervalQuantity" class="productPiece">
+            {{this.fullData.secondIntervalQuantity}} pieces</div>
+        </div>
+        <div class="col-xs-4">
+          <div v-if="this.fullData.thirdIntervalPrice"  class="productPrice">
+            ${{this.fullData.thirdIntervalPrice}}</div>
+          <div v-if="this.fullData.thirdIntervalQuantity" class="productPiece">
+            {{this.fullData.thirdIntervalQuantity}} pieces</div>
+        </div>
+      </div>
+      <!--<div
         class="col-xs-4"
         v-for="(item, index) in productPriceList">
         <div class="productPrice">
@@ -27,7 +47,7 @@
         <div class="productPiece">
           {{item.quantity}} pieces
         </div>
-      </div>
+      </div>-->
       <div class="productPriceList_bottom">
         <div class="col-xs-4">
           Sold:{{productSold}}
@@ -52,7 +72,8 @@
       productName: String,
       productPriceList: Array,
       productSold: String,
-      productMOQ: String
+      productMOQ: String,
+      fullData:Object
     },
     data() {
       return {}
@@ -107,17 +128,18 @@
     .productPriceList
       padding-bottom 15%
       background-color #fff
+      .productPricePiece
+        padding 0
       .productPrice
         font-size .19rem
         font-weight bold
         color #333
         line-height .18rem
-
+        padding: 0.05rem 0
       .productPiece
         font-size .12rem
         color #999
         line-height .13rem
-        padding .05rem 0
         white-space:nowrap;
         overflow:hidden;
         text-overflow:ellipsis;

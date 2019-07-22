@@ -5,10 +5,11 @@
     <productNamePrice :productName="productName"
                       :productPriceList="productPriceList"
                       :productSold="productSold"
-                      :productMOQ="productMOQ"></productNamePrice>
+                      :productMOQ="productMOQ"
+                      :fullData="fullData"></productNamePrice>
     <div style="clear: both;"></div>
-    <product-add-cart  :goodColorSize="goodColorSize" :skuProducts="skuProducts" :productID="productID" :goodType="goodType"></product-add-cart>
-    <select-color-size :goodColorSize="goodColorSize"></select-color-size>
+    <product-add-cart  :goodColorSize="goodColorSize" :skuProducts="skuProducts" :productID="productID" :goodType="goodType" :goodsBeanType="goodsBeanType"  :oriData="oriData" :defaultTypeShowImg="defaultTypeShowImg"></product-add-cart>
+<!--    <select-color-size :goodColorSize="goodColorSize"></select-color-size>-->
     <free-shipping :isFreeShipping="isFreeShipping" :shippingTime="shippingTime" :country="country" :freeShippingMehtod="freeShippingMehtod"></free-shipping>
     <div style="clear: both;"></div>
     <coupons></coupons>
@@ -16,7 +17,7 @@
     <div style="clear: both;"></div>
     <product-related-product :oriData="oriData"></product-related-product>
     <image-list :imageList="imageList"></image-list>
-    <add-cart-bottom></add-cart-bottom>
+<!--    <add-cart-bottom></add-cart-bottom>-->
     <customer-reviews :customerReviews="customerReviews" :productID="productID"></customer-reviews>
     <question-answer :questionAnswer="questionAnswer" :oriData="oriData"></question-answer>
     <div style="clear: both;"></div>
@@ -63,6 +64,7 @@
       return {
         keyword: '',
         oriData:{},
+        fullData:{},
         goodsID:'',
         productInfo: [],
         productImg: [],
@@ -86,7 +88,9 @@
         skuProducts:[],
         productID:'',
         storesale:[],
-        goodType:{}
+        goodType:{},
+        goodsBeanType:[],
+        defaultTypeShowImg:''
       }
     },
     methods: {
@@ -109,9 +113,11 @@
       getSearchListSucc(res) {
         const data = res.data.goodsBean;
         this.goodType = res.data.typeMap;
+        this.goodsBeanType= data.type;
         // console.log("goodType: "+JSON.stringify(this.goodType  ));
         this.oriData = data;
-        // console.log("data: "+JSON.stringify(this.oriData  ));
+        this.fullData = res.data;
+        // console.log("data: "+JSON.stringify(this.fullData  ));
         this.productImg = data.pImage;
         this.changeTo400Img();
         this.productName= data.pName;
@@ -142,6 +148,8 @@
           // console.log(" this.productImg:::"+ this.productImg[i].replace('60x60.jpg','400x400.jpg'))
           this.current400Img.push(this.productImg[i].replace('60x60.jpg','400x400.jpg'))
         }
+        this.defaultTypeShowImg = this.current400Img[0];
+        console.log(this.defaultTypeShowImg)
         //end
       },
       currentCommodityDetailsFN(){

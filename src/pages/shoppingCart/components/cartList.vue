@@ -101,6 +101,14 @@
                     :min="1"
                     :key="childIndex"
                     label="描述文字 "></el-input-number>
+                 <!-- <div class="inputNumber iconfont text-right col-xs-4">
+                    <span class="inputNumber_change inputNumber_decrease iconfont" @click="changeNum(-1)">&#xe6b6;</span>
+
+                    <span class="inputNumber_change inputNumber_increase iconfont" @click="changeNum(1)">&#xe6b7;</span>
+                    <div class="inputNumber_input" >
+                      <input id="inputNumber_input" type="number" :value="childItem.number">
+                    </div>
+                  </div>-->
                 </div>
                 <div class="col-xs-4 price">
                   <span class="currentPrice">${{childItem.price}}</span>
@@ -124,8 +132,10 @@
 
 <script>
 
+  import ChangeNumber from "../../../common/changNumInput/changeNumber";
   export default {
     name: "cartList",
+    components: {ChangeNumber},
     props: {
       shoppingCartInfor: Array
     },
@@ -169,6 +179,19 @@
             console.log("error, no data")
           })
       },
+      changeNum(key){
+        if(key===1)
+        {
+          $("#inputNumber_input").value +=1;
+          // this.itemNum +=1;
+        }
+        if(key===-1){
+          if(this.itemNum>1){
+            this.itemNum -=1;
+          }
+        }
+        console.log("choosing item piece:" +this.itemNum);
+      }
 
     },
     mounted() {
@@ -318,6 +341,7 @@
 
     /*.col-xs-1:last-child*/
     /*  padding-left .1rem*/
+/*
 
     .items
       padding 0
@@ -368,14 +392,14 @@
             padding 0 0 0 .06rem
             overflow: hidden
             display: -webkit-box
-            /* autoprefixer: ignore next */
+            !* autoprefixer: ignore next *!
             -webkit-box-orient: vertical;
-            /*! autoprefixer: off */
+            !*! autoprefixer: off *!
             -webkit-box-orient: vertical;
-            /* autoprefixer: on */
-            /* autoprefixer: off */
+            !* autoprefixer: on *!
+            !* autoprefixer: off *!
             -webkit-box-orient: vertical;
-            /* autoprefixer: on */
+            !* autoprefixer: on *!
             -webkit-line-clamp: 2
 
             .remark
@@ -398,6 +422,7 @@
             .shipOutDays
               font-size .11rem
               color #999
+*/
 
     .items_type
       font-size .11rem
@@ -479,7 +504,50 @@
             .col-xs-5
               padding 0
               height .65rem
-
+              .inputNumber
+                position: relative;
+                display: inline-block;
+                font-size: 12px;
+                width 100%
+                .inputNumber_change
+                  position: absolute;
+                  background: #fff;
+                  text-align: center;
+                  margin: 0.17rem 0;
+                  width: 0.23rem;
+                  line-height: 0.2rem;
+                  display: inline-block;
+                  vertical-align: baseline;
+                .inputNumber_decrease
+                  border-radius: 0.16rem 0 0 0.16rem;
+                  border-right: none;
+                  left 17px
+                .inputNumber_increase
+                  border-radius: 0 0.16rem 0.16rem 0;
+                  border-left: none;
+                  right 17px
+                .inputNumber_input
+                  display: block;
+                  width 100%
+                .inputNumber_input input
+                  width 100%
+                  background-color: #FFF;
+                  background-image: none;
+                  border-radius: 0.16rem;
+                  height: 28px;
+                  line-height: 28px;
+                  padding-left: 35px;
+                  padding-right: 35px;
+                  text-align: center;
+                  border: 1px solid #DCDFE6;
+                  box-sizing: border-box;
+                  color: #606266;
+                  display: inline-block;
+                  font-size: inherit;
+                  outline: 0;
+                  padding: 0 15px;
+                  -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+                  transition: border-color .2s cubic-bezier(.645,.045,.355,1);
               .col-xs-12
                 padding 0
 
