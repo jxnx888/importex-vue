@@ -12,6 +12,8 @@ import Router from 'vue-router'
 //路由懒加载模式
 const Home = () => import('@/pages/home/home');
 const myAccount = () => import('@/pages/myAccount/myAccount');
+const unpaidOrder = () => import('@/pages/orders/unpaidOrder/unpaidOrder');
+const unpaidOrderDetail = () => import('@/pages/orders/unpaidOrder/unpaidOrderDetail');
 const personalInfo = () => import('@/pages/myAccount/components/personalInfoDetail');
 const updateInfo = () => import('@/pages/myAccount/components/updateInfo');
 const changeEmail = () => import('@/pages/myAccount/components/changeEmail');
@@ -43,7 +45,17 @@ export default new Router({
       mode: 'history',
       path: '/myAccount',
       name: 'myAccount',
-      component: myAccount
+      component: myAccount,
+    },
+    {
+      path: '/myAccount/unpaidOrder',
+      name: 'unpaidOrder',
+      component:unpaidOrder,
+    },
+    {
+      path: '/myAccount/unpaidOrder/Detail',
+      name: 'unpaidOrderDetail',
+      component:unpaidOrderDetail,
     },
     {
         path: '/myAccount/personalInfo',

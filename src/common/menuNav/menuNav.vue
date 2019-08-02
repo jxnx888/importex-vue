@@ -29,7 +29,7 @@
           <router-link to="/shoppingCart" tag="div">
 
             <div class="icon iconfont">
-              &#xe601;
+              &#xe61d;
             </div>
             <div class="icon_text">
               Shopping Cart

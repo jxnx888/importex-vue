@@ -41,7 +41,10 @@
         <span class="itemNum">3</span>&#xe620;
       </div>
     </router-link>
-    <div class="col-xs-12  margin-top">
+    <router-link
+      tag="div"
+      to="/myAccount/unpaidOrder"
+      class="col-xs-12  margin-top">
       <div class="col-xs-10">
         <span class="iconfont">&#xe65c;</span>
         Unpaid Order
@@ -49,7 +52,7 @@
       <div class="col-xs-2 iconfont text-right">
          <span class="itemNum">3</span>&#xe620;
       </div>
-    </div>
+    </router-link>
     <div class="col-xs-12">
       <div class="col-xs-10">
         <span class="iconfont">&#xe63d;</span>
@@ -109,6 +112,10 @@
         name: "personalInfo",
       props:{
         personalInfo: Object
+      },
+      data (){
+        return{
+        }
       },
 
     }

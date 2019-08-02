@@ -4,6 +4,7 @@
     <searchResultListResult :rootTreeCategory="rootTreeCategory" :param="param" :data="data"></searchResultListResult>
     <div style="clear:both"></div>
     <searchProductList :hasProductList="hasProductList" :productList="productList"></searchProductList>
+    <menu-nav></menu-nav>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
   import searchResultHeader from './components/topHeader'
   import searchResultListResult from './components/listResultCategories'
   import searchProductList from './components/productList'
+  import MenuNav from "../../common/menuNav/menuNav";
 
   export default {
     name: "searchResult",
@@ -25,6 +27,7 @@
       }
     },
     components: {
+      MenuNav,
       searchResultHeader,
       searchResultListResult,
       searchProductList,

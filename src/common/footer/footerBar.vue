@@ -2,6 +2,17 @@
   <div class="footer">
     <div class="container">
       <div class="row">
+        <div class="col-xs-12 contact">
+          <span class="iconfont">&#xe65f;</span>
+          Need Help? We're availiable 24/7
+          <router-link
+            to="contact"
+          class="contactUSFAQ">
+            Contact Us / FAQ
+          </router-link>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-xs-6 text-center">
           FAQ
         </div>
@@ -38,9 +49,9 @@
         <div class="col-xs-6 text-center">
           Custom&Duty Related
         </div>
-        <div class="col-xs-6 text-center">
+        <router-link tag="div"  to="contact" class="col-xs-6 text-center">
           Customer Service
-        </div>
+        </router-link>
       </div>
       <div class="row mediaIcon">
         <router-link to="/facebook" class="col-xs-2 iconfont text-center">&#xe683;</router-link>
@@ -80,13 +91,24 @@
 
 <style scoped lang="stylus">
 .footer
-  margin-top .2rem
+  /*margin-top .2rem*/
   .container
+    .row
+      .contact
+        height .35rem
+        line-height .35rem
+        font-size .14rem
+        color #333
+        background: rgba(230,230,230,1)
+        .contactUSFAQ
+          text-decoration underline
+          color: #01a4ef;
     .row
       .col-xs-6
         line-height .28rem
         height .28rem
         font-size .13rem
+        color #666
         @media screen and (max-width: 320px)
           font-size .12rem
     .mediaIcon
@@ -134,7 +156,7 @@
         font-size .12rem
         height .2rem
         line-height .2rem
-        margin-bottom .1rem
+        margin-bottom .7rem
 
 
 </style>

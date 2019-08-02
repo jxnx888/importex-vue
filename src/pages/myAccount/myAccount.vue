@@ -13,7 +13,7 @@
       components: {PersonalInfo, TopHeader},
       data (){
         return{
-          personalInfo:{}
+          personalInfo:{},
         }
       },
       methods: {
@@ -27,10 +27,9 @@
             const data = res.data;
             this.personalInfo = data.personalInfo;
             // console.log(JSON.stringify(this.shoppingCartInfors))//object
-
-
           }
-        }
+        },
+
       },
       mounted() {
         this.getData();

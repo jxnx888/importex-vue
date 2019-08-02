@@ -12,6 +12,7 @@
 
 <script>
   import scrollTop from './common/scrollTop/scrollTop'
+
 export default {
   name: 'App',
   components:{
