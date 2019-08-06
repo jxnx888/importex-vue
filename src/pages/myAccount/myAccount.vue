@@ -1,7 +1,7 @@
 <template>
 <div class="myAccount">
   <top-header></top-header>
-  <personal-info :personalInfo="personalInfo"></personal-info>
+  <personal-info :personalInfo="personalInfo" :dataInfo="dataInfo"></personal-info>
 </div>
 </template>
 
@@ -14,25 +14,30 @@
       data (){
         return{
           personalInfo:{},
+          dataInfo:{}
         }
       },
       methods: {
-        getData() {
-          this.$ajax.get('/static/mock/index.json') // npm run build ==>  /static/mock/index.json
-            .then(this.getDataSucc)
+
+        getPersonalInfo(res) {
+          let url = 'http://192.168.1.163:8085/individual/getCenterJson';
+          this.$ajax.get(url)
+            .then(this.getPersonalInfoSucc)
+            .catch(function (res) {
+              console.log("error, no data")
+            })
         },
-        getDataSucc(res) {
-          res = res.data;
-          if (res.ret && res.data) {
-            const data = res.data;
-            this.personalInfo = data.personalInfo;
-            // console.log(JSON.stringify(this.shoppingCartInfors))//object
-          }
+
+        getPersonalInfoSucc(res) {
+          const data = res.data.data;
+          // console.log(JSON.stringify(data))
+          this.personalInfo =data.userBean;
+          this.dataInfo = data;
         },
 
       },
       mounted() {
-        this.getData();
+        this.getPersonalInfo();
       }
     }
 </script>

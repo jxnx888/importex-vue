@@ -78,7 +78,10 @@ Vue.use(VueLazyload, {
   error: 'dist/error.png',
   loading: '../static/images/loading.gif', //预加载loading图片
   attempt: 1
-})
+});
+// better-scroll
+// import BScroll from 'better-scroll'
+// var BScroll = require('better-scroll')
 
 Vue.use(VueAwesomeSwiper, /* { default global options } */);
 

@@ -3,11 +3,22 @@
   <div class="personalInfo_top ">
     <div class="row ">
     <div class="col-xs-10">
+      <div class="row col-xs-12 name" v-if="personalInfo.businessName">
+        <span class="businessName">{{personalInfo.businessName}}</span>
+        <span v-if="dataInfo.isMember == 1" class="membership">
+          <img v-if="dataInfo.grade == 0.03" src="https://img.import-express.com/importcsvimg/webpic/img/m-account/biz-club.png" alt="">
+          <img v-if="dataInfo.grade == 0.05" src="https://img.import-express.com/importcsvimg/webpic/img/m-account/vip-2.png" alt="">
+          <img v-if="dataInfo.grade == 0.07" src="https://img.import-express.com/importcsvimg/webpic/img/m-account/vip-3.png" alt="">
+          <img v-if="dataInfo.grade == 0.09" src="https://img.import-express.com/importcsvimg/webpic/img/m-account/vip-4.png" alt="">
+          <img v-if="dataInfo.grade == 0.12" src="https://img.import-express.com/importcsvimg/webpic/img/m-account/vip-5.png" alt="">
+        </span>
+        <span class="expires_time">(Expire on {{dataInfo.expireTime}})</span>
+      </div>
       <div class="row col-xs-12">
         {{personalInfo.email}}
       </div>
       <div class="row col-xs-12">
-        Account Number: {{personalInfo.accountNumber}}
+        Account Number: {{personalInfo.id}}
       </div>
     </div>
     <router-link
@@ -21,11 +32,13 @@
   <div class="row personalInfo_Money ">
     <div class="col-xs-6 text-center">
       <div class="">Accumulated Spending</div>
-      <div class="spendMoney">0.0</div>
+      <div class="spendMoney" v-if="dataInfo.growthValue !== 0">{{dataInfo.growthValue}}</div>
+      <div class="spendMoney" v-else>0.0</div>
     </div>
     <div class="col-xs-6 text-center">
       <div class="">Balance(USD)</div>
-      <div class="balanceMoney">0.0</div>
+      <div class="balanceMoney" v-if="dataInfo.balance !== 0">{{dataInfo.balance}}</div>
+      <div class="balanceMoney" v-else>0.0</div>
     </div>
   </div>
   <div class=" personalInfo_bottom row">
@@ -33,61 +46,66 @@
       tag="div"
       to="/shoppingCart"
       class="col-xs-12 margin-top">
-      <div class="col-xs-10">
+      <div class="col-xs-7">
         <span class="iconfont">&#xe607;</span>
         Shopping Cart
       </div>
-      <div class="col-xs-2 iconfont text-right">
-        <span class="itemNum">3</span>&#xe620;
+      <div class="col-xs-5 iconfont text-right">
+        <span class="itemNum">{{dataInfo.cart}}</span>&#xe620;
       </div>
     </router-link>
     <router-link
       tag="div"
       to="/myAccount/unpaidOrder"
       class="col-xs-12  margin-top">
-      <div class="col-xs-10">
+      <div class="col-xs-7">
         <span class="iconfont">&#xe65c;</span>
         Unpaid Order
       </div>
-      <div class="col-xs-2 iconfont text-right">
-         <span class="itemNum">3</span>&#xe620;
+      <div class="col-xs-5 iconfont text-right">
+         <span class="itemNum">{{dataInfo.count}}</span>&#xe620;
       </div>
     </router-link>
     <div class="col-xs-12">
-      <div class="col-xs-10">
+      <div class="col-xs-7">
         <span class="iconfont">&#xe63d;</span>
         Current Order
       </div>
-      <div class="col-xs-2 iconfont text-right">
-         <span class="itemNum">3</span>&#xe620;
+      <div class="col-xs-5 iconfont text-right">
+         <span class="itemNum">{{dataInfo.paidCount}}</span>&#xe620;
       </div>
     </div>
     <div class="col-xs-12">
-      <div class="col-xs-10">
+      <div class="col-xs-7">
         <span class="iconfont">&#xe656;</span>
         Order History
       </div>
-      <div class="col-xs-2 iconfont text-right">
-         <span class="itemNum">3</span>&#xe620;
+      <div class="col-xs-5 iconfont text-right">
+         <span class="itemNum">{{dataInfo.historyCount}}</span>&#xe620;
       </div>
     </div>
 
     <div class="col-xs-12  margin-top">
-      <div class="col-xs-10">
+      <div class="col-xs-7">
         <span class="iconfont">&#xe68a;</span>
         My Coupons
       </div>
-      <div class="col-xs-2 iconfont text-right">
-         <span class="itemNum">3</span>&#xe620;
+      <div class="col-xs-5 iconfont text-right">
+         <span class="itemNum" >{{dataInfo.couponsNum}}</span>&#xe620;
       </div>
     </div>
     <div class="col-xs-12">
-      <div class="col-xs-10">
+      <div class="col-xs-7">
         <span class="iconfont">&#xe651;</span>
         My Favorites
       </div>
-      <div class="col-xs-2 iconfont text-right">
-         <span class="itemNum">3</span>&#xe620;
+      <div class="col-xs-5 iconfont text-right">
+<!--        <div v-if="dataInfo.collectCount !== 0 ">-->
+          <span class="itemNum">{{dataInfo.collectCount}}</span>&#xe620;
+       <!-- </div>
+        <div  v-else>
+          <span class="itemNum">0</span>&#xe620;
+        </div>-->
       </div>
     </div>
 
@@ -95,11 +113,11 @@
       tag="div"
       to="/contact"
       class="col-xs-12  margin-top margin-bottom">
-      <div class="col-xs-10">
+      <div class="col-xs-7">
         <span class="iconfont" >&#xe699;</span>
         Customer Service
       </div>
-      <div class="col-xs-2 iconfont text-right">
+      <div class="col-xs-5 iconfont text-right">
          &#xe620;
       </div>
     </router-link>
@@ -111,7 +129,8 @@
     export default {
         name: "personalInfo",
       props:{
-        personalInfo: Object
+        personalInfo: Object,
+        dataInfo: Object
       },
       data (){
         return{
@@ -135,6 +154,18 @@
     font-size .13rem
     .col-xs-10
       padding-bottom .1rem
+      .name
+        height .25rem
+        line-height .25rem
+        .businessName
+          font-size .17rem
+          line-height .25rem
+        .membership img
+          width .4rem
+          height .17rem
+        .expires_time
+          margin-left .1rem
+          font-size .13rem
     .col-xs-2
       line-height .5rem
       padding-bottom .1rem

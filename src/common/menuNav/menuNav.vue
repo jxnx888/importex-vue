@@ -14,8 +14,7 @@
         </div>
 
         <div class="col-xs-3 menu_single">
-          <router-link to="/" tag="div">
-
+          <router-link :to="{name:'/categories',  params:{currentCategory: 'Women\'s Clothing'}}" tag="div">
             <div class="icon iconfont">
               &#xe609;
             </div>

@@ -11,6 +11,8 @@ import Router from 'vue-router'
 
 //路由懒加载模式
 const Home = () => import('@/pages/home/home');
+const login = () => import('@/pages/login/login');
+const categories = () => import('@/pages/categories/categories');
 const myAccount = () => import('@/pages/myAccount/myAccount');
 const unpaidOrder = () => import('@/pages/orders/unpaidOrder/unpaidOrder');
 const unpaidOrderDetail = () => import('@/pages/orders/unpaidOrder/unpaidOrderDetail');
@@ -34,7 +36,7 @@ export default new Router({
     {
       mode: 'history',
       path: '/',
-      name: 'Home',
+      name: '/Home',
       component: Home,
       meta: {
         title: 'home',
@@ -43,44 +45,56 @@ export default new Router({
     },
     {
       mode: 'history',
+      path: '/login',
+      name: '/login',
+      component: login,
+    },
+    {
+      mode: 'history',
+      path: '/categories',
+      name: '/categories',
+      component: categories,
+    },
+    {
+      mode: 'history',
       path: '/myAccount',
-      name: 'myAccount',
+      name: '/myAccount',
       component: myAccount,
     },
     {
       path: '/myAccount/unpaidOrder',
-      name: 'unpaidOrder',
+      name: '/unpaidOrder',
       component:unpaidOrder,
     },
     {
       path: '/myAccount/unpaidOrder/Detail',
-      name: 'unpaidOrderDetail',
+      name: '/unpaidOrderDetail',
       component:unpaidOrderDetail,
     },
     {
         path: '/myAccount/personalInfo',
-        name: 'personalInfo',
+        name: '/personalInfo',
         component: personalInfo
     },
     {
       path: '/myAccount/personalInfo/updateInfo',
-      name: 'updateInfo',
+      name: '/updateInfo',
       component: updateInfo
     },
     {
       path: '/myAccount/personalInfo/changeEmail',
-      name: 'changeEmail',
+      name: '/changeEmail',
       component: changeEmail
     },
     {
       path: '/contact',
-      name: 'contact',
+      name: '/contact',
       component: contact
     },
     {
       mode: 'history',
       path: '/searchDetail',
-      name: 'searchDetail',
+      name: '/searchDetail',
       // component: searchDetail
       component: searchDetail
 
@@ -88,7 +102,7 @@ export default new Router({
     {
       mode: 'history',
       path: '/searchResult/:keyword',
-      name: 'searchResult',
+      name: '/searchResult',
       component: searchResult,
       meta: {
         title: 'searchDetail',
@@ -98,7 +112,7 @@ export default new Router({
     {
       mode: 'history',
       path: '/shoppingCart',
-      name: 'shoppingCart',
+      name: '/shoppingCart',
       component: shoppingCart,
       meta: {
         title: 'searchDetail',
@@ -108,19 +122,19 @@ export default new Router({
     {
       mode: 'history',
       path: '/product/:id',
-      name: 'product',
+      name: '/product',
       component: product
     },
     {
       mode: 'history',
       path: '/test',
-      name: 'test',
+      name: '/test',
       component: test
     },
     {
       mode: 'history',
       path: '/productTest',
-      name: 'productTest',
+      name: '/productTest',
       component: productTest
     },
     {

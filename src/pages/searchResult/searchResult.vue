@@ -23,6 +23,14 @@
         rootTreeCategory: [],
         param:{},
         keyword: '',
+      /*  minprice:'',
+        maxprice:'',
+        sort:'',
+        pvid:'',
+        collection:'',
+        newArrivalDate:'',
+        isFreeShip:'',
+        unkey:'',*/
         hasProductList: true,
       }
     },
@@ -35,18 +43,29 @@
     methods: {
       getKeyword() {
         this.keyword = this.$route.params.keyword;
-        // console.log("this.keyword:" +this.keyword)
+        /*this.catid = this.$route.query.catid;
+        this.minprice = this.$route.query.minprice;
+        this.maxprice = this.$route.query.maxprice;
+        this.sort = this.$route.query.sort;
+        this.pvid = this.$route.query.pvid;
+        this.collection = this.$route.query.collection;
+        this.newArrivalDate = this.$route.query.newArrivalDate;
+        this.isFreeShip = this.$route.query.isFreeShip;
+        this.unkey = this.$route.query.unkey;
+        console.log("this.keyword:" +this.keyword)
+        console.log(this.catid,this.minprice,this.maxprice,this.sort, this.pvid, this.collection, this.newArrivalDate, this.isFreeShip, this.unkey)
+*/
       },
       getSearchList(res) {
-        var catid= this.$route.params.catid;
-        var minprice= this.$route.params.minprice;
-        var maxprice= this.$route.params.maxprice;
-        var sort= this.$route.params.sort;
-        var pvid= this.$route.params.pvid;
-        var collection= this.$route.params.collection;
-        var newArrivalDate= this.$route.params.newArrivalDate;
-        var isFreeShip= this.$route.params.isFreeShip;
-        var unkey= this.$route.params.unkey;
+        var catid= this.$route.query.catid;
+        var minprice= this.$route.query.minprice;
+        var maxprice= this.$route.query.maxprice;
+        var sort= this.$route.query.sort;
+        var pvid= this.$route.query.pvid;
+        var collection= this.$route.query.collection;
+        var newArrivalDate= this.$route.query.newArrivalDate;
+        var isFreeShip= this.$route.query.isFreeShip;
+        var unkey= this.$route.query.unkey;
         console.log(catid, minprice,maxprice,sort, pvid, collection, newArrivalDate, isFreeShip, unkey)
         var url = 'http://192.168.1.163:8085/mobileSearch';
         this.$ajax.post(url,
@@ -70,6 +89,7 @@
       },
       getSearchListSucc(res) {
         const data = res.data;
+        console.log(JSON.stringify(data));
         let _this = this;
         this.data = data;
         this.productList = data.goodslist;

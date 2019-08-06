@@ -14,27 +14,40 @@
             {{this.createtime}}
           </div>
       </div>
+      <shipping-info :shippingInfo="shippingInfo"
+                     :orderInfo="orderInfo"
+                     :dataInfo="dataInfo"></shipping-info>
+      <order-items :dataInfo="dataInfo" :orderDetail="orderDetail"></order-items>
+      <unpaid-final-price :dataInfo="dataInfo"></unpaid-final-price>
     </div>
 </template>
 
 <script>
+    import ShippingInfo from "./components/shippingInfo";
+    import OrderItems from "./components/orderItems";
+    import UnpaidFinalPrice from "./components/unpaidFinalPrice";
     export default {
         name: "unpaidOrderDetail",
+      components: { OrderItems, ShippingInfo,UnpaidFinalPrice},
       data() {
         return {
           detailInfo: {},
           currentOrderNo:'',
           createtime:'',
+          dataInfo:{},
+          shippingInfo:{},
+          orderInfo:{},
+          orderDetail:[]
         }
       },
       methods: {
         getUnpaidDetailOrder(res) {
           this.currentOrderNo = this.$route.query.orderNo;
           console.log(this.currentOrderNo )
-          let url = 'http://192.168.1.163:8085/orderInfo/individualOrderdetailJson';
+          let url = 'http://192.168.1.163:8085/individual/getorderDetailsJson';
           this.$ajax.post(url,
             //pid 为传值的key
-            this.$qs.stringify({orderNo:this.currentOrderNo })
+            this.$qs.stringify({orderno:this.currentOrderNo })
           )
             .then(this.getUnpaidDetailOrderSucc)
             .catch(function (res) {
@@ -45,8 +58,11 @@
         getUnpaidDetailOrderSucc(res) {
           const data = res.data;
           // console.log(JSON.stringify(data))
-          this.createtime = data.order.createtime;
-
+          this.dataInfo = data;
+          this.createtime = data.create_time;
+          this.shippingInfo = data.orderAddress;
+          this.orderInfo = data;
+          this.orderDetail = data.ctpoList;
         },
         handleGoBackClick() {
           this.$router.go(-1);

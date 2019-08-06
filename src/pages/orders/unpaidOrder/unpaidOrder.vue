@@ -111,7 +111,11 @@
       height .45rem
       line-height .45rem
       background-color #01A4EF
-
+      position: fixed
+      top 0
+      left 0
+      right 0
+      z-index 5
     .unpaidOrder_back span
       position: absolute;
       left .15rem
@@ -130,6 +134,7 @@
       position: relative;
 
     .container
+      margin-top .45rem
       margin-bottom .1rem
       .topTitle
         height .4rem
