@@ -14,6 +14,10 @@ const Home = () => import('@/pages/home/home');
 const login = () => import('@/pages/login/login');
 const categories = () => import('@/pages/categories/categories');
 const myAccount = () => import('@/pages/myAccount/myAccount');
+const currentOrder = () => import('@/pages/orders/currentOrder/currentOrder');
+const currentOrderDetail = () => import('@/pages/orders/currentOrder/currentOrderDetail');
+const OrderHistory = () => import('@/pages/orders/OrderHistory/OrderHistory');
+const OrderHistoryDetail = () => import('@/pages/orders/OrderHistory/OrderHistoryDetail');
 const unpaidOrder = () => import('@/pages/orders/unpaidOrder/unpaidOrder');
 const unpaidOrderDetail = () => import('@/pages/orders/unpaidOrder/unpaidOrderDetail');
 const personalInfo = () => import('@/pages/myAccount/components/personalInfoDetail');
@@ -63,13 +67,33 @@ export default new Router({
     },
     {
       path: '/myAccount/unpaidOrder',
-      name: '/unpaidOrder',
+      name: '/myAccount/unpaidOrder',
       component:unpaidOrder,
     },
     {
       path: '/myAccount/unpaidOrder/Detail',
-      name: '/unpaidOrderDetail',
+      name: '/myAccount/unpaidOrder/Detail',
       component:unpaidOrderDetail,
+    },
+    {
+      path: '/myAccount/currentOrder',
+      name: '/myAccount/currentOrder',
+      component:currentOrder,
+    },
+    {
+      path: '/myAccount/currentOrderDetail',
+      name: '/myAccount/currentOrderDetail',
+      component:currentOrderDetail,
+    },
+    {
+      path: '/myAccount/OrderHistory',
+      name: '/myAccount/OrderHistory',
+      component:OrderHistory,
+    },
+    {
+      path: '/myAccount/OrderHistoryDetail',
+      name: '/myAccount/OrderHistoryDetail',
+      component:OrderHistoryDetail,
     },
     {
         path: '/myAccount/personalInfo',

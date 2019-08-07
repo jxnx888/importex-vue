@@ -66,7 +66,7 @@
          <span class="itemNum">{{dataInfo.count}}</span>&#xe620;
       </div>
     </router-link>
-    <div class="col-xs-12">
+    <router-link tag="div" to="/myAccount/currentOrder" class="col-xs-12">
       <div class="col-xs-7">
         <span class="iconfont">&#xe63d;</span>
         Current Order
@@ -74,8 +74,8 @@
       <div class="col-xs-5 iconfont text-right">
          <span class="itemNum">{{dataInfo.paidCount}}</span>&#xe620;
       </div>
-    </div>
-    <div class="col-xs-12">
+    </router-link>
+    <router-link tag="div" to="/myAccount/OrderHistory" class="col-xs-12">
       <div class="col-xs-7">
         <span class="iconfont">&#xe656;</span>
         Order History
@@ -83,7 +83,7 @@
       <div class="col-xs-5 iconfont text-right">
          <span class="itemNum">{{dataInfo.historyCount}}</span>&#xe620;
       </div>
-    </div>
+    </router-link>
 
     <div class="col-xs-12  margin-top">
       <div class="col-xs-7">
