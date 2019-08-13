@@ -12,7 +12,7 @@
           <img v-if="dataInfo.grade == 0.09" src="https://img.import-express.com/importcsvimg/webpic/img/m-account/vip-4.png" alt="">
           <img v-if="dataInfo.grade == 0.12" src="https://img.import-express.com/importcsvimg/webpic/img/m-account/vip-5.png" alt="">
         </span>
-        <span class="expires_time">(Expire on {{dataInfo.expireTime}})</span>
+        <span class="expires_time" v-if="dataInfo.expireTime">(Expire on {{dataInfo.expireTime}})</span>
       </div>
       <div class="row col-xs-12">
         {{personalInfo.email}}
@@ -30,16 +30,16 @@
   </div>
   </div>
   <div class="row personalInfo_Money ">
-    <div class="col-xs-6 text-center">
+    <router-link tag="div" to="/membership" class="col-xs-6 text-center">
       <div class="">Accumulated Spending</div>
       <div class="spendMoney" v-if="dataInfo.growthValue !== 0">{{dataInfo.growthValue}}</div>
       <div class="spendMoney" v-else>0.0</div>
-    </div>
-    <div class="col-xs-6 text-center">
+    </router-link>
+    <router-link  tag="div" to="/myAccount/personalInfo/balance"  class="col-xs-6 text-center">
       <div class="">Balance(USD)</div>
       <div class="balanceMoney" v-if="dataInfo.balance !== 0">{{dataInfo.balance}}</div>
       <div class="balanceMoney" v-else>0.0</div>
-    </div>
+    </router-link>
   </div>
   <div class=" personalInfo_bottom row">
     <router-link
@@ -85,7 +85,7 @@
       </div>
     </router-link>
 
-    <div class="col-xs-12  margin-top">
+    <router-link tag="div" to="/myAccount/personalInfo/myCoupons" class="col-xs-12  margin-top">
       <div class="col-xs-7">
         <span class="iconfont">&#xe68a;</span>
         My Coupons
@@ -93,8 +93,8 @@
       <div class="col-xs-5 iconfont text-right">
          <span class="itemNum" >{{dataInfo.couponsNum}}</span>&#xe620;
       </div>
-    </div>
-    <div class="col-xs-12">
+    </router-link>
+    <router-link tag="div" to="/myAccount/personalInfo/myFavorite" class="col-xs-12">
       <div class="col-xs-7">
         <span class="iconfont">&#xe651;</span>
         My Favorites
@@ -107,7 +107,7 @@
           <span class="itemNum">0</span>&#xe620;
         </div>-->
       </div>
-    </div>
+    </router-link>
 
     <router-link
       tag="div"
@@ -136,6 +136,7 @@
         return{
         }
       },
+
 
     }
 </script>

@@ -9,7 +9,7 @@
         <em>3-1-2019</em></span></swiper-slide>
     <swiper-slide class="notification_slide">
       <span class="notification_tips">Product search is improved with much better precision
-        <em>4-2-2019</em></span></swiper-slide>
+        <em> 4-2-2019</em></span></swiper-slide>
   </swiper>
 </div>
 </template>
@@ -27,8 +27,11 @@
               clickable: true
             },
             loop:true,
-            autoplay(val) {
-            }
+            autoplay: {
+              delay: 5000,
+              disableOnInteraction: false
+            },
+            speed: 1000
           }
         }
       }
@@ -36,10 +39,12 @@
 </script>
 
 <style scoped lang="stylus">
+/*
   .wrapper >>> .swiper-wrapper //穿透到原组件修改样式，直接修改会被覆盖
     height .4rem
   .container >>> .swiper-container
     height .4rem
+*/
 
 .notificationSwiper
   height .4rem
@@ -51,9 +56,12 @@
   .notification_slide
     height .4rem
     line-height .4rem
+    display: table
     .notification_tips
       font-size .13rem
-      height .4rem
+      display: table-cell
+      vertical-align middle
+      line-height .15rem
     .notification_tips em
       color #F55A2A
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="unpaidOrderDetail container">
-      <div class="row unpaidOrder_back">
+      <div class=" unpaidOrder_back">
         <div @click="handleGoBackClick">
           <span class="iconfont ">&#xe79b;</span>
           <p class="text-center">Pending Payment</p>
@@ -87,7 +87,11 @@
     height .45rem
     line-height .45rem
     background-color #01A4EF
-
+    position: fixed
+    top 0
+    left 0
+    right 0
+    z-index 5
   .unpaidOrder_back span
     position: absolute;
     left .15rem
@@ -110,5 +114,5 @@
     height .3rem
     line-height .3rem
     background-color #ececec
-
+    padding-top .45rem
 </style>

@@ -89,7 +89,7 @@
       },
       getSearchListSucc(res) {
         const data = res.data;
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
         let _this = this;
         this.data = data;
         this.productList = data.goodslist;

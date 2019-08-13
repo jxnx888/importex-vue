@@ -148,13 +148,6 @@
       color #fff
       font-size .15rem
 
-    .unpaidOrder_searchBox
-      /*background-color: #eee*/
-      height: .45rem
-      line-height: .45rem
-      width: 100%
-      position: relative;
-
     .index_0
       margin-top .45rem !important
 

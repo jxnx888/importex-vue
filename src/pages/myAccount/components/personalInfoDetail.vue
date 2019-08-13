@@ -6,17 +6,16 @@
         <p class="text-center">Personal Information</p>
       </div>
     </div>
-
     <router-link
       tag="div"
-      to="/myAccount/personalInfo/changeEmail"
+      :to="{name:'/myAccount/personalInfo/changeEmail', params:{password:this.password}}"
       class="row margin-top"
-      :personalInfo="personalInfo">
+    >
       <div class="col-xs-3">
         Email:
       </div>
       <div class="col-xs-9 iconfont text-right">
-        <span class="email">{{personalInfo.email}}</span>&#xe620;
+        <span class="email">{{email}}</span>&#xe620;
       </div>
     </router-link>
     <router-link
@@ -28,22 +27,25 @@
       </div>
       <div class="col-xs-2 iconfont  text-right">&#xe620;</div>
     </router-link>
-    <div class="row ">
+    <router-link tag="div" to="/myAccount/personalInfo/changeAddress" class="row ">
       <div class="col-xs-10">
         Delivery Address
       </div>
       <div class="col-xs-2 iconfont  text-right">
-        <span class="itemNum">0</span>&#xe620;
+        <span class="itemNum">{{addressNum}}</span>&#xe620;
       </div>
-    </div>
-    <div class="row ">
+    </router-link>
+    <router-link
+      tag="div"
+      to="/myAccount/personalInfo/changePassword"
+      class="row ">
       <div class="col-xs-10">
         Change Password
       </div>
       <div class="col-xs-2 iconfont  text-right">&#xe620;</div>
-    </div>
+    </router-link>
     <div class="row margin-top">
-      <div class="col-xs-12 text-center">
+      <div class="col-xs-12 text-center" @click="signout()">
         Sign Out
       </div>
     </div>
@@ -55,29 +57,41 @@
     name: "personalInfoDetail",
     data (){
       return{
-        personalInfo:{}
+        personalInfo:{},
+        email:'',
+        addressNum:0,
+        password:'',
       }
     },
-    methods: {
-      getData() {
-        this.$ajax.get('/static/mock/index.json') // npm run build ==>  /static/mock/index.json
-          .then(this.getDataSucc)
+    methods:{
+      getpersonalInfo(res) {
+        let url = 'http://192.168.1.163:8085/individual/getUserinfoJson';
+        this.$ajax.get(url)
+          .then(this.getpersonalInfoSucc)
+          .catch(function (res) {
+            console.log("error, no data")
+          })
       },
-      getDataSucc(res) {
-        res = res.data;
-        if (res.ret && res.data) {
-          const data = res.data;
-          this.personalInfo = data.personalInfo;
-          // console.log(JSON.stringify(this.shoppingCartInfors))//object
-        }
+
+      getpersonalInfoSucc(res) {
+        const data1 = res.data;
+        const data =JSON.parse(data1);
+        // console.log(JSON.stringify(data));
+        const userInfo = data.bean;
+        this.email = userInfo.email;
+        this.addressNum = data.total;
+        this.password = userInfo.pass;
       },
       handleGoBackClick() {
         this.$router.go(-1);
       },
+      signout(){
+        this.$router.push('../../login')
+      }
     },
     mounted() {
-      this.getData();
-    }
+      this.getpersonalInfo();
+    },
   }
 </script>
 

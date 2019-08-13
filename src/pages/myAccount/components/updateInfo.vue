@@ -3,7 +3,7 @@
     <div class="row updateInfo_header">
       <div @click="handleGoBackClick">
         <span class="iconfont ">&#xe643;</span>
-        <p class="text-center">Update Contact Informationn</p>
+        <p class="text-center">Update Contact Information</p>
       </div>
     </div>
     <div class="updateInfo_content">
@@ -25,57 +25,61 @@
             Alternative Email:
           </div>
           <div class="col-xs-7">
-            <input type="text" placeholder="Please enter a email"></input>
+            <input type="text" id="alternaticeEmail" placeholder="Please enter a email" :value="currentEmail"></input>
+            <div class="validation" v-if="alternaticeEmail">Please enter a correct email.</div>
           </div>
 
           <div class="col-xs-5">
             Alternative Phone:
           </div>
           <div class="col-xs-7">
-            <input type="text" placeholder="Please enter a valid phone"></input>
+            <input type="text" id="alternaticePhone" placeholder="Please enter a valid phone" :value="currentPhone"></input>
           </div>
 
           <div class="col-xs-5">
             WhatsApp:
           </div>
           <div class="col-xs-7">
-            <input type="text" placeholder="Please enter WhatsApp"></input>
+            <input type="text" id="WhatsApp"  placeholder="Please enter WhatsApp" :value="currentWhatsApp"></input>
           </div>
 
           <div class="col-xs-5">
             Kik:
           </div>
           <div class="col-xs-7">
-            <input type="text" placeholder="Please enter Kik"></input>
+            <input type="text" id="Kik"   placeholder="Please enter Kik" :value="currentKik"></input>
           </div>
 
           <div class="col-xs-5">
             Skype:
           </div>
           <div class="col-xs-7">
-            <input type="text" placeholder="Please enter Skype:"></input>
+            <input type="text" id="Skype" placeholder="Please enter Skype:" :value="currentSkype"></input>
           </div>
 
           <div class="col-xs-5">
             Facebook:
           </div>
           <div class="col-xs-7">
-            <input type="text" placeholder="Please enter Facebook"></input>
+            <input type="text" id="Facebook" placeholder="Please enter Facebook" :value="currentFacebook"></input>
           </div>
 
           <div class="col-xs-5">
             Twitter
           </div>
           <div class="col-xs-7">
-            <input type="text" placeholder="Please enter Twitter"></input>
+            <input type="text" id="Twitter" placeholder="Please enter Twitter" :value="currentTwitter"></input>
           </div>
         </div>
         <div class="col-xs-12">
-          <button class="btn btn-primary">
+          <div class="btn btn-primary" @click="submitContact()">
             Submit
-          </button>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="submitSucc" v-if="submitSucc">
+      <div class="submitSuccTip">Submit success!</div>
     </div>
   </div>
 </template>
@@ -85,26 +89,115 @@
     name: "updateInfo",
     data() {
       return {
-        personalInfo: {}
+        personalInfo: {},
+        alternaticeEmail:false,
+        submitSucc:false,
+        currentEmail:'',
+        currentPhone:'',
+        currentWhatsApp:'',
+        currentKik:'',
+        currentSkype:'',
+        currentFacebook:'',
+        currentTwitter:'',
       }
     },
     methods: {
-      getData() {
-        this.$ajax.get('/static/mock/index.json') // npm run build ==>  /static/mock/index.json
-          .then(this.getDataSucc)
+      getInfo(res) {
+        this.password = this.$route.params.password;
+        // console.log(this.password)
+        let url = 'http://192.168.1.163:8085/individual/userinfoJson?infomation=1';
+        this.$ajax.get(url)
+          .then(this.getInfoSucc)
+          .catch(function (res) {
+            console.log("error, no data")
+          })
       },
-      getDataSucc(res) {
-        res = res.data;
-        if (res.ret && res.data) {
-          const data = res.data;
-          this.personalInfo = data.personalInfo;
-          // console.log(JSON.stringify(this.shoppingCartInfors))//object
+
+      getInfoSucc(res) {
+        const data1 = res.data;
+        const data2 =JSON.parse(data1);
+        const data = data2.userEx;
+        console.log(JSON.stringify(data));
+          this.currentEmail=data.otheremail;
+          this.currentPhone=data.otherphone;
+          this.currentWhatsApp=data.whatsapp;
+          this.currentKik=data.kiki;
+          this.currentSkype=data.skype;
+          this.currentFacebook=data.facebook;
+          this.currentTwitter=data.tweater;
+
+      },
+      changeInfo(res) {
+        var alternaticeEmail = $("#alternaticeEmail").val();
+        var alternaticePhone = $("#alternaticePhone").val();
+        var WhatsApp = $("#WhatsApp").val();
+        var Kik = $("#Kik").val();
+        var Skype = $("#Skype").val();
+        var Facebook = $("#Facebook").val();
+        var Twitter = $("#Twitter").val();
+        var url = 'http://192.168.1.163:8085/individual/insertInformation';
+        this.$ajax.post(url,
+          this.$qs.stringify({
+            otheremail: alternaticeEmail,
+            otherphone:alternaticePhone,
+            whatsapp:WhatsApp,
+            kiki:Kik,
+            skype:Skype,
+            facebook:Facebook,
+            tweater:Twitter})
+        )
+          .then(this.changeInfoSucc)
+          .catch(function (res) {
+            // console.log("error")
+          })
+      },
+      changeInfoSucc(res) {
+        const data = res.data;
+        console.log(JSON.stringify(data))
+        if(data.ok){
+          console.log("updataed")
+          this.submitSucc = true;
+          setTimeout(() => {
+            this.$router.push("/myAccount")
+          },1500);
         }
+
       },
       handleGoBackClick() {
         this.$router.go(-1);
       },
+      submitContact(){
+        var alternaticeEmail = this.checkEmailPW();
+        if(alternaticeEmail){
+          this.changeInfo();
+        }
+
+      },
+      checkEmailPW(){
+        var alternaticeEmail = $("#alternaticeEmail").val();
+        if(alternaticeEmail == '' ){
+          this.alternaticeEmail = true;
+          setTimeout(() => {
+            this.alternaticeEmail =false;
+          },5000);
+          return
+        }
+        else if(alternaticeEmail !==''){
+          var reg=/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+          if(!reg.test(alternaticeEmail)){
+            this.alternaticeEmail = true;
+            setTimeout(() => {
+              this.alternaticeEmail =false;
+            },5000);
+            return
+          }
+          else {return true;}
+        }
+      },
     },
+    mounted() {
+      this.getInfo();
+    }
   }
 </script>
 
@@ -157,4 +250,32 @@
       background-color: #fff;
       border: 1px solid #ccc;
       border-radius: 4px;
+    .validation
+      color: red;
+      font-size: .13rem;
+      line-height: .2rem;
+  .submitSucc
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: rgba(0,0,0,0.6);
+    .submitSuccTip
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 45%;
+      height: .5rem;
+      margin: auto;
+      border-radius: 10px;
+      background: #fff;
+      z-index: 11;
+      color #4CBD27
+      padding .2rem
 </style>

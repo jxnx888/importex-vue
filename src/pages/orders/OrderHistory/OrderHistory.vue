@@ -15,7 +15,7 @@
           {{item.create_time}}
         </div>
       </div>
-      <div class="row orderHistoryInfo">
+      <router-link tag="div" :to="{name:'/myAccount/OrderHistoryDetail',params:{orderNo: item.orderNo}}" class="row orderHistoryInfo">
         <div class="col-xs-3 title">
           Status:
         </div>
@@ -30,7 +30,7 @@
           <span>International shipping time {{item.shipDays}} days,</span>
           <span>plus {{item.processDays}} days processing in China.</span>
         </div>
-      </div>
+      </router-link>
       <div class="row orderHistoryPrice">
         <div class="col-xs-6 text-center">
           <div class="feedback"
