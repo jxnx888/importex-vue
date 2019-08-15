@@ -117,15 +117,12 @@
         )
           .then(this.getSearchListSucc)
           .catch(function (res) {
-            // console.log("error")
+            console.log("error")
           })
       },
       getSearchListSucc(res) {
         this.productList = res.data.keyList;
 
-        // console.log(JSON.stringify(res.data));
-        // console.log(this.productList.length);
-        // return this.productList
       },
 
       searchHistory() {

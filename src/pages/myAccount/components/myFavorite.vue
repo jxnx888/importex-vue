@@ -8,30 +8,24 @@
     </div>
     <div class="row topSelect">
       <div class="col-xs-2">
-        <span class="favorite_circle"></span>
-
+<!--        <span class="favorite_circle"></span>-->
+        <input id="checkAllFavorite" type="checkbox" v-model="checked" @click="checkedAll">
       </div>
-      <div class="col-xs-4">
+      <div class="col-xs-3">
         Select All
       </div>
-      <div class="col-xs-6 text-right">
-        <span class="iconfont">&#xe634;</span>
+      <div class="col-xs-7 text-right">
+        <span v-if="showNotification" class="showNotification">Please add at least 1 item！</span>
+        <span class="iconfont" @click="deleteItem">&#xe634;</span>
       </div>
     </div>
     <div class="row myFavorite_list"
          v-for="(item,index) in favoriteList">
-     <!-- <div class="col-xs-1">
-        <i class="favorite_circle"></i>
+      <div class="col-xs-2 item_check text-center">
+        <input type="checkbox" :value="item.id"  v-model="checkList" name="selectedItem">
+<!--        <i class="favorite_circle"></i>-->
       </div>
-      <div class="col-xs-11">
-        <div class="row">
-          123
-        </div>
-      </div>-->
-      <div class="col-xs-2 item_check">
-        <input type="checkbox">
-      </div>
-      <div class="col-xs-3">
+      <router-link :to="/product/+item.itemId" class="col-xs-3">
         <div  v-if="item.valid == 1"  class="row  item_img">
           <img :src="item.img" alt="">
         </div>
@@ -40,8 +34,8 @@
           <img class="item_img_expired_img" src="https://img.kidsproductwholesale.com/importcsvimg/webpic/img/wh89/flooringPage/collection_expired.png" alt="">
         </div>
 
-      </div>
-      <div class="col-xs-7 item_info">
+      </router-link>
+      <router-link :to="/product/+item.itemId" class="col-xs-7 item_info">
         <div class="row">
           <div class="col-xs-12 itemName">
             {{item.titile}}
@@ -55,7 +49,10 @@
             <span class="number">/piece x {{item.moq}}</span>
           </div>
         </div>
-      </div>
+      </router-link>
+    </div>
+    <div class="deletedSucc" v-if="deletedSucc">
+      <div class="deletedSuccTip">Delete success!</div>
     </div>
   </div>
 
@@ -66,30 +63,105 @@
     name: "myFavorite",
     data() {
       return {
-        favoriteList: []
+        favoriteList: [],
+        checkList:[],
+        checked: false, //全选框
+        showNotification: false,
+        deletedSucc: false,
       }
     },
     methods: {
       handleGoBackClick() {
         this.$router.go(-1);
       },
-      getCouponList(res) {
+      getFavoriteList(res) {
         let url = 'http://192.168.1.163:8085/Goods/collistJson';
         this.$ajax.get(url,)
-          .then(this.getCouponListSucc)
+          .then(this.getFavoriteListSucc)
           .catch(function (res) {
             console.log("error, no data")
           })
       },
-
-      getCouponListSucc(res) {
+      getFavoriteListSucc(res) {
         const data = JSON.parse(res.data);
         // console.log(JSON.stringify(data));
         this.favoriteList = data.collections
       },
+      deleteItem(){
+        // console.log(JSON.stringify(this.checkList));
+        if(this.checkList.length > 0){
+        var deletedID = '';
+        for(var i in this.checkList){
+          deletedID = deletedID + this.checkList[i]+ ","
+        }
+        this.deleteFavoriteList(deletedID)
+        }
+        else {
+          this.showNotification = true;
+          setTimeout(() => {
+            this.showNotification = false;
+          }, 3000);
+          return
+        }
+      },
+      deleteFavoriteList(deletedID){
+        let url = 'http://192.168.1.163:8085/Goods/delCollection';
+        this.$ajax.post(url,
+          //pid 为传值的key
+          this.$qs.stringify({
+            id: deletedID,
+          })
+        )
+          .then(this.deleteFavoriteListSucc)
+          .catch(function (res) {
+            console.log("error, no data")
+          })
+      },
+      deleteFavoriteListSucc(res) {
+        const data = res.data;
+        console.log(data);
+        if(data>0){
+          this.deletedSucc = true;
+          this.getFavoriteList();
+          setTimeout(() => {
+            this.deletedSucc = false;
+          }, 2000);
+
+        }
+      },
+      checkedAll: function() {
+        var _this = this;
+        // console.log(_this.checkList);
+        // console.log(_this.checked);
+        this.$nextTick(function() {
+          // DOM 现在更新了
+          // console.log(_this.checked);
+        });
+        if (_this.checked) { //实现反选
+          _this.checkList = [];
+        } else { //实现全选
+          _this.checkList = [];
+          _this.favoriteList.forEach(function(item, index) {
+            _this.checkList.push(item.id);
+          });
+        }
+      }
     },
     mounted() {
-      this.getCouponList();
+      this.getFavoriteList();
+    },
+    watch:{
+
+      checkList: {
+        handler: function(val, oldVal) {
+          if (val.length === this.favoriteList.length) {
+            this.checked = true;
+          } else {
+            this.checked = false;
+          }
+        },
+        deep: true
+      }
     }
   }
 </script>
@@ -116,10 +188,18 @@
     font-size .15rem
 
   .topSelect
-    margin-top .45rem
-    .col-xs-2,.col-xs-4,.col-xs-6
+    padding-top .45rem
+    .col-xs-3
+      padding-left 0
+      font-size .13rem
+    .col-xs-7
+      .showNotification
+        font-size .13rem
+        color red
+    .col-xs-2,.col-xs-3,.col-xs-7
       height .4rem
       line-height .4rem
+
       .favorite_circle
         position: absolute;
         left: 0;
@@ -139,7 +219,22 @@
     height 1rem
     line-height 1rem
     .item_check
+      height 1rem
       line-height 1rem
+      .favorite_circle
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 0.19rem;
+        height: 0.19rem;
+        border: 1px solid #bfbfbf;
+        -webkit-border: 1px solid #bfbfbf;
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
     .col-xs-3
       height 1rem
       line-height 1rem
@@ -218,4 +313,60 @@
         -webkit-border-radius: 100%;
         -moz-border-radius: 100%;
         border-radius: 100%;
+  .deletedSucc
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.6);
+
+    .deletedSuccTip
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 45%;
+      height: .5rem;
+      margin: auto;
+      border-radius: 10px;
+      background: #fff;
+      z-index: 11;
+      color #4CBD27
+      padding .2rem
+
+  input[type=checkbox] {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+  }
+
+  input[type=checkbox]::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+    background-color: #fff;
+    border-radius: 20px;
+    border: 1px solid #bfbfbf;
+    -webkit-border: 1px solid #bfbfbf;
+  }
+
+  input[type=checkbox]:checked::before {
+    color: white;
+    background-color: #F5A72C;
+    /*content: '√';*/
+    content: '';
+  }
 </style>

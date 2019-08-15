@@ -56,20 +56,20 @@
     </div>
    <div class="row addNewAddress">
      <div class="col-xs-12">
-    <div class="addNewAddress_btn text-center" @click="editAddress(1)">Add Address</div>
+    <div class="addNewAddress_btn text-center" @click="addNewAddressFn(1)">Add Address</div>
      </div>
    </div>
     <div v-if="addressList.length == 0" class="noAddress">
       <div class="noAddress_content">
         <div class="noAddress_title text-center"> You currently have no delivery address</div>
-        <div class="noAddress_btn text-center" @click="editAddress">Add Address</div>
+        <div class="noAddress_btn text-center" @click="addNewAddressFn(1)">Add Address</div>
       </div>
     </div>
 
-    <div class=addressChange v-if="addressChange">
+    <div class=addressChange v-if="editAddressShow">
       <div class="col-xs-12 chengeAddress_back">
         <div>
-          <span class="iconfont " @click="addressChange = ! addressChange">&#xe79b;</span>
+          <span class="iconfont " @click="editAddressShow = ! editAddressShow">&#xe79b;</span>
           <p class="text-center">Delivery Address</p>
         </div>
       </div>
@@ -79,19 +79,23 @@
       <div class="col-xs-3 title">Recipients:</div>
       <div class="col-xs-9 addressInput">
         <input class="input" type="text" name="" id="recipients" :value="currentRecipients">
+        <div class="validation" v-if="validationRecipients">Please add Recipients!</div>
       </div>
       <div class="col-xs-3 title">Street:</div>
       <div class="col-xs-9 addressInput">
         <input class="input" type="text" name="" id="street1" :value="currentStreet1">
         <input class="input" type="text" name="" id="street2" :value="currentStreet2">
+        <div class="validation" v-if="validationStreet">Please add Street!</div>
       </div>
       <div class="col-xs-3 title">City:</div>
       <div class="col-xs-9 addressInput">
         <input class="input" type="text" name="" id="city" :value="currentCity">
+        <div class="validation" v-if="validationCity">Please add City!</div>
       </div>
       <div class="col-xs-3 title">State:</div>
       <div class="col-xs-9 addressInput">
         <input class="input" type="text" name="" id="state" :value="currentState">
+        <div class="validation" v-if="validationState">Please add State!</div>
       </div>
       <div class="col-xs-3 title">Country:</div>
       <div class="col-xs-9 addressInput">
@@ -100,18 +104,77 @@
                   v-for="(item, index) in countryList"
                   :key="index"
                   class="input col-xs-8"
-                  id="countryID"
           >{{item.country}}
           </option>
         </select>
       </div>
       <div class="col-xs-3 title zipCode">Zip Code:</div>
       <div class="col-xs-9 addressInput">
-        <input class="input" type="text" name="" id="zipcode" :value="currentZipcode">
+        <input class="input" type="number" name="" id="zipcode" :value="currentZipcode">
       </div>
       <div class="col-xs-3 title">Phone:</div>
       <div class="col-xs-9 addressInput">
-        <input class="input" type="text" name="" id="phone" :value="currentPhone">
+        <input class="input" type="number" name="" id="phone" :value="currentPhone">
+        <div class="validation" v-if="validationPhone">Please add the phone number!</div>
+        <div class="validation" v-if="validationPhone1">Please fill in the correct phone number!</div>
+      </div>
+      <div class="cancelAndSave" style="clear: both;">
+        <div class="cancel col-xs-6 text-center" @click="cancel">Cancel</div>
+        <div class="save col-xs-6 text-center" @click="save">Save</div>
+      </div>
+    </div>
+
+    <div class=addressChange v-if="addNewAddressShow">
+      <div class="col-xs-12 chengeAddress_back">
+        <div>
+          <span class="iconfont " @click="addNewAddressShow = ! addNewAddressShow">&#xe79b;</span>
+          <p class="text-center">Delivery Address</p>
+        </div>
+      </div>
+      <div class="col-xs-12 header text-center">
+        Please provide your shipping address
+      </div>
+      <div class="col-xs-3 title">Recipients:</div>
+      <div class="col-xs-9 addressInput">
+        <input class="input" type="text" name="" id="recipientsNew">
+        <div class="validation" v-if="validationRecipients">Please add Recipients!</div>
+      </div>
+      <div class="col-xs-3 title">Street:</div>
+      <div class="col-xs-9 addressInput">
+        <input class="input" type="text" name="" id="street1New" >
+        <input class="input" type="text" name="" id="street2New">
+        <div class="validation" v-if="validationStreet">Please add Street!</div>
+      </div>
+      <div class="col-xs-3 title">City:</div>
+      <div class="col-xs-9 addressInput">
+        <input class="input" type="text" name="" id="cityNew">
+        <div class="validation" v-if="validationCity">Please add City!</div>
+      </div>
+      <div class="col-xs-3 title">State:</div>
+      <div class="col-xs-9 addressInput">
+        <input class="input" type="text" name="" id="stateNew">
+        <div class="validation" v-if="validationState">Please add State!</div>
+      </div>
+      <div class="col-xs-3 title">Country:</div>
+      <div class="col-xs-9 addressInput">
+        <select name="country" id="countryNew" class="input" v-model="selected">
+          <option :value="item.id"
+                  v-for="(item, index) in countryList"
+                  :key="index"
+                  class="input col-xs-8"
+          >{{item.country}}
+          </option>
+        </select>
+      </div>
+      <div class="col-xs-3 title zipCode">Zip Code:</div>
+      <div class="col-xs-9 addressInput">
+        <input class="input" type="number" name="" id="zipcodeNew">
+      </div>
+      <div class="col-xs-3 title">Phone:</div>
+      <div class="col-xs-9 addressInput">
+        <input class="input" type="number" name="" id="phoneNew">
+        <div class="validation" v-if="validationPhone">Please add the phone number!</div>
+        <div class="validation" v-if="validationPhone1">Please fill in the correct phone number!</div>
       </div>
       <div class="cancelAndSave" style="clear: both;">
         <div class="cancel col-xs-6 text-center" @click="cancel">Cancel</div>
@@ -141,7 +204,9 @@
         countryList: [],
         addressList: [],
         isActive: 0,
-        addressChange: false,
+        editAddressShow: false,
+        addNewAddressShow: false,
+        NewaddressAdd: false,
         deleteConfirm: false,
         currentId: '',
         currentRecipients: '',
@@ -152,16 +217,21 @@
         currentCountry: '',
         currentZipcode: '',
         currentPhone: '',
-        selected: 35,
+        selected: '',
         submitSucc: false,
         editOrNewAddress: 0,
+        validationRecipients: false,
+        validationStreet: false,
+        validationCity: false,
+        validationState: false,
+        validationPhone: false,
+        validationPhone1: false,
       }
     },
     methods: {
       handleGoBackClick() {
         this.$router.go(-1);
       },
-
       getAddressList(res) {
         let url = 'http://192.168.1.163:8085/orderinfonew/getUserAddressInfoJson';
         this.$ajax.get(url,)
@@ -170,7 +240,6 @@
             console.log("error, no data")
           })
       },
-
       getAddressListSucc(res) {
         const data = JSON.parse(res.data);
         // console.log(JSON.stringify(data));
@@ -178,9 +247,8 @@
         this.addressList = data.addresslist;
         // console.log(this.addressList.length)
       },
-
       editAddress(editType, id, recipients, street1, street2, city, state, country, countryId, zipcode, phone) {
-        this.addressChange = true;
+        this.editAddressShow = true;
         this.currentId = id;
         this.selected = countryId;
         this.currentRecipients = recipients;
@@ -192,8 +260,15 @@
         this.currentZipcode = zipcode;
         this.currentPhone = phone;
         this.editOrNewAddress = editType;
-        console.log(this.editOrNewAddress )
-        console.log(this.currentPhone )
+        // console.log("editOrNewAddress: "+this.editOrNewAddress )
+        // console.log(this.selected )
+      },
+      addNewAddressFn(editType) {
+        this.addNewAddressShow = true;
+        this.selected = this.countryList[0].id;
+        this.editOrNewAddress = editType;
+        // console.log("editOrNewAddress: "+this.editOrNewAddress );
+        // console.log(this.selected )
       },
       changeDefault(index) {
         this.isActive = index;
@@ -201,25 +276,7 @@
       deleteAddressConfirm(id) {
         this.deleteConfirm = true;
         this.currentId = id;
-      },
-      deleteAddress() {
-        var url = 'http://192.168.1.163:8085/orderinfonew/delAddress';
-        var nextId = undefined;
-        console.log(this.currentId);
-        this.$ajax.post(url,
-          this.$qs.stringify({id: this.currentId, nextId: nextId})
-        )
-          .then(this.deleteAddresstSucc)
-          .catch(function (res) {
-            // console.log("error")
-          })
-      },
-      deleteAddresstSucc(res) {
-        const data = res.data;
-        console.log(data)
-        if(data.msg=="Successful operation"){
-          this.getAddressList();
-        }
+        // console.log(this.currentId )
       },
       closeDeleteWindow() {
         this.deleteConfirm = false;
@@ -228,60 +285,168 @@
         this.deleteAddress();
         this.deleteConfirm = false;
       },
+      deleteAddress() {
+        var url = 'http://192.168.1.163:8085/orderinfonew/delAddress';
+        var nextId = undefined;
+        // console.log(this.currentId )
+        this.$ajax.post(url,
+          this.$qs.stringify({id: this.currentId, nextId: nextId})
+        )
+          .then(this.deleteAddresstSucc)
+          .catch(function (res) {
+            console.log("error")
+          })
+      },
+      deleteAddresstSucc(res) {
+        const data = res.data;
+        if(data.code=="0"){
+          this.getAddressList();
+        }
+      },
       cancel() {
-        this.addressChange = false;
+        this.editAddressShow = false;
+        this.addNewAddressShow = false;
       },
       save() {
-        this.addNewAddress()
+        if(this.editOrNewAddress == 2){
+          this.editAddressSubmit()
+        }
+        if(this.editOrNewAddress == 1) {
+          this.currentId = 0
+          this.addNewAddressSubmit()
+        }
+
       },
-      addNewAddress(res) {
+      editAddressSubmit(){
         var recipients = $("#recipients").val();
         var street1 = $("#street1").val();
         var street2 = $("#street2").val();
         var city = $("#city").val();
         var state = $("#state").val();
-        var country = $("#country").val();
+        var countryName = $("#country option:selected").text();
         var zipcode = $("#zipcode").val();
         var phone = $("#phone").val();
-        var countryID = $("#countryID").val();
-
-        let url = 'http://192.168.1.163:8085/orderinfonew/addAddressTem';
-        this.$ajax.post(url,
-          //pid 为传值的key
-          this.$qs.stringify({
-            recipients: recipients,
-            address: street1,
-            country: countryID ,
-            zip_code: zipcode,
-            phone_number: phone,
-            address2: city,
-            statename: state,
-            street: street2,
-            countryname: country,
-            id:  this.currentId,
-            type:this.editOrNewAddress
-          })
-        )
-          .then(this.addNewAddressSucc)
-          .catch(function (res) {
-            console.log("error, no data")
-          })
+        var countryID = $("#country option:selected").val();
+        var noEmptyInput = this.checkEmptyInput(recipientsNew,street1New,cityNew,stateNew,phoneNew)
+        if (noEmptyInput) {
+          let url = 'http://192.168.1.163:8085/orderinfonew/mUpdateUserAddress';
+          this.$ajax.post(url,
+            //pid 为传值的key
+            this.$qs.stringify({
+              recipients: recipients,
+              address: street1,
+              country: countryID,
+              zipcode: zipcode,
+              phonenumber: phone,
+              address2: city,
+              statename: state,
+              street: street2,
+              countryname: countryName,
+              id: this.currentId,
+              type: this.editOrNewAddress
+            })
+          )
+            .then(this.editAddressFnSucc)
+            .catch(function (res) {
+              console.log("error, no data")
+            })
+        }
       },
-
-      addNewAddressSucc(res) {
-        const data = JSON.parse(res.data);
-        // console.log(JSON.stringify(data));
-        console.log(data)
+      addNewAddressSubmit() {
+        var recipientsNew = $("#recipientsNew").val();
+        var street1New = $("#street1New").val();
+        var street2New = $("#street2New").val();
+        var cityNew = $("#cityNew").val();
+        var stateNew = $("#stateNew").val();
+        var countryNameNew = $("#countryNew option:selected").text();
+        var zipcodeNew = $("#zipcodeNew").val();
+        var phoneNew = $("#phoneNew").val();
+        var countryIDNew = $("#countryNew option:selected").val();
+        var noEmptyInput = this.checkEmptyInput(recipientsNew,street1New,cityNew,stateNew,phoneNew)
+        if(noEmptyInput){
+        // console.log("this.editOrNewAddress: "+ this.editOrNewAddress);
+        // console.log("this.currentId: "+ this.currentId);
+          let url = 'http://192.168.1.163:8085/orderinfonew/mUpdateUserAddress';
+          this.$ajax.post(url,
+            //pid 为传值的key
+            this.$qs.stringify({
+              recipients: recipientsNew,
+              address: street1New,
+              country: countryIDNew,
+              zipcode: zipcodeNew,
+              phonenumber: phoneNew,
+              address2: cityNew,
+              statename: stateNew,
+              street: street2New,
+              countryname: countryNameNew,
+              id: this.currentId,
+              type: this.editOrNewAddress
+            })
+          )
+            .then(this.addNewAddressFnSucc)
+            .catch(function (res) {
+              console.log("error, no data")
+            })
+        }
+      },
+      checkEmptyInput(recipients,street1,city,state,phone){
+        if(recipients == ''){
+          this.validationRecipients = true;
+          setTimeout(() => {
+            this.validationRecipients =false;
+          },3000);
+          return false
+        }
+        else if(street1 == "") {
+          this.validationStreet = true;
+          setTimeout(() => {
+            this.validationStreet =false;
+          },3000);
+          return false
+        }
+        else if(city == "" ) {
+          this.validationCity = true;
+          setTimeout(() => {
+            this.validationCity =false;
+          },3000);
+          return false
+        }
+        else if(state == "") {
+          this.validationState = true;
+          setTimeout(() => {
+            this.validationState =false;
+          },3000);
+          return false
+        }
+        else if(phone == "" ) {
+          this.validationPhone = true;
+          setTimeout(() => {
+            this.validationPhone =false;
+          },3000);
+          return false
+        }
+        return true
+      },
+      editAddressFnSucc(res) {
+        const data = res.data;
+        // console.log(res)
+        if(data){
+          this.editAddressShow = false;
+          this.getAddressList();
+        }
+      },
+      addNewAddressFnSucc(res) {
+        const data = res.data;
+        if(data){
+          this.addNewAddressShow = false;
+          this.getAddressList();
+        }
       },
     },
     mounted() {
-      // this.getCountryList();
       this.getAddressList();
     },
-    created() {
-      //如果没有这句代码，select中初始化会是空白的，默认选中就无法实现
-      // this.selected = 175;
-    },
+
   }
 </script>
 
@@ -393,7 +558,10 @@
           border: 1px solid #e6e6e6;
           padding-left: 4%;
           background: #FAFAFA;
-
+      .validation
+        color: red;
+        font-size: .13rem;
+        line-height: .2rem;
       .cancelAndSave
         line-height .5rem
         height .5rem

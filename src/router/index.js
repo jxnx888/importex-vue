@@ -32,10 +32,12 @@ const searchResult = () => import('@/pages/searchResult/searchResult');
 const shoppingCart = () => import('@/pages/shoppingCart/shoppingCart');
 const product = () => import('@/pages/product/product');
 const contact = () => import('@/pages/customerService/customerService');
-const membership = () => import('@/pages/membership/membership');
+const membership = () => import('@/pages/others/membership');
+const FAQ = () => import('@/pages/others/FAQ');
 const balance = () => import('@/pages/balance/balance');
 const recharge = () => import('@/pages/balance/components/recharge');
 const test = () => import('@/pages/test');
+const pctest = () => import('@/pages/pc/searchResultPC');
 const productTest = () => import('@/pages/productTest/product');
 
 
@@ -154,6 +156,11 @@ export default new Router({
       component: membership
     },
     {
+      path: '/FAQ',
+      name: '/FAQ',
+      component: FAQ
+    },
+    {
       path: '/contact',
       name: '/contact',
       component: contact
@@ -197,6 +204,12 @@ export default new Router({
       path: '/test',
       name: '/test',
       component: test
+    },
+    {
+      mode: 'history',
+      path: '/pctest',
+      name: '/pctest',
+      component: pctest
     },
     {
       mode: 'history',
