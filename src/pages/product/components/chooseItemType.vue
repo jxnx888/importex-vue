@@ -135,6 +135,7 @@
 
       },
       getGoodType() {
+        debugger
         // itemPrice 暂时默认为0
         if (this.chooseTypeOne == true && this.chooseTypeTwo == true) {
           var str = this.itemID + "|" + this.itemID2 + "@" + this.itemPrice + "@" + this.itemNum + "@" + this.itemType + ":" + this.itemValue + "|" + this.itemID + "&&" + this.itemType2 + ":" + this.itemValue2 + "|" + this.itemID2;

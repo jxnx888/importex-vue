@@ -83,7 +83,7 @@
                   </div>
                   <div class="col-xs-12 specColor">
                     {{childItem.types}}
-<!--                    <span>{{childItem.types.split(",")[1].split("@")[0]}}</span>-->
+<!--                    <span>{{childItem.types.split(",")[1]src="https://www.kidsproductwholesale.com/img/("@")[0]}}</span>-->
                   </div>
                   <div class="col-xs-12 weight">Weight: {{childItem.perWeight}}kg</div>
                   <!--                <div class="col-xs-12">-->

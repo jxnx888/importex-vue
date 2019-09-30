@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <div  id="oderDetails" ref="oderDetails" class="CloseDetail" :class="{'MoreDetail':item.showAll === true}">
+      <div  id="oderDetails" ref="oderDetails" class="CloseDetail"  :class="{'MoreDetail':item.showAll === true, 'OneItem':item.orderDetails.length === 1, 'twoItem': item.orderDetails.lenght ===2}">
         <router-link
           tag="div"
           :to="/product/ + childItem.goods_pid"
@@ -91,7 +91,7 @@
           data[i]["showAll"]= false;
         }
         this.listOrders = data;
-        // console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data));
 
       },
       handleGoBackClick() {

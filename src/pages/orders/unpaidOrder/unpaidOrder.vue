@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <div id="oderDetails" ref="oderDetails" class="CloseDetail" :class="{'MoreDetail':item.showAll === true}">
+        <div id="oderDetails" ref="oderDetails" class="CloseDetail" :class="{'MoreDetail':item.showAll === true,'OneItem':item.orderDetails.length < 4}">
           <router-link
             tag="div"
             :to="/product/ + childItem.goods_pid"
@@ -53,7 +53,11 @@
             </div>
           </router-link>
         </div>
-        <div id="oderDetailsClick" @click="item.showAll = !item.showAll" class="show-more text-center iconfont">
+        <div
+          id="oderDetailsClick"
+          @click="item.showAll = !item.showAll"
+          class="show-more text-center iconfont"
+          v-if="item.orderDetails.length >3">
           {{item.showAll?'&#xe63c;':'&#xe635;'}}
         </div>
         <div class="row totalInfo">
@@ -277,7 +281,10 @@
     height: 3rem
     overflow: hidden
   }
-
+  .OneItem,.twoItem{
+    height unset
+    overflow unset
+  }
   .MoreDetail {
     height unset
     overflow unset

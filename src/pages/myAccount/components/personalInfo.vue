@@ -149,7 +149,7 @@
 .personalInfo
   color #fff
   background linear-gradient(to right,#BC985B,#E5C585)
-  padding-top .2rem
+  /*padding-top .2rem*/
   .personalInfo_top
     line-height .25rem
     font-size .13rem
@@ -167,6 +167,8 @@
         .expires_time
           margin-left .1rem
           font-size .13rem
+      .col-xs-12
+        height .25rem
     .col-xs-2
       line-height .5rem
       padding-bottom .1rem
@@ -175,6 +177,7 @@
     color #999
     background #fff
     line-height .25rem
+    height .5rem
     .col-xs-6
       padding 0
     .col-xs-6:nth-of-type(1)

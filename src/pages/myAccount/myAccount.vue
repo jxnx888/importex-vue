@@ -29,7 +29,7 @@
         },
 
         getPersonalInfoSucc(res) {
-          console.log(res)
+          // console.log(res)
           const data = res.data.data;
           // console.log(JSON.stringify(data))
           this.personalInfo =data.userBean;
