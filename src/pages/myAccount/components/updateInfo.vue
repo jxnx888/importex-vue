@@ -105,7 +105,7 @@
       getInfo(res) {
         this.password = this.$route.params.password;
         // console.log(this.password)
-        let url = '..//individual/userinfoJson?infomation=1';
+        let url = '../individual/userinfoJson?infomation=1';
         this.$ajax.get(url)
           .then(this.getInfoSucc)
           .catch(function (res) {
@@ -135,7 +135,7 @@
         var Skype = $("#Skype").val();
         var Facebook = $("#Facebook").val();
         var Twitter = $("#Twitter").val();
-        var url = '..//individual/insertInformation';
+        var url = '../individual/insertInformation';
         this.$ajax.post(url,
           this.$qs.stringify({
             otheremail: alternaticeEmail,

@@ -67,7 +67,7 @@
         var isFreeShip= this.$route.query.isFreeShip;
         var unkey= this.$route.query.unkey;
         console.log(catid, minprice,maxprice,sort, pvid, collection, newArrivalDate, isFreeShip, unkey)
-        var url = '..//mobileSearch';
+        var url = '../mobileSearch';
         this.$ajax.post(url,
           this.$qs.stringify({
             keyword: this.keyword,

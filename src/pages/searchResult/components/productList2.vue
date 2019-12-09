@@ -81,7 +81,7 @@
         // console.log(this.keyword)
       },
       getSearchList(res) {
-        var url = '..//mobileSearch';
+        var url = '../mobileSearch';
         this.$ajax.post(url,
           this.$qs.stringify({keyword: this.keyword})
         )

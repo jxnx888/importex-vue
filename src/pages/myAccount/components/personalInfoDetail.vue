@@ -65,7 +65,7 @@
     },
     methods:{
       getpersonalInfo(res) {
-        let url = '..//individual/getUserinfoJson';
+        let url = '../individual/getUserinfoJson';
         this.$ajax.get(url)
           .then(this.getpersonalInfoSucc)
           .catch(function (res) {

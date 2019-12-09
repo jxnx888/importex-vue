@@ -44,7 +44,7 @@
         getUnpaidDetailOrder(res) {
           this.currentOrderNo = this.$route.query.orderNo;
           console.log(this.currentOrderNo )
-          let url = '..//individual/getorderDetailsJson';
+          let url = '../individual/getorderDetailsJson';
           this.$ajax.post(url,
             //pid 为传值的key
             this.$qs.stringify({orderno:this.currentOrderNo })

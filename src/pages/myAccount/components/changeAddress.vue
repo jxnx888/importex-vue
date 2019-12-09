@@ -233,7 +233,7 @@
         this.$router.go(-1);
       },
       getAddressList(res) {
-        let url = '..//orderinfonew/getUserAddressInfoJson';
+        let url = '../orderinfonew/getUserAddressInfoJson';
         this.$ajax.get(url,)
           .then(this.getAddressListSucc)
           .catch(function (res) {
@@ -286,7 +286,7 @@
         this.deleteConfirm = false;
       },
       deleteAddress() {
-        var url = '..//orderinfonew/delAddress';
+        var url = '../orderinfonew/delAddress';
         var nextId = undefined;
         // console.log(this.currentId )
         this.$ajax.post(url,
@@ -329,7 +329,7 @@
         var countryID = $("#country option:selected").val();
         var noEmptyInput = this.checkEmptyInput(recipientsNew,street1New,cityNew,stateNew,phoneNew)
         if (noEmptyInput) {
-          let url = '..//orderinfonew/mUpdateUserAddress';
+          let url = '../orderinfonew/mUpdateUserAddress';
           this.$ajax.post(url,
             //pid 为传值的key
             this.$qs.stringify({
@@ -366,7 +366,7 @@
         if(noEmptyInput){
         // console.log("this.editOrNewAddress: "+ this.editOrNewAddress);
         // console.log("this.currentId: "+ this.currentId);
-          let url = '..//orderinfonew/mUpdateUserAddress';
+          let url = '../orderinfonew/mUpdateUserAddress';
           this.$ajax.post(url,
             //pid 为传值的key
             this.$qs.stringify({

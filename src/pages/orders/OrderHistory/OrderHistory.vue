@@ -67,7 +67,7 @@
     },
     methods: {
       getorderHistory(res) {
-        let url = '..//individual/getHistoryOrders';
+        let url = '../individual/getHistoryOrders';
         this.$ajax.get(url)
           .then(this.getorderHistorySucc)
           .catch(function (res) {

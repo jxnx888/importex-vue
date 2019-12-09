@@ -76,7 +76,7 @@
       }},
     methods: {
       getUnpaidOrder(res) {
-        let url = '..//individual/getUnpaidOrders';
+        let url = '../individual/getUnpaidOrders';
         this.$ajax.get(url)
           .then(this.getUnpaidOrderSucc)
           .catch(function (res) {

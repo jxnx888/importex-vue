@@ -81,7 +81,7 @@
         // console.log("this.keyword:" +this.keyword)
       },
       // getSearchList(res) {
-      //   // let url = '..//product/getProductDetailsJ';
+      //   // let url = '../product/getProductDetailsJ';
       //   this.$ajax.post(url,
       //     //pid 为传值的key
       //     this.$qs.stringify({pid: this.keyword})

@@ -99,7 +99,7 @@
         }
       },
     /*  loadData(keyword,catid,price1,price2,srt,page ,collection,freeshipping,category2){
-        var url = '..//mobileSearch';
+        var url = '../mobileSearch';
         this.$ajax.post(url,
           this.$qs.stringify({
             keyword: keyword,

@@ -44,7 +44,7 @@
     },
     methods: {
       getSearchList(res) {
-        let url = "..//Goods/getCartGoodsData";
+        let url = "../Goods/getCartGoodsData";
         // let url = "/static/mock/test.json";
         // this.$ajax.get('/static/mock/test.json') // npm run build ==>  /static/mock/index.json
         this.$ajax.get(url) //线上用post

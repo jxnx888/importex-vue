@@ -82,7 +82,7 @@
         this.showWholesaleInquiry = false;
       },
       checkGuestBook(res){
-          let url = '..//guestBook/addGuestBook';
+          let url = '../guestBook/addGuestBook';
           var onGoingQty = $("#onGoingQty").val();
           var targetPrice = $("#targetPrice").val();
           if(onGoingQty == '' ){

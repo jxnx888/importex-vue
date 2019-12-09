@@ -91,7 +91,7 @@
     },
     methods: {
       getcurrentOrder(res) {
-        let url = '..//individual/getCurrentOrders';
+        let url = '../individual/getCurrentOrders';
         this.$ajax.get(url)
           .then(this.getcurrentOrderSucc)
           .catch(function (res) {

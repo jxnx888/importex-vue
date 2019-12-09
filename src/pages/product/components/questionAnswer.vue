@@ -72,7 +72,7 @@
     },
     methods:{
       getQuestionAnswer(res) {
-        let url = '..//spider/getQuestionData';
+        let url = '../spider/getQuestionData';
         var itemID = this.oriData.pID;
         var shopID= this.oriData.sID;
         var mincatID = this.oriData.catid1;

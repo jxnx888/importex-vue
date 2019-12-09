@@ -55,7 +55,7 @@
     },
     methods:{
       getCustomerReview(res) {
-        let url = '..//spider/getReviewInfo';
+        let url = '../spider/getReviewInfo';
         this.$ajax.post(url,
           //pid 为传值的key
           this.$qs.stringify({pid:this.productID})

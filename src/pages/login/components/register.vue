@@ -83,7 +83,7 @@
       },
       methods:{
         getCountryList(res) {
-          let url = '..//user/queryZoneListJson';
+          let url = '../user/queryZoneListJson';
           this.$ajax.get(url,)
             .then(this.getCountryListSucc)
             .catch(function (res) {

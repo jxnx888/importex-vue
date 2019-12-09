@@ -112,7 +112,7 @@
       getSearchList(res) {
         // 搜索推荐词
         this.$ajax.post(
-          '..//searchAutocomplete',
+          '../searchAutocomplete',
           this.$qs.stringify({keyword: res})
         )
           .then(this.getSearchListSucc)

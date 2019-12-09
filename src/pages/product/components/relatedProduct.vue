@@ -107,7 +107,7 @@
     },
     methods:{
       getRelatedProduct(res) {
-        let url = '..//getHotSale';
+        let url = '../getHotSale';
         var data = this.goodsInfo;
         // console.log(JSON.stringify(this.goodsInfo))
         var keyword = data.catNameMin;

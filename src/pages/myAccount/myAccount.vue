@@ -20,7 +20,7 @@
       methods: {
 
         getPersonalInfo(res) {
-          let url = '..//individual/getCenterJson';
+          let url = '../individual/getCenterJson';
           this.$ajax.get(url)
             .then(this.getPersonalInfoSucc)
             .catch(function (res) {

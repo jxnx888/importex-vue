@@ -119,7 +119,7 @@
       addToCart(goods) {
         this.getGoodType();
         var currentURL = window.location.href;
-        let url = '..//addshopcart/add';
+        let url = '../addshopcart/add';
         this.$ajax.post(url,
           //pid 为传值的key
           this.$qs.stringify({itemId: this.productID, typePriceList: this.addToCartInfo, view_url: currentURL})

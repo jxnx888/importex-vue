@@ -37,7 +37,7 @@
           this.$router.go(-1);
         },
         getCouponList(res) {
-          let url = '..//coupon/listCouponsJson';
+          let url = '../coupon/listCouponsJson';
           this.$ajax.get(url,)
             .then(this.getCouponListSucc)
             .catch(function (res) {
