@@ -112,7 +112,7 @@
       getSearchList(res) {
         // 搜索推荐词
         this.$ajax.post(
-          'http://192.168.1.163:8085/searchAutocomplete',
+          '..//searchAutocomplete',
           this.$qs.stringify({keyword: res})
         )
           .then(this.getSearchListSucc)

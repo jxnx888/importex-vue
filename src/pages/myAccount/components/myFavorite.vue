@@ -75,7 +75,7 @@
         this.$router.go(-1);
       },
       getFavoriteList(res) {
-        let url = 'http://192.168.1.163:8085/Goods/collistJson';
+        let url = '..//Goods/collistJson';
         this.$ajax.get(url,)
           .then(this.getFavoriteListSucc)
           .catch(function (res) {
@@ -105,7 +105,7 @@
         }
       },
       deleteFavoriteList(deletedID){
-        let url = 'http://192.168.1.163:8085/Goods/delCollection';
+        let url = '..//Goods/delCollection';
         this.$ajax.post(url,
           //pid 为传值的key
           this.$qs.stringify({

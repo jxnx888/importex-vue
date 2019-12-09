@@ -169,7 +169,7 @@
         console.log("this.totalPrice:" + this.totalPrice)
       },
       deleteItem(guid){
-        let url = "http://192.168.1.163:8085/shopcart/deleteCartGood";
+        let url = "..//shopcart/deleteCartGood";
         this.$ajax.post(url,
           //pid 为传值的key
           this.$qs.stringify({guid: guid})

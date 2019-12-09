@@ -43,7 +43,7 @@
           var signin_email = $("#signin_email").val();
           var signin_passowrd = $("#signin_passowrd").val();
 
-          var url = 'http://192.168.1.163:8085/user/loginNew';
+          var url = '..//user/loginNew';
           this.$ajax.post(url,
             this.$qs.stringify({email: signin_email,pass:signin_passowrd})
           )

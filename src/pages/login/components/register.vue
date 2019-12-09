@@ -83,7 +83,7 @@
       },
       methods:{
         getCountryList(res) {
-          let url = 'http://192.168.1.163:8085/user/queryZoneListJson';
+          let url = '..//user/queryZoneListJson';
           this.$ajax.get(url,)
             .then(this.getCountryListSucc)
             .catch(function (res) {

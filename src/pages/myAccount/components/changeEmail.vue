@@ -55,7 +55,7 @@
         getEmailInfo(res) {
           this.password = this.$route.params.password;
           // console.log(this.password)
-          let url = 'http://192.168.1.163:8085/individual/userinfoJson';
+          let url = '..//individual/userinfoJson';
           this.$ajax.get(url)
             .then(this.getEmailInfoSucc)
             .catch(function (res) {
@@ -75,7 +75,7 @@
           var newEmail = $("#newEmail").val();
           var newEmailConfirm = $("#newEmailConfirm").val();
           // console.log(newEmail,newEmailConfirm)
-          var url = 'http://192.168.1.163:8085/userController/mChengeEmail';
+          var url = '..//userController/mChengeEmail';
           this.$ajax.post(url,
             this.$qs.stringify({oldEmail: this.newEmail,newEmail:newEmailConfirm, pass:this.password})
           )

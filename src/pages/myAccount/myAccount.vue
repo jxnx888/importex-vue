@@ -20,7 +20,7 @@
       methods: {
 
         getPersonalInfo(res) {
-          let url = 'http://192.168.1.163:8085/individual/getCenterJson';
+          let url = '..//individual/getCenterJson';
           this.$ajax.get(url)
             .then(this.getPersonalInfoSucc)
             .catch(function (res) {

@@ -81,7 +81,7 @@
         // console.log(this.keyword)
       },
       getSearchList(res) {
-        var url = 'http://192.168.1.163:8085/mobileSearch';
+        var url = '..//mobileSearch';
         this.$ajax.post(url,
           this.$qs.stringify({keyword: this.keyword})
         )

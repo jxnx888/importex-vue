@@ -99,7 +99,7 @@
         this.keyword = this.$route.params.id;
       },
       getSearchList(res) {
-        let url = 'http://192.168.1.163:8085/product/getProductDetailsJ';
+        let url = '..//product/getProductDetailsJ';
         this.$ajax.post(url,
           //pid 为传值的key
           this.$qs.stringify({pid:this.keyword})
@@ -173,7 +173,7 @@
         this.imageList = imageArray;
       },
       getRelatedProduct(res) {
-        let url = 'http://192.168.1.163:8085/getHotSale';
+        let url = '..//getHotSale';
         let data =   this.oriData;
         console.log(JSON.stringify(data));
         var keyword = '';

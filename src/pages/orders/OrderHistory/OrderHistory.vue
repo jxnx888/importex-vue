@@ -67,7 +67,7 @@
     },
     methods: {
       getorderHistory(res) {
-        let url = 'http://192.168.1.163:8085/individual/getHistoryOrders';
+        let url = '..//individual/getHistoryOrders';
         this.$ajax.get(url)
           .then(this.getorderHistorySucc)
           .catch(function (res) {

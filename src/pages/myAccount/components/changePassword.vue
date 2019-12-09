@@ -77,7 +77,7 @@
       getInfo(res) {
         this.password = this.$route.params.password;
         // console.log(this.password)
-        let url = 'http://192.168.1.163:8085/individual/userinfoJson';
+        let url = '..//individual/userinfoJson';
         this.$ajax.get(url)
           .then(this.getInfoSucc)
           .catch(function (res) {
@@ -98,7 +98,7 @@
         var currentPassword = $("#currentPassword").val();
         var newPasswordConfirm = $("#newPasswordConfirm").val();
 
-        var url = 'http://192.168.1.163:8085/userController/mChengePass';
+        var url = '..//userController/mChengePass';
         this.$ajax.post(url,
           this.$qs.stringify({
             oldpass: currentPassword,

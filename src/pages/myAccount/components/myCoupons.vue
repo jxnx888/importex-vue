@@ -37,7 +37,7 @@
           this.$router.go(-1);
         },
         getCouponList(res) {
-          let url = 'http://192.168.1.163:8085/coupon/listCouponsJson';
+          let url = '..//coupon/listCouponsJson';
           this.$ajax.get(url,)
             .then(this.getCouponListSucc)
             .catch(function (res) {

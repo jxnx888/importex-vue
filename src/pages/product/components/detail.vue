@@ -82,7 +82,7 @@
         this.showWholesaleInquiry = false;
       },
       checkGuestBook(res){
-          let url = 'http://192.168.1.163:8085/guestBook/addGuestBook';
+          let url = '..//guestBook/addGuestBook';
           var onGoingQty = $("#onGoingQty").val();
           var targetPrice = $("#targetPrice").val();
           if(onGoingQty == '' ){

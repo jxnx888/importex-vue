@@ -91,7 +91,7 @@
     },
     methods: {
       getcurrentOrder(res) {
-        let url = 'http://192.168.1.163:8085/individual/getCurrentOrders';
+        let url = '..//individual/getCurrentOrders';
         this.$ajax.get(url)
           .then(this.getcurrentOrderSucc)
           .catch(function (res) {

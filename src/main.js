@@ -67,7 +67,7 @@ fasteClick.attach(document.body);
 Vue.prototype.$ajax = axios;
 // Vue.prototype.$http = axios;
 
-// axios.defaults.baseURL = 'http://192.168.1.192:10004/';//配置你的接口请求地址
+axios.defaults.baseURL = 'http://192.168.1.163:8085';//配置你的接口请求地址
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;//配置token,看情况使用
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';//配置请求头信息。
 

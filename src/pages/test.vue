@@ -76,7 +76,7 @@
       }},
     methods: {
       getUnpaidOrder(res) {
-        let url = 'http://192.168.1.163:8085/individual/getUnpaidOrders';
+        let url = '..//individual/getUnpaidOrders';
         this.$ajax.get(url)
           .then(this.getUnpaidOrderSucc)
           .catch(function (res) {
